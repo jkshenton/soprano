@@ -1,0 +1,1093 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>soprano.scripts.nmr &#8212; Soprano</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/soprano_logo.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Soprano</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    About
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../tutorials.html">
+   Tutorials
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/01-basic_concepts.html">
+     Tutorial 1 - Basic concepts: using AtomsCollection objects
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/02-generators_properties_calculators.html">
+     Tutorial 2 - Generators, Properties and Calculators
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/03-atomselection_transforms.html">
+     Tutorial 3 - AtomSelection and transforms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/04-clustering.html">
+     Tutorial 4 - Clustering analysis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/05-nmr.html">
+     Tutorial 5 - NMR Properties: using Soprano for working with .magres files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/06-defect_calculations.html">
+     Tutorial 6 - Soprano for defect calculations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../submitter.html">
+   Job Submitter
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../api.html">
+   API reference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../_autosummary/soprano.html">
+     soprano
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../_autosummary/soprano.analyse.html">
+       soprano.analyse
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.analyse.phylogen.html">
+         soprano.analyse.phylogen
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../_autosummary/soprano.calculate.html">
+       soprano.calculate
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+      <label for="toctree-checkbox-5">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.calculate.gulp.html">
+         soprano.calculate.gulp
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.calculate.nmr.html">
+         soprano.calculate.nmr
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.calculate.powder.html">
+         soprano.calculate.powder
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.calculate.xrd.html">
+         soprano.calculate.xrd
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../_autosummary/soprano.collection.html">
+       soprano.collection
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+      <label for="toctree-checkbox-6">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.collection.collection.html">
+         soprano.collection.collection
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.collection.generate.html">
+         soprano.collection.generate
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../_autosummary/soprano.data.html">
+       soprano.data
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+      <label for="toctree-checkbox-7">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.data.nmr.html">
+         soprano.data.nmr
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.data.vdw.html">
+         soprano.data.vdw
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../_autosummary/soprano.hpc.html">
+       soprano.hpc
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+      <label for="toctree-checkbox-8">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.hpc.submitter.html">
+         soprano.hpc.submitter
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../_autosummary/soprano.measure.html">
+       soprano.measure
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../_autosummary/soprano.nmr.html">
+       soprano.nmr
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+      <label for="toctree-checkbox-9">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.nmr.tensor.html">
+         soprano.nmr.tensor
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.nmr.utils.html">
+         soprano.nmr.utils
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../_autosummary/soprano.optional.html">
+       soprano.optional
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../_autosummary/soprano.properties.html">
+       soprano.properties
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.properties.atomsproperty.html">
+         soprano.properties.atomsproperty
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.properties.basic.html">
+         soprano.properties.basic
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.properties.castep.html">
+         soprano.properties.castep
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.properties.labeling.html">
+         soprano.properties.labeling
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.properties.linkage.html">
+         soprano.properties.linkage
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.properties.map.html">
+         soprano.properties.map
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.properties.nmr.html">
+         soprano.properties.nmr
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.properties.order.html">
+         soprano.properties.order
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.properties.symmetry.html">
+         soprano.properties.symmetry
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.properties.transform.html">
+         soprano.properties.transform
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../_autosummary/soprano.rnd.html">
+       soprano.rnd
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../_autosummary/soprano.scripts.html">
+       soprano.scripts
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+      <label for="toctree-checkbox-11">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.scripts.cli.html">
+         soprano.scripts.cli
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.scripts.cli_utils.html">
+         soprano.scripts.cli_utils
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.scripts.dipolar.html">
+         soprano.scripts.dipolar
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.scripts.extract_nmr.html">
+         soprano.scripts.extract_nmr
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.scripts.msaverage.html">
+         soprano.scripts.msaverage
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.scripts.nmr.html">
+         soprano.scripts.nmr
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.scripts.nmr_plot.html">
+         soprano.scripts.nmr_plot
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.scripts.phylogen.html">
+         soprano.scripts.phylogen
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../_autosummary/soprano.scripts.vasp2cell.html">
+         soprano.scripts.vasp2cell
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../_autosummary/soprano.selection.html">
+       soprano.selection
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../_autosummary/soprano.utils.html">
+       soprano.utils
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../citing.html">
+   Citing Soprano
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            A Python library to crack crystals
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/CCP-NC/soprano"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2F_modules/soprano/scripts/nmr.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for soprano.scripts.nmr</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Soprano - a library to crack crystals! by Simone Sturniolo</span>
+<span class="c1"># Copyright (C) 2016 - Science and Technology Facility Council</span>
+
+<span class="c1"># Soprano is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU Lesser General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+
+<span class="c1"># Soprano is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU Lesser General Public License for more details.</span>
+
+<span class="c1"># You should have received a copy of the GNU Lesser General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+
+<span class="sd">&#39;&#39;&#39;CLI to extract and process NMR-related properties from .magres files.</span>
+
+<span class="sd">TODO: add support for different shift {Haeberlen,NQR,IUPAC}and quadrupole {Haeberlen,NQR} conventions.</span>
+<span class="sd">TODO: check if df is too wide to fit in window -- if so, split into multiple plots.</span>
+<span class="sd">TODO: spinsys output is not yet implemented.</span>
+<span class="sd">TODO: document config file setup</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;J. Kane Shenton&quot;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">&quot;J. Kane Shenton&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;kane.shenton@stfc.ac.uk&quot;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s2">&quot;July 08, 2022&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">io</span>
+<span class="kn">from</span> <span class="nn">ase.units</span> <span class="kn">import</span> <span class="n">Ha</span><span class="p">,</span> <span class="n">Bohr</span>
+<span class="kn">from</span> <span class="nn">soprano.properties.labeling</span> <span class="kn">import</span> <span class="n">UniqueSites</span><span class="p">,</span> <span class="n">MagresViewLabels</span>
+<span class="kn">from</span> <span class="nn">soprano.properties.nmr</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">soprano.data.nmr</span> <span class="kn">import</span> <span class="n">_get_isotope_list</span>
+<span class="kn">from</span> <span class="nn">soprano.selection</span> <span class="kn">import</span> <span class="n">AtomSelection</span>
+<span class="kn">from</span> <span class="nn">soprano.utils</span> <span class="kn">import</span> <span class="n">has_cif_labels</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">click_log</span>
+<span class="kn">from</span> <span class="nn">soprano.scripts.cli_utils</span> <span class="kn">import</span> \
+                                    <span class="n">add_options</span><span class="p">,</span>\
+                                    <span class="n">NMREXTRACT_OPTIONS</span><span class="p">,</span> \
+                                    <span class="n">NO_CIF_LABEL_WARNING</span><span class="p">,</span> \
+                                    <span class="n">average_quaternions_by_tags</span><span class="p">,</span>\
+                                    <span class="n">get_missing_cols</span><span class="p">,</span>\
+                                    <span class="n">get_matching_cols</span><span class="p">,</span>\
+                                    <span class="n">print_results</span><span class="p">,</span>\
+                                    <span class="n">find_XHn_groups</span><span class="p">,</span>\
+                                    <span class="n">sortdf</span><span class="p">,</span>\
+                                    <span class="n">viewimages</span>
+<span class="c1"># logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">captureWarnings</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;cli&#39;</span><span class="p">)</span>
+<span class="n">click_log</span><span class="o">.</span><span class="n">basic_config</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+<span class="n">HEADER</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">##########################################</span>
+<span class="s1">#  Extracting NMR info from magres file  #</span>
+<span class="s1">&#39;&#39;&#39;</span>
+<span class="n">FOOTER</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1"># End of NMR info extraction            #</span>
+<span class="s1">##########################################</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+
+<span class="nd">@click_log</span><span class="o">.</span><span class="n">simple_verbosity_option</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+
+<span class="c1"># one of more files</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;files&#39;</span><span class="p">,</span>
+                <span class="n">nargs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+                <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nd">@add_options</span><span class="p">(</span><span class="n">NMREXTRACT_OPTIONS</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">nmr</span><span class="p">(</span><span class="n">files</span><span class="p">,</span>
+        <span class="n">selection</span><span class="p">,</span>
+        <span class="n">output</span><span class="p">,</span>
+        <span class="n">output_format</span><span class="p">,</span>
+        <span class="n">merge</span><span class="p">,</span>
+        <span class="n">isotopes</span><span class="p">,</span>
+        <span class="n">references</span><span class="p">,</span>
+        <span class="n">gradients</span><span class="p">,</span>
+        <span class="n">reduce</span><span class="p">,</span>
+        <span class="n">average_group</span><span class="p">,</span>
+        <span class="n">combine_rule</span><span class="p">,</span>
+        <span class="n">symprec</span><span class="p">,</span>
+        <span class="n">properties</span><span class="p">,</span>
+        <span class="n">precision</span><span class="p">,</span>
+        <span class="n">euler_convention</span><span class="p">,</span>
+        <span class="n">sortby</span><span class="p">,</span>
+        <span class="n">sort_order</span><span class="p">,</span>
+        <span class="n">include</span><span class="p">,</span>
+        <span class="n">exclude</span><span class="p">,</span>
+        <span class="n">query</span><span class="p">,</span>
+        <span class="n">view</span><span class="p">,</span>
+        <span class="n">quiet</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract and analyse NMR data from magres file(s).</span>
+<span class="sd">    </span>
+<span class="sd">    Usage:</span>
+<span class="sd">    soprano nmr seedname.magres</span>
+
+<span class="sd">    Processes .magres file(s) containing NMR-related properties</span>
+<span class="sd">    and prints a summary. It defaults to printing all NMR properties</span>
+<span class="sd">    present in the file for all the atoms. </span>
+<span class="sd">    </span>
+<span class="sd">    See the below arguments for how to extract specific information.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">quiet</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+        <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    
+    <span class="c1"># set pandas print precision</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span> <span class="n">precision</span><span class="p">)</span>
+    <span class="c1"># make sure we output all rows, even if there are lots!</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    
+    <span class="n">nfiles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+    <span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># loop over files</span>
+    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">HEADER</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Extracting properties: </span><span class="si">{</span><span class="n">properties</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            
+
+
+        <span class="c1"># try to read in the file:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">atoms</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not read file </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">, skipping.&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+        
+        <span class="c1"># Do they actually have any magres data?</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">properties</span><span class="p">]):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2"> has no </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span><span class="si">}</span><span class="s2"> data to extract. Skipping.&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Inform user of best practice RE CIF labels</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">has_cif_labels</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">NO_CIF_LABEL_WARNING</span><span class="p">)</span>
+            
+
+        <span class="n">all_selections</span> <span class="o">=</span> <span class="n">AtomSelection</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="c1"># create new array for multiplicity</span>
+        <span class="n">multiplicity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;multiplicity&#39;</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">)</span>
+
+        <span class="c1"># note we must change datatype to allow more space!</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
+        <span class="c1"># reduce by symmetry?</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">reduce</span><span class="p">:</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Tagging equivalent sites&#39;</span><span class="p">)</span>
+            <span class="c1"># tag equivalent sites</span>
+            <span class="n">tags</span> <span class="o">=</span> <span class="n">UniqueSites</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">symprec</span><span class="o">=</span><span class="n">symprec</span><span class="p">)</span>
+
+            <span class="c1"># log the number of unique sites</span>
+            <span class="n">unique_sites</span><span class="p">,</span> <span class="n">unique_site_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    This leaves </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_sites</span><span class="p">)</span><span class="si">}</span><span class="s1"> unique sites&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    The unique site labels are: </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">unique_site_idx</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                
+
+
+        <span class="k">if</span> <span class="n">average_group</span><span class="p">:</span>
+            <span class="n">XHn_groups</span> <span class="o">=</span> <span class="n">find_XHn_groups</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">average_group</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span> <span class="n">tags</span><span class="p">,</span> <span class="n">vdw_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ipat</span><span class="p">,</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">XHn_groups</span><span class="p">):</span>
+                <span class="c1"># check if we found any that matched this pattern</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No XHn groups found for pattern </span><span class="si">{</span><span class="n">average_group</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="n">ipat</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">average_group</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="n">ipat</span><span class="p">]</span><span class="si">}</span><span class="s2"> groups&quot;</span><span class="p">)</span>
+                <span class="c1"># get the indices of the atoms that matched this pattern</span>
+                <span class="c1"># update the tags and labels accordingly</span>
+                <span class="k">for</span> <span class="n">ig</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Group </span><span class="si">{</span><span class="n">ig</span><span class="si">}</span><span class="s2"> contains: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">group</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="c1"># fix labels here as aggregate of those in group</span>
+                    <span class="n">combined_label</span> <span class="o">=</span> <span class="s1">&#39;--&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">group</span><span class="p">]))</span>
+                    <span class="c1"># labels[group] = f&#39;{ig}&#39;#combined_label</span>
+                    <span class="n">labels</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">combined_label</span>
+
+                    <span class="n">tags</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">ipat</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mf">1e5</span><span class="o">-</span><span class="n">ig</span>
+        <span class="c1"># update atoms object with new labels</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+        <span class="c1"># update atoms tags</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">set_tags</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
+        
+        <span class="c1"># select subset of atoms based on selection string</span>
+        <span class="k">if</span> <span class="n">selection</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Selecting atoms based on selection string: </span><span class="si">{</span><span class="n">selection</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">sel_selectionstring</span> <span class="o">=</span> <span class="n">AtomSelection</span><span class="o">.</span><span class="n">from_selection_string</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
+            <span class="n">all_selections</span> <span class="o">*=</span> <span class="n">sel_selectionstring</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
+        <span class="n">isotopelist</span> <span class="o">=</span> <span class="n">_get_isotope_list</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">isotopes</span><span class="o">=</span><span class="n">isotopes</span><span class="p">,</span> <span class="n">use_q_isotopes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">species</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">iso</span><span class="si">}{</span><span class="n">el</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">el</span><span class="p">,</span> <span class="n">iso</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">isotopelist</span><span class="p">)]</span>
+        
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+                <span class="s1">&#39;indices&#39;</span><span class="p">:</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;indices&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;labels&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span>
+                <span class="s1">&#39;species&#39;</span><span class="p">:</span><span class="n">species</span><span class="p">,</span>
+                <span class="s1">&#39;multiplicity&#39;</span><span class="p">:</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;multiplicity&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="p">,</span>
+                <span class="p">})</span>
+
+        <span class="c1"># If there are no cif labels, generate and save MagresView-style labels</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">has_cif_labels</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
+            <span class="c1"># generate MagresView-type Labels</span>
+            <span class="n">magresview_labels</span> <span class="o">=</span> <span class="n">MagresViewLabels</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;MagresView_labels&#39;</span><span class="p">,</span> <span class="n">magresview_labels</span><span class="p">)</span>
+
+        <span class="c1"># Let&#39;s add a column for the file name -- useful to keep track of </span>
+        <span class="c1"># which file the data came from if merging multiple files.</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fname</span>
+        <span class="k">if</span> <span class="s1">&#39;ms&#39;</span> <span class="ow">in</span> <span class="n">properties</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ms_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">get_ms_summary</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">euler_convention</span><span class="p">,</span> <span class="n">references</span><span class="p">,</span> <span class="n">gradients</span><span class="p">))</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">references</span><span class="p">:</span>
+                    <span class="c1"># drop shift column if no references are given</span>
+                    <span class="n">ms_summary</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MS_shift&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">ms_summary</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No MS data found in </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;Set argument `-p efg` if the file(s) only contains EFG data &#39;</span><span class="p">)</span>
+                <span class="k">pass</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Failed to load MS data from .magres&#39;</span><span class="p">)</span>
+                <span class="k">raise</span>
+        <span class="k">if</span> <span class="s1">&#39;efg&#39;</span> <span class="ow">in</span> <span class="n">properties</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">efg_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">get_efg_summary</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">isotopes</span><span class="p">,</span> <span class="n">euler_convention</span><span class="p">))</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">efg_summary</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No EFG data found in </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;Set argument `-p ms` if the file(s) only contains MS data &#39;</span><span class="p">)</span>
+                <span class="k">pass</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Failed to load EFG data from .magres&#39;</span><span class="p">)</span>
+                <span class="k">raise</span>
+
+        <span class="c1"># Apply selections </span>
+        <span class="n">selection_indices</span> <span class="o">=</span> <span class="n">all_selections</span><span class="o">.</span><span class="n">indices</span>
+        <span class="c1"># sort</span>
+        <span class="n">selection_indices</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="c1"># extract from df</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">selection_indices</span><span class="p">]</span>
+
+        <span class="c1"># apply group averaging</span>
+        <span class="k">if</span> <span class="n">average_group</span> <span class="ow">or</span> <span class="n">reduce</span><span class="p">:</span>
+            <span class="c1"># These are the rules for aggregating groups</span>
+            <span class="c1"># Default rule: take the mean</span>
+            <span class="n">aggrules</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">combine_rule</span><span class="p">)</span>
+            <span class="c1"># note we could add more things here! e.g.</span>
+            <span class="c1"># aggrules = dict.fromkeys(df, [&#39;mean&#39;, &#39;std&#39;])</span>
+            <span class="c1"># for most of the columns that have objects, we just take the first one</span>
+            <span class="n">aggrules</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="nb">object</span><span class="p">)],</span> <span class="s1">&#39;first&#39;</span><span class="p">))</span>
+            
+            <span class="c1"># we no longer need these two columns</span>
+            <span class="k">del</span> <span class="n">aggrules</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">]</span>
+            <span class="k">del</span> <span class="n">aggrules</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">]</span>
+
+            <span class="n">aggrules</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span>
+            <span class="k">if</span> <span class="s1">&#39;MagresViewLabels&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">aggrules</span><span class="p">[</span><span class="s1">&#39;MagresView_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span>
+            <span class="n">aggrules</span><span class="p">[</span><span class="s1">&#39;multiplicity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Averaging over sites with the same tag&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   We apply the following rules to each column:</span><span class="se">\n</span><span class="s1"> </span><span class="si">{</span><span class="n">aggrules</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="c1"># apply group averaging</span>
+            <span class="n">grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;tags&#39;</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">aggrules</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+            <span class="c1"># fix the labels print formatting            </span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+            <span class="k">if</span> <span class="s1">&#39;MagresView_labels&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="s1">&#39;MagresView_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;MagresView_labels&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">))))</span>
+            
+        
+        
+
+        
+        <span class="n">total_explicit_sites</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;multiplicity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Found </span><span class="si">{</span><span class="n">total_explicit_sites</span><span class="si">}</span><span class="s1"> total sites.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">average_group</span> <span class="ow">or</span> <span class="n">reduce</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    -&gt; reduced to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s1"> sites after averaging equivalent ones&#39;</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
+            <span class="c1"># use pandas query to filter the dataframe</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Filtering dataframe using query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;-----&gt; Filtered to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s1"> sites.&#39;</span><span class="p">)</span>
+
+
+        <span class="c1"># what columns should we include/exclude?</span>
+        <span class="n">essential_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="s1">&#39;multiplicity&#39;</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">include</span><span class="p">:</span>
+            <span class="c1"># what columns should we include/exclude?</span>
+            <span class="n">essential_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="s1">&#39;multiplicity&#39;</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">]</span>
+            <span class="n">specified_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">include</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">essential_columns</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Including only columns containing: </span><span class="si">{</span><span class="n">specified_columns</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">columns_to_include</span> <span class="o">=</span><span class="n">essential_columns</span> <span class="o">+</span> <span class="n">specified_columns</span>
+            <span class="n">missing_columns</span> <span class="o">=</span> <span class="n">get_missing_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns_to_include</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;These columns specified </span><span class="si">{</span><span class="n">missing_columns</span><span class="si">}</span><span class="s1">&#39;</span>
+                            <span class="sa">f</span><span class="s1">&#39; do not match any in the dataframe (</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+            <span class="n">columns_to_include</span> <span class="o">=</span> <span class="n">get_matching_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns_to_include</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">columns_to_include</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">exclude</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Excluding columns: </span><span class="si">{</span><span class="n">exclude</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="c1"># remove those that are already not in df</span>
+            <span class="n">specified_columns</span> <span class="o">=</span> <span class="n">get_matching_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">exclude</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">specified_columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># drop any that have only NaN values</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+            <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">FOOTER</span><span class="p">)</span>
+        <span class="c1"># if the df is empty, raise warning and don&#39;t append</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No results found for </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2"> &quot;</span>
+            <span class="s2">&quot;Try removing filters/checking the file contents.&quot;</span><span class="p">)</span>
+            
+    <span class="k">if</span> <span class="n">view</span><span class="p">:</span>
+        <span class="n">viewimages</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+        
+    <span class="k">if</span> <span class="n">merge</span><span class="p">:</span>
+        <span class="c1"># merge all dataframes into one</span>
+        <span class="n">dfs</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dfs</span><span class="p">):</span>
+        <span class="n">dfs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sortdf</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">sortby</span><span class="p">,</span> <span class="n">sort_order</span><span class="p">)</span>
+    
+    <span class="c1"># write to file(s)</span>
+    <span class="n">print_results</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">output_format</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+        
+
+
+<div class="viewcode-block" id="get_ms_summary"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.get_ms_summary">[docs]</a><span class="k">def</span> <span class="nf">get_ms_summary</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">euler_convention</span><span class="p">,</span> <span class="n">references</span><span class="p">,</span> <span class="n">gradients</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    For an Atoms object with ms tensor arrays, return a summary of the tensors.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Isotropy, Anisotropy and Asymmetry (Haeberlen convention)</span>
+    <span class="n">iso</span>   <span class="o">=</span> <span class="n">MSIsotropy</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="n">shift</span>  <span class="o">=</span> <span class="n">MSIsotropy</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">references</span><span class="p">,</span> <span class="n">grad</span><span class="o">=</span><span class="n">gradients</span><span class="p">)</span>
+    <span class="n">aniso</span> <span class="o">=</span> <span class="n">MSAnisotropy</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="n">red_aniso</span> <span class="o">=</span> <span class="n">MSReducedAnisotropy</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="n">asymm</span> <span class="o">=</span> <span class="n">MSAsymmetry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="c1"># Span and skew</span>
+    <span class="n">span</span> <span class="o">=</span> <span class="n">MSSpan</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="n">skew</span> <span class="o">=</span> <span class="n">MSSkew</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="c1"># quaternion</span>
+    <span class="n">quat</span> <span class="o">=</span> <span class="n">MSQuaternion</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="c1"># We need to be carefull with the angle averaging</span>
+    <span class="n">quat</span> <span class="o">=</span> <span class="n">average_quaternions_by_tags</span><span class="p">(</span><span class="n">quat</span><span class="p">,</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_tags</span><span class="p">())</span>
+    <span class="c1"># Euler angles</span>
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">q</span><span class="o">.</span><span class="n">euler_angles</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">euler_convention</span><span class="p">)</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">quat</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">ms_summary</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;MS_shielding&#39;</span><span class="p">:</span> <span class="n">iso</span><span class="p">,</span>
+            <span class="s1">&#39;MS_shift&#39;</span><span class="p">:</span> <span class="n">shift</span><span class="p">,</span>
+            <span class="s1">&#39;MS_anisotropy&#39;</span><span class="p">:</span> <span class="n">aniso</span><span class="p">,</span>
+            <span class="s1">&#39;MS_reduced_anisotropy&#39;</span><span class="p">:</span> <span class="n">red_aniso</span><span class="p">,</span>
+            <span class="s1">&#39;MS_asymmetry&#39;</span><span class="p">:</span> <span class="n">asymm</span><span class="p">,</span>
+            <span class="s1">&#39;MS_span&#39;</span><span class="p">:</span> <span class="n">span</span><span class="p">,</span>
+            <span class="s1">&#39;MS_skew&#39;</span><span class="p">:</span> <span class="n">skew</span><span class="p">,</span>
+            <span class="s1">&#39;MS_alpha&#39;</span><span class="p">:</span> <span class="n">alpha</span><span class="p">,</span>
+            <span class="s1">&#39;MS_beta&#39;</span><span class="p">:</span> <span class="n">beta</span><span class="p">,</span>
+            <span class="s1">&#39;MS_gamma&#39;</span><span class="p">:</span> <span class="n">gamma</span>
+            <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ms_summary</span></div>
+    
+
+<div class="viewcode-block" id="get_efg_summary"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.get_efg_summary">[docs]</a><span class="k">def</span> <span class="nf">get_efg_summary</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">isotopes</span><span class="p">,</span> <span class="n">euler_convention</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    For an Atoms object with EFG tensor arrays, return a summary of the tensors.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">Vzz</span>   <span class="o">=</span> <span class="n">EFGVzz</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="c1"># convert Vzz from au to V/m^2</span>
+    <span class="n">Vzz</span> <span class="o">=</span> <span class="n">Vzz</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ha</span> <span class="o">/</span> <span class="n">Bohr</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-1</span>
+
+    <span class="c1"># For quadrupolar constants, isotopes become relevant. This means we need to create custom Property instances to</span>
+    <span class="c1"># specify them. There are multiple ways to do so - check the docstrings for more details - but here we set them</span>
+    <span class="c1"># by element. When nothing is specified it defaults to the most common NMR active isotope.</span>
+    <span class="n">qP</span> <span class="o">=</span> <span class="n">EFGQuadrupolarConstant</span><span class="p">(</span><span class="n">isotopes</span><span class="o">=</span><span class="n">isotopes</span><span class="p">)</span> <span class="c1"># Deuterated; for the others use the default</span>
+    <span class="n">qC</span> <span class="o">=</span> <span class="n">qP</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span><span class="o">/</span><span class="mf">1e6</span> <span class="c1"># To MHz</span>
+    
+    <span class="c1"># asymmetry</span>
+    <span class="n">eta</span> <span class="o">=</span> <span class="n">EFGAsymmetry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+
+    <span class="c1"># quaternion</span>
+    <span class="n">quat</span> <span class="o">=</span> <span class="n">EFGQuaternion</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="c1"># We need to be carefull with the angle averaging</span>
+    <span class="n">quat</span> <span class="o">=</span> <span class="n">average_quaternions_by_tags</span><span class="p">(</span><span class="n">quat</span><span class="p">,</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_tags</span><span class="p">())</span>
+    <span class="c1"># Euler angles</span>
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">q</span><span class="o">.</span><span class="n">euler_angles</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">euler_convention</span><span class="p">)</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">quat</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="c1"># NQR transitions</span>
+    <span class="n">nqrs</span> <span class="o">=</span> <span class="n">EFGNQR</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">isotopes</span><span class="o">=</span><span class="n">isotopes</span><span class="p">)</span>
+    <span class="c1"># unique transitions</span>
+    <span class="n">transition_keys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">nqr</span> <span class="ow">in</span> <span class="n">nqrs</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">nqr</span><span class="o">.</span><span class="n">keys</span><span class="p">()]))</span>
+    <span class="n">nqr_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">transition_keys</span><span class="p">:</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;EFG_NQR </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nqrs</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">inqr</span><span class="p">,</span> <span class="n">nqr</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nqrs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">nqr</span><span class="p">:</span>
+                <span class="n">values</span><span class="p">[</span><span class="n">inqr</span><span class="p">]</span> <span class="o">=</span> <span class="n">nqr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e-6</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">values</span><span class="p">[</span><span class="n">inqr</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">nqr_dict</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
+
+
+
+    <span class="n">efg_summary</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;EFG_Vzz&#39;</span><span class="p">:</span> <span class="n">Vzz</span><span class="p">,</span>
+                <span class="s1">&#39;EFG_quadrupolar_constant&#39;</span><span class="p">:</span> <span class="n">qC</span><span class="p">,</span>
+                <span class="s1">&#39;EFG_asymmetry&#39;</span><span class="p">:</span> <span class="n">eta</span><span class="p">,</span>
+                <span class="s1">&#39;EFG_alpha&#39;</span><span class="p">:</span> <span class="n">alpha</span><span class="p">,</span>
+                <span class="s1">&#39;EFG_beta&#39;</span><span class="p">:</span> <span class="n">beta</span><span class="p">,</span>
+                <span class="s1">&#39;EFG_gamma&#39;</span><span class="p">:</span> <span class="n">gamma</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">nqr_dict</span>
+                <span class="p">}</span>
+
+
+    <span class="k">return</span> <span class="n">efg_summary</span></div>
+
+
+
+
+
+
+
+
+
+
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By CCP-NC<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

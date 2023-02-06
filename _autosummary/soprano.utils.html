@@ -1,0 +1,1337 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>soprano.utils &#8212; Soprano</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Citing Soprano" href="../citing.html" />
+    <link rel="prev" title="soprano.selection" href="soprano.selection.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/soprano_logo.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Soprano</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    About
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../cli.html">
+   Soprano Command Line Interface
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../tutorials.html">
+   Tutorials
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/01-basic_concepts.html">
+     Tutorial 1 - Basic concepts: using AtomsCollection objects
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/02-generators_properties_calculators.html">
+     Tutorial 2 - Generators, Properties and Calculators
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/03-atomselection_transforms.html">
+     Tutorial 3 - AtomSelection and transforms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/04-clustering.html">
+     Tutorial 4 - Clustering analysis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/05-nmr.html">
+     Tutorial 5 - NMR Properties: using Soprano for working with .magres files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/06-defect_calculations.html">
+     Tutorial 6 - Soprano for defect calculations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../submitter.html">
+   Job Submitter
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../api.html">
+   API reference
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="soprano.html">
+     soprano
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="soprano.analyse.html">
+       soprano.analyse
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.analyse.phylogen.html">
+         soprano.analyse.phylogen
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="soprano.calculate.html">
+       soprano.calculate
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+      <label for="toctree-checkbox-5">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.calculate.gulp.html">
+         soprano.calculate.gulp
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.calculate.nmr.html">
+         soprano.calculate.nmr
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.calculate.powder.html">
+         soprano.calculate.powder
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.calculate.xrd.html">
+         soprano.calculate.xrd
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="soprano.collection.html">
+       soprano.collection
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+      <label for="toctree-checkbox-6">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.collection.collection.html">
+         soprano.collection.collection
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.collection.generate.html">
+         soprano.collection.generate
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="soprano.data.html">
+       soprano.data
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+      <label for="toctree-checkbox-7">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.data.nmr.html">
+         soprano.data.nmr
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.data.vdw.html">
+         soprano.data.vdw
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="soprano.hpc.html">
+       soprano.hpc
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+      <label for="toctree-checkbox-8">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.hpc.submitter.html">
+         soprano.hpc.submitter
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="soprano.measure.html">
+       soprano.measure
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="soprano.nmr.html">
+       soprano.nmr
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+      <label for="toctree-checkbox-9">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.nmr.tensor.html">
+         soprano.nmr.tensor
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.nmr.utils.html">
+         soprano.nmr.utils
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="soprano.optional.html">
+       soprano.optional
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="soprano.properties.html">
+       soprano.properties
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.properties.atomsproperty.html">
+         soprano.properties.atomsproperty
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.properties.basic.html">
+         soprano.properties.basic
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.properties.castep.html">
+         soprano.properties.castep
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.properties.labeling.html">
+         soprano.properties.labeling
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.properties.linkage.html">
+         soprano.properties.linkage
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.properties.map.html">
+         soprano.properties.map
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.properties.nmr.html">
+         soprano.properties.nmr
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.properties.order.html">
+         soprano.properties.order
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.properties.symmetry.html">
+         soprano.properties.symmetry
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.properties.transform.html">
+         soprano.properties.transform
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="soprano.rnd.html">
+       soprano.rnd
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="soprano.scripts.html">
+       soprano.scripts
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+      <label for="toctree-checkbox-11">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.scripts.cli.html">
+         soprano.scripts.cli
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.scripts.cli_utils.html">
+         soprano.scripts.cli_utils
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.scripts.dipolar.html">
+         soprano.scripts.dipolar
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.scripts.extract_nmr.html">
+         soprano.scripts.extract_nmr
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.scripts.msaverage.html">
+         soprano.scripts.msaverage
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.scripts.nmr.html">
+         soprano.scripts.nmr
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.scripts.nmr_plot.html">
+         soprano.scripts.nmr_plot
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.scripts.phylogen.html">
+         soprano.scripts.phylogen
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="soprano.scripts.vasp2cell.html">
+         soprano.scripts.vasp2cell
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="soprano.selection.html">
+       soprano.selection
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       soprano.utils
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../citing.html">
+   Citing Soprano
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            A Python library to crack crystals
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/CCP-NC/soprano"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2F_autosummary/soprano.utils.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/_autosummary/soprano.utils.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>soprano.utils</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="module-soprano.utils">
+<span id="soprano-utils"></span><h1>soprano.utils<a class="headerlink" href="#module-soprano.utils" title="Permalink to this headline">#</a></h1>
+<p>utils.py</p>
+<p>Contains package-wide useful routines that don’t fall under any specific
+category. Many of these handle common operations involving periodicity,
+conversions between different representations etc.</p>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.abc2cart" title="soprano.utils.abc2cart"><code class="xref py py-obj docutils literal notranslate"><span class="pre">abc2cart</span></code></a>(abc)</p></td>
+<td><p>Transforms an axes and angles representation of lattice parameters into a Cartesian one</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.all_periodic" title="soprano.utils.all_periodic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">all_periodic</span></code></a>(v, latt_cart, max_r[, pbc])</p></td>
+<td><p>Find all the periodic equivalent vectors for a list of vectors and a given lattice falling within a given length.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.average_quaternions" title="soprano.utils.average_quaternions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average_quaternions</span></code></a>(quats)</p></td>
+<td><p>Average a list of quaternions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.cart2abc" title="soprano.utils.cart2abc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cart2abc</span></code></a>(cart)</p></td>
+<td><p>Transforms a Cartesian representation of lattice parameters into an axes and angles one</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.clebsch_gordan" title="soprano.utils.clebsch_gordan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clebsch_gordan</span></code></a>(j, m, j1, m1, j2, m2)</p></td>
+<td><p>Clebsch-Gordan cohefficients for given quantum numbers: j, m, j1, m1, j2, m2</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.compute_asymmetric_distmat" title="soprano.utils.compute_asymmetric_distmat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_asymmetric_distmat</span></code></a>(struct, points[, ...])</p></td>
+<td><p>Given a symmetric structure, compute a distance matrix for the given fractional coordinate points which contains only the distances between their closest symmetry equivalent sites in the asymmetric unit cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">customize_warnings</span></code>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.get_bonding_distance" title="soprano.utils.get_bonding_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_bonding_distance</span></code></a>(bond_graph, i, j[, nx])</p></td>
+<td><p>Distance in bonds, returns -1 if the two are not connected</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_bonding_graph</span></code>(bond_mat[, nx])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.get_sklearn_clusters" title="soprano.utils.get_sklearn_clusters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sklearn_clusters</span></code></a>(points, method, params)</p></td>
+<td><p>Cluster points using given method if found in sklearn.clusters module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_specsort</span></code>(L)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.has_cif_labels" title="soprano.utils.has_cif_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_cif_labels</span></code></a>(atoms)</p></td>
+<td><p>Check if the atoms object has CIF labels Does this simply by comparing the labels with the element symbols.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.hkl2d2_matgen" title="soprano.utils.hkl2d2_matgen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hkl2d2_matgen</span></code></a>(abc)</p></td>
+<td><p>Generate a matrix that turns hkl indices into inverse crystal plane distances for a given lattice in ABC form</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">import_module</span></code>(mpath)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">inspect_args</span></code>(f)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.inv_plane_dist" title="soprano.utils.inv_plane_dist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inv_plane_dist</span></code></a>(hkl, hkl2d2)</p></td>
+<td><p>Calculate inverse planar distance for a given set of Miller indices h, k, l.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.is_string" title="soprano.utils.is_string"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_string</span></code></a>(s)</p></td>
+<td><p>Checks whether s is a string, with Python 2 and 3 compatibility</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.list_distance" title="soprano.utils.list_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list_distance</span></code></a>(l1, l2)</p></td>
+<td><p>Return an integer distance between two lists (number of differing elements)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.max_distance_in_cell" title="soprano.utils.max_distance_in_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_distance_in_cell</span></code></a>(cell)</p></td>
+<td><p>Maximum distance between two points achievable inside a single unit cell.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.minimum_periodic" title="soprano.utils.minimum_periodic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minimum_periodic</span></code></a>(v, latt_cart[, ...])</p></td>
+<td><p>Find the shortest periodic equivalent vector for a list of vectors and a given lattice.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.minimum_supcell" title="soprano.utils.minimum_supcell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minimum_supcell</span></code></a>(max_r[, latt_cart, ...])</p></td>
+<td><p>Generate the bounds for a supercell containing a sphere of given radius, knowing the unit cell.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.periodic_bridson" title="soprano.utils.periodic_bridson"><code class="xref py py-obj docutils literal notranslate"><span class="pre">periodic_bridson</span></code></a>(cell, rmin[, max_attempts, ...])</p></td>
+<td><p>Periodic version of the Bridson algorithm for generation of Poisson sphere distributions of points.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.progbar" title="soprano.utils.progbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">progbar</span></code></a>(i, i_max[, bar_len, spinner, spin_rate])</p></td>
+<td><p>A textual progress bar for the command line</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.recursive_mol_label" title="soprano.utils.recursive_mol_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recursive_mol_label</span></code></a>(site_i, mol_indices, ...)</p></td>
+<td><p>Creates a string for a given atom by traversing the molecular network starting with it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.rep_alg" title="soprano.utils.rep_alg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rep_alg</span></code></a>(v[, iters, attempts, step, simtol])</p></td>
+<td><p>Repulsion algorithm, begins with a series of vectors v, finds a new one that is as far as possible, angle-wise, from all of them.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.replace_folder" title="soprano.utils.replace_folder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">replace_folder</span></code></a>(path, new_folder)</p></td>
+<td><p>Replace the folder of the given path with a new one</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.safe_communicate" title="soprano.utils.safe_communicate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_communicate</span></code></a>(subproc[, stdin])</p></td>
+<td><p>Executes a Popen.communicate and returns output in a way that is compatible with Python 2 &amp; 3 keeping input and output as strings (since Python 3 requires bytes objects otherwise)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.safe_input" title="soprano.utils.safe_input"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_input</span></code></a>(question)</p></td>
+<td><p>Ask for user input with Python 2 and 3 compatibility</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.seedname" title="soprano.utils.seedname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seedname</span></code></a>(path)</p></td>
+<td><p>Get the filename (with no extension) from a full path</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.silence_stdio" title="soprano.utils.silence_stdio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">silence_stdio</span></code></a>([silence_stdout, silence_stderr])</p></td>
+<td><p>Useful stdout/err silencer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.supcell_gridgen" title="soprano.utils.supcell_gridgen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">supcell_gridgen</span></code></a>(latt_cart, shape)</p></td>
+<td><p>Generate a full linearized grid for a supercell with r_bounds and a base unit cell in Cartesian form.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.swing_twist_decomp" title="soprano.utils.swing_twist_decomp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">swing_twist_decomp</span></code></a>(quat, axis)</p></td>
+<td><p>Perform a Swing*Twist decomposition of a Quaternion.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.wigner_3j" title="soprano.utils.wigner_3j"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wigner_3j</span></code></a>(j1, m1, j2, m2, j3, m3)</p></td>
+<td><p>Wigner 3j symbols for given quantum numbers:</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.abc2cart">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">abc2cart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#abc2cart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.abc2cart" title="Permalink to this definition">#</a></dt>
+<dd><p>Transforms an axes and angles representation of lattice parameters
+into a Cartesian one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.all_periodic">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">all_periodic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latt_cart</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[True,</span> <span class="pre">True,</span> <span class="pre">True]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#all_periodic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.all_periodic" title="Permalink to this definition">#</a></dt>
+<dd><p>Find all the periodic equivalent vectors for a list of vectors and a
+given lattice falling within a given length.</p>
+<div class="line-block">
+<div class="line">Args:</div>
+<div class="line-block">
+<div class="line">v (np.ndarray): list of 3-vectors representing points or vectors to</div>
+<div class="line-block">
+<div class="line">produce periodic versions of</div>
+</div>
+<div class="line">latt_cart (np.ndarray): unit cell in cartesian form</div>
+<div class="line">max_r (float): maximum length of periodic copies of vectors</div>
+<div class="line">pbc ([bool, bool, bool]): periodic boundary conditions - if</div>
+<div class="line-block">
+<div class="line">a boundary is not periodic the</div>
+<div class="line">range returned will always be zero</div>
+<div class="line">in that dimension</div>
+</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Returns:</div>
+<div class="line-block">
+<div class="line">v_period (np.ndarray): array with the same shape as v, containing the</div>
+<div class="line-block">
+<div class="line">vectors in periodic reduced form</div>
+</div>
+<div class="line">v_index (np.ndarray): indices (referring to the original array v) of</div>
+<div class="line-block">
+<div class="line">the array of which the corresponding element of</div>
+<div class="line">v_period is a copy</div>
+</div>
+<div class="line">v_cells (np.ndarray): array of triples of ints, corresponding to the</div>
+<div class="line-block">
+<div class="line">cells from which the various periodic copies of</div>
+<div class="line">the vectors were taken. For an unchanged vector</div>
+<div class="line">will be all [0,0,0]</div>
+</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.average_quaternions">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">average_quaternions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ase.quaternions.Quaternion</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ase.quaternions.Quaternion</span></span></span><a class="reference internal" href="../_modules/soprano/utils.html#average_quaternions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.average_quaternions" title="Permalink to this definition">#</a></dt>
+<dd><p>Average a list of quaternions.
+Following: <a class="reference external" href="https://github.com/christophhagen/averaging-quaternions">https://github.com/christophhagen/averaging-quaternions</a></p>
+<p>Returns a normalized quaternion.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.cart2abc">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">cart2abc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cart</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#cart2abc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.cart2abc" title="Permalink to this definition">#</a></dt>
+<dd><p>Transforms a Cartesian representation of lattice parameters
+into an axes and angles one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.clebsch_gordan">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">clebsch_gordan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#clebsch_gordan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.clebsch_gordan" title="Permalink to this definition">#</a></dt>
+<dd><p>Clebsch-Gordan cohefficients for given quantum numbers:
+j, m, j1, m1, j2, m2</p>
+<p>The numbers passed can be arrays (just make sure they’re the
+same size).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.compute_asymmetric_distmat">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">compute_asymmetric_distmat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">struct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linearized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_images</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">images_centre</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symprec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#compute_asymmetric_distmat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.compute_asymmetric_distmat" title="Permalink to this definition">#</a></dt>
+<dd><p>Given a symmetric structure, compute a distance matrix for the given
+fractional coordinate points which contains only the distances between
+their closest symmetry equivalent sites in the asymmetric unit cell.</p>
+<p>Distances are computed in <em>fractional coordinates</em> space and are not
+real distances. They do not necessarily map to real space distances
+either. Their purpose is merely to group points together by removing the
+effects of symmetry operations.</p>
+<div class="line-block">
+<div class="line">Parameters:</div>
+<div class="line-block">
+<div class="line">struct (ase.Atoms): the structure from which to extract the symmetry</div>
+<div class="line-block">
+<div class="line">operations</div>
+</div>
+<div class="line">points (np.ndarray): list of points, in fractional coordinates, to</div>
+<div class="line-block">
+<div class="line">compute the distance matrix for</div>
+</div>
+<div class="line">linearized (bool):  if True, returns only the linearised upper</div>
+<div class="line-block">
+<div class="line">triangle of the distance matrix, in the format</div>
+<div class="line">accepted by scipy.cluster.hierarchy.linkage.</div>
+<div class="line">Default is True</div>
+</div>
+<div class="line">return_images (bool): if True, return also a list of the closest</div>
+<div class="line-block">
+<div class="line">images for each point. The closest</div>
+<div class="line">symmetric image to images_centre is chosen.</div>
+</div>
+<div class="line">images_centre (int or np.ndarray): centre to use to compute closest</div>
+<div class="line-block">
+<div class="line">images. If an integer, uses the</div>
+<div class="line">given point of that index. If a</div>
+<div class="line">vector, uses the given coordinates.</div>
+<div class="line">Should not be a high symmetry point.</div>
+</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Returns:</div>
+<div class="line-block">
+<div class="line">distmat (np.ndarray): distance matrix for points</div>
+<div class="line">images (np.ndarray): closest point images (only if return_images is</div>
+<div class="line-block">
+<div class="line">True)</div>
+</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.get_bonding_distance">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">get_bonding_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bond_graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#get_bonding_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.get_bonding_distance" title="Permalink to this definition">#</a></dt>
+<dd><p>Distance in bonds, returns -1 if the two are not connected</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.get_sklearn_clusters">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">get_sklearn_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#get_sklearn_clusters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.get_sklearn_clusters" title="Permalink to this definition">#</a></dt>
+<dd><p>Cluster points using given method if found in sklearn.clusters module.
+Use params as a dictionary of parameters passed to the method.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.has_cif_labels">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">has_cif_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#has_cif_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.has_cif_labels" title="Permalink to this definition">#</a></dt>
+<dd><p>Check if the atoms object has CIF labels
+Does this simply by comparing the labels with the element symbols.
+If they’re all the same, then so special labels are present.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.hkl2d2_matgen">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">hkl2d2_matgen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#hkl2d2_matgen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.hkl2d2_matgen" title="Permalink to this definition">#</a></dt>
+<dd><p>Generate a matrix that turns hkl indices into inverse crystal
+plane distances for a given lattice in ABC form</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.inv_plane_dist">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">inv_plane_dist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hkl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hkl2d2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#inv_plane_dist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.inv_plane_dist" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate inverse planar distance for a given set of
+Miller indices h, k, l.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.is_string">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">is_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#is_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.is_string" title="Permalink to this definition">#</a></dt>
+<dd><p>Checks whether s is a string, with Python 2 and 3 compatibility</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.list_distance">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">list_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#list_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.list_distance" title="Permalink to this definition">#</a></dt>
+<dd><p>Return an integer distance between two lists (number of differing
+elements)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.max_distance_in_cell">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">max_distance_in_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#max_distance_in_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.max_distance_in_cell" title="Permalink to this definition">#</a></dt>
+<dd><p>Maximum distance between two points achievable inside a single unit
+cell.
+Relies on the fact that the isosurface for equal distance in cartesian
+space is an ellipsoid, meaning that the extreme has to be one of the 8
+corners of the cube of side 1 in fractional space.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.minimum_periodic">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">minimum_periodic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latt_cart</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[True,</span> <span class="pre">True,</span> <span class="pre">True]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#minimum_periodic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.minimum_periodic" title="Permalink to this definition">#</a></dt>
+<dd><p>Find the shortest periodic equivalent vector for a list of vectors and a
+given lattice.</p>
+<div class="line-block">
+<div class="line">Args:</div>
+<div class="line-block">
+<div class="line">v (np.ndarray): list of 3-vectors representing points or vectors to</div>
+<div class="line-block">
+<div class="line">reduce to their closest periodic version</div>
+</div>
+<div class="line">latt_cart (np.ndarray): unit cell in cartesian form</div>
+<div class="line">exclude_self (bool): if True, any vector that is equal to zero will be</div>
+<div class="line-block">
+<div class="line">excluded, and its closest non-zero periodic</div>
+<div class="line">version will be considered instead. Default is</div>
+<div class="line">False</div>
+</div>
+<div class="line">pbc ([bool, bool, bool]): periodic boundary conditions - if</div>
+<div class="line-block">
+<div class="line">a boundary is not periodic the</div>
+<div class="line">range returned will always be zero</div>
+<div class="line">in that dimension</div>
+</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Returns:</div>
+<div class="line-block">
+<div class="line">v_period (np.ndarray): array with the same shape as v, containing the</div>
+<div class="line-block">
+<div class="line">vectors in periodic reduced form</div>
+</div>
+<div class="line">v_cells (np.ndarray): array of triples of ints, corresponding to the</div>
+<div class="line-block">
+<div class="line">cells from which the various periodic copies of</div>
+<div class="line">the vectors were taken. For an unchanged vector</div>
+<div class="line">will be all [0,0,0]</div>
+</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.minimum_supcell">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">minimum_supcell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latt_cart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[True,</span> <span class="pre">True,</span> <span class="pre">True]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#minimum_supcell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.minimum_supcell" title="Permalink to this definition">#</a></dt>
+<dd><p>Generate the bounds for a supercell containing a sphere
+of given radius, knowing the unit cell.</p>
+<div class="line-block">
+<div class="line">Args:</div>
+<div class="line-block">
+<div class="line">max_r (float): radius of the sphere contained in the supercell</div>
+<div class="line">latt_cart (np.ndarray): unit cell in cartesian form</div>
+<div class="line">r_matrix (np.ndarray): matrix for the quadratic form returning</div>
+<div class="line-block">
+<div class="line">r^2 for this supercell.</div>
+<div class="line">Alternative to latt_cart, for a direct</div>
+<div class="line">space cell would be equal to</div>
+<div class="line">np.dot(latt_cart, latt_cart.T)</div>
+</div>
+<div class="line">pbc ([bool, bool, bool]): periodic boundary conditions - if</div>
+<div class="line-block">
+<div class="line">a boundary is not periodic the</div>
+<div class="line">range returned will always be zero</div>
+<div class="line">in that dimension</div>
+</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Returns:</div>
+<div class="line-block">
+<div class="line">shape (tuple[int]):  shape of the supercell to be built.</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Raises:</div>
+<div class="line-block">
+<div class="line">ValueError: if some of the arguments are invalid</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.periodic_bridson">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">periodic_bridson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_attempts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepoints_cuts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxblock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#periodic_bridson"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.periodic_bridson" title="Permalink to this definition">#</a></dt>
+<dd><p>Periodic version of the Bridson algorithm for generation of Poisson
+sphere distributions of points. This returns a generator.</p>
+<div class="line-block">
+<div class="line">Args:</div>
+<div class="line-block">
+<div class="line">cell (np.ndarray): periodic cell in which to create the points.</div>
+<div class="line">rmin (float): minimum distance between each generated point.</div>
+<div class="line">max_attempts (int): maximum number of candidate neighbours generated</div>
+<div class="line-block">
+<div class="line">for each point.</div>
+</div>
+<div class="line">prepoints (np.ndarray or list): pre-existing points to avoid during</div>
+<div class="line-block">
+<div class="line">generation. These must be in</div>
+<div class="line">fractional coordinates.</div>
+</div>
+<div class="line">prepoints_cuts (np.ndarray or list): custom cutoffs for each prepoint.</div>
+<div class="line-block">
+<div class="line">If not included defaults to rmin.</div>
+</div>
+<div class="line">maxblock (int):     maximum size of a grid block to be processed in a</div>
+<div class="line-block">
+<div class="line">single function (used to avoid excess memory use)</div>
+</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Returns:</div>
+<div class="line-block">
+<div class="line">bridsonGen (generator): an iterator producing Poisson-sphere like</div>
+<div class="line-block">
+<div class="line">distributed points in cell until space runs</div>
+<div class="line">out or enough attempts fail.</div>
+</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.progbar">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">progbar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bar_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spinner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#progbar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.progbar" title="Permalink to this definition">#</a></dt>
+<dd><p>A textual progress bar for the command line</p>
+<div class="line-block">
+<div class="line">Args:</div>
+<div class="line-block">
+<div class="line">i (int): current progress index</div>
+<div class="line">max_i (int): final progress index</div>
+<div class="line">bar_len (Optional[int]): length in characters of the bar (no brackets)</div>
+<div class="line">spinner (Optional[bool]): show a spinner at the end</div>
+<div class="line">spin_rate (Optional[float]): spinner rotation speed (turns per full</div>
+<div class="line-block">
+<div class="line">progress)</div>
+</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Returns:</div>
+<div class="line-block">
+<div class="line">bar (str): a progress bar formatted as requested</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.recursive_mol_label">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">recursive_mol_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elems</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#recursive_mol_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.recursive_mol_label" title="Permalink to this definition">#</a></dt>
+<dd><p>Creates a string for a given atom by traversing the molecular network
+starting with it.</p>
+<div class="line-block">
+<div class="line">Parameters:</div>
+<div class="line-block">
+<div class="line">site_i (int): index of the atom for which the string must be</div>
+<div class="line-block">
+<div class="line">calculated</div>
+</div>
+<div class="line">mol_indices ([int]): indices of all atoms belonging to the molecule</div>
+<div class="line">bonds (dict): dictionary of bonds within the molecule, containing</div>
+<div class="line-block">
+<div class="line">the indices of atoms as keys and lists of all the</div>
+<div class="line">indices of atoms they’re bonded to as values.</div>
+</div>
+<div class="line">elems ([str]): list of element symbols for the entire system (must</div>
+<div class="line-block">
+<div class="line">be returned by ase.Atoms’ get_chemical_symbols, NOT</div>
+<div class="line">follow the order the atoms appear in mol_indices)</div>
+</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Returns:</div>
+<div class="line-block">
+<div class="line">recursive_label (str): a string representing the molecular network</div>
+<div class="line-block">
+<div class="line">traversed starting from site i</div>
+</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.rep_alg">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">rep_alg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attempts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#rep_alg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.rep_alg" title="Permalink to this definition">#</a></dt>
+<dd><p>Repulsion algorithm, begins with a series of vectors v, finds a new one
+that is as far as possible, angle-wise, from all of them.
+The process is that of treating the tips of the vectors as particles on a
+sphere which repel each other. Of course, it’s possible that multiple
+equilibrium positions exist, which is why multiple attempts can be made,
+and are judged identical or not based on a tolerance parameter</p>
+<div class="line-block">
+<div class="line">Parameters:</div>
+<div class="line-block">
+<div class="line">v (np.ndarray): list of fixed vectors to avoid</div>
+<div class="line">iters (int): number of iterations, default is 1000</div>
+<div class="line">attempts (int): number of independent attempts with randomised starts,</div>
+<div class="line-block">
+<div class="line">default is 10</div>
+</div>
+<div class="line">step (float): step by which the ‘particle’ describing the vector will</div>
+<div class="line-block">
+<div class="line">be displaced at each iteration during the search.</div>
+<div class="line">Default is 1e-1.</div>
+</div>
+<div class="line">simtol (float): tolerance based on which two attempts are considered to</div>
+<div class="line-block">
+<div class="line">be effectively the same, checking if 1-v1.v2 &lt; simtol.</div>
+<div class="line">Default is 1e-5.</div>
+</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Returns:</div>
+<div class="line-block">
+<div class="line">out_v ([np.ndarray]): list of unit vectors of maximal distance from</div>
+<div class="line-block">
+<div class="line">the ones in v</div>
+</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.replace_folder">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">replace_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#replace_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.replace_folder" title="Permalink to this definition">#</a></dt>
+<dd><p>Replace the folder of the given path with a new one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.safe_communicate">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">safe_communicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subproc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#safe_communicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.safe_communicate" title="Permalink to this definition">#</a></dt>
+<dd><p>Executes a Popen.communicate and returns output in a way that is
+compatible with Python 2 &amp; 3 keeping input and output as strings (since
+Python 3 requires bytes objects otherwise)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.safe_input">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">safe_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#safe_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.safe_input" title="Permalink to this definition">#</a></dt>
+<dd><p>Ask for user input with Python 2 and 3 compatibility</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.seedname">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">seedname</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#seedname"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.seedname" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the filename (with no extension) from a full path</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.silence_stdio">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">silence_stdio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">silence_stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">silence_stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#silence_stdio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.silence_stdio" title="Permalink to this definition">#</a></dt>
+<dd><p>Useful stdout/err silencer</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.supcell_gridgen">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">supcell_gridgen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latt_cart</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#supcell_gridgen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.supcell_gridgen" title="Permalink to this definition">#</a></dt>
+<dd><p>Generate a full linearized grid for a supercell with r_bounds
+and a base unit cell in Cartesian form.</p>
+<div class="line-block">
+<div class="line">Args:</div>
+<div class="line-block">
+<div class="line">latt_cart (np.ndarray): unit cell in cartesian form</div>
+<div class="line">shape (tuple[int]):  shape of the supercell to be built,</div>
+<div class="line-block">
+<div class="line">as returned by minimum_supcell.</div>
+</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Returns:</div>
+<div class="line-block">
+<div class="line">neigh_i_grid (np.ndarray): supercell grid in fractional coordinates</div>
+<div class="line">neigh_grid (np.ndarray): supercell grid in cartesian coordinates</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Raises:</div>
+<div class="line-block">
+<div class="line">ValueError: if some of the arguments are invalid</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.swing_twist_decomp">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">swing_twist_decomp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#swing_twist_decomp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.swing_twist_decomp" title="Permalink to this definition">#</a></dt>
+<dd><p>Perform a Swing*Twist decomposition of a Quaternion. This splits the
+quaternion in two: one containing the rotation around axis (Twist), the
+other containing the rotation around a vector parallel to axis (Swing).</p>
+<p>Returns two quaternions: Swing, Twist.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.utils.wigner_3j">
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">wigner_3j</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#wigner_3j"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.wigner_3j" title="Permalink to this definition">#</a></dt>
+<dd><p>Wigner 3j symbols for given quantum numbers:</p>
+<p>/                     | j1    j2     j3 |
+| m1    m2     m3 |
+                /</p>
+<p>The numbers passed can be arrays (just make sure they’re the
+same size).</p>
+</dd></dl>
+
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./_autosummary"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="soprano.selection.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">soprano.selection</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../citing.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Citing Soprano</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By CCP-NC<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
