@@ -836,16 +836,16 @@ soprano dipolar seedname.{magres|cif|POSCAR|etc}</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-o">
 <span id="cmdoption-soprano-dipolar-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-o" title="Permalink to this definition">#</a></dt>
-<dd><p>Output file name. If not specified, output is printed to stdout.</p>
+<dd><p>Output file name. If not specified, output is printed to stdout.If the output file name has a recognised extension (see <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> for allowed values), the format is guessed from that.The format can be overridden with the <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> option.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-f">
 <span id="cmdoption-soprano-dipolar-output-format"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_format&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-f" title="Permalink to this definition">#</a></dt>
-<dd><p>Output file format. If not specified, the format is guessed from output filename extension.</p>
+<dd><p>Output file format. If not specified, the format is guessed from output filename extension.The <code class="docutils literal notranslate"><span class="pre">txt</span></code>, <code class="docutils literal notranslate"><span class="pre">tsv</span></code> and <code class="docutils literal notranslate"><span class="pre">dat</span></code> formats all produce tab separated files.The <code class="docutils literal notranslate"><span class="pre">md</span></code> format produces a markdown table and requires an optional dependency on the tabulate package.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Options</dt>
-<dd class="field-odd"><p>csv | json</p>
+<dd class="field-odd"><p>csv | json | html | md | tex | txt | tsv | dat</p>
 </dd>
 </dl>
 </dd></dl>
@@ -905,7 +905,7 @@ soprano dipolar seedname.{magres|cif|POSCAR|etc}</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-query">
 <span class="sig-name descname"><span class="pre">--query</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;query&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-query" title="Permalink to this definition">#</a></dt>
-<dd><p>Filter results based on query. The filter is specified as a pandas query. Note that you must enclose the query in quotes! Refer to the column names without the units.  For example <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100'</span></code>. You can combine queries with <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> etc. e.g. <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100</span> <span class="pre">and</span> <span class="pre">MS_shielding</span> <span class="pre">&lt;</span> <span class="pre">180'</span></code>. Defaults to #nofilter :).</p>
+<dd><p>Filter results based on query. The filter is specified as a pandas query. Note that you must enclose the query in quotes! Refer to the column names without the units.  For example <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100'</span></code>. You can combine queries with <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> etc. e.g. <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100</span> <span class="pre">and</span> <span class="pre">MS_shielding</span> <span class="pre">&lt;</span> <span class="pre">180'</span></code>. Defaults to no filter.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -1022,16 +1022,16 @@ present in the file for all the atoms.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-o">
 <span id="cmdoption-soprano-nmr-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-o" title="Permalink to this definition">#</a></dt>
-<dd><p>Output file name. If not specified, output is printed to stdout.</p>
+<dd><p>Output file name. If not specified, output is printed to stdout.If the output file name has a recognised extension (see <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> for allowed values), the format is guessed from that.The format can be overridden with the <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> option.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-f">
 <span id="cmdoption-soprano-nmr-output-format"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_format&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-f" title="Permalink to this definition">#</a></dt>
-<dd><p>Output file format. If not specified, the format is guessed from output filename extension.</p>
+<dd><p>Output file format. If not specified, the format is guessed from output filename extension.The <code class="docutils literal notranslate"><span class="pre">txt</span></code>, <code class="docutils literal notranslate"><span class="pre">tsv</span></code> and <code class="docutils literal notranslate"><span class="pre">dat</span></code> formats all produce tab separated files.The <code class="docutils literal notranslate"><span class="pre">md</span></code> format produces a markdown table and requires an optional dependency on the tabulate package.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Options</dt>
-<dd class="field-odd"><p>csv | json</p>
+<dd class="field-odd"><p>csv | json | html | md | tex | txt | tsv | dat</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1091,7 +1091,7 @@ present in the file for all the atoms.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-query">
 <span class="sig-name descname"><span class="pre">--query</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;query&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-query" title="Permalink to this definition">#</a></dt>
-<dd><p>Filter results based on query. The filter is specified as a pandas query. Note that you must enclose the query in quotes! Refer to the column names without the units.  For example <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100'</span></code>. You can combine queries with <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> etc. e.g. <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100</span> <span class="pre">and</span> <span class="pre">MS_shielding</span> <span class="pre">&lt;</span> <span class="pre">180'</span></code>. Defaults to #nofilter :).</p>
+<dd><p>Filter results based on query. The filter is specified as a pandas query. Note that you must enclose the query in quotes! Refer to the column names without the units.  For example <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100'</span></code>. You can combine queries with <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> etc. e.g. <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100</span> <span class="pre">and</span> <span class="pre">MS_shielding</span> <span class="pre">&lt;</span> <span class="pre">180'</span></code>. Defaults to no filter.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -1111,10 +1111,112 @@ present in the file for all the atoms.</p>
 <section id="soprano-plotnmr">
 <h3>plotnmr<a class="headerlink" href="#soprano-plotnmr" title="Permalink to this headline">#</a></h3>
 <p>Plot the NMR spectrum from a csv file.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano plotnmr <span class="o">[</span>OPTIONS<span class="o">]</span> CSV_FILE
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano plotnmr <span class="o">[</span>OPTIONS<span class="o">]</span> <span class="o">[</span>FILES<span class="o">]</span>...
 </pre></div>
 </div>
 <p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-c">
+<span id="cmdoption-soprano-plotnmr-config"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--config</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;config&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-c" title="Permalink to this definition">#</a></dt>
+<dd><p>Read option defaults from the specified INI fileIf not set, first checks environment variable: <code class="docutils literal notranslate"><span class="pre">SOPRANO_CONFIG</span></code> and then <code class="docutils literal notranslate"><span class="pre">~/.soprano/config.ini</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">/home/jks/.soprano/config.ini</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-q">
+<span id="cmdoption-soprano-plotnmr-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-q" title="Permalink to this definition">#</a></dt>
+<dd><p>If present, log less information.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-view">
+<span class="sig-name descname"><span class="pre">--view</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-view" title="Permalink to this definition">#</a></dt>
+<dd><p>If present, view the structure(s) with the ASE GUI.Note that the ASE GUI can color the sites according to their tags. This can be used to see what sites were tagged as equivalent.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-symprec">
+<span class="sig-name descname"><span class="pre">--symprec</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;symprec&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-symprec" title="Permalink to this definition">#</a></dt>
+<dd><p>Symmetry precision for symmetry reduction. Defaults to 1e-4.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-precision">
+<span class="sig-name descname"><span class="pre">--precision</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;precision&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-precision" title="Permalink to this definition">#</a></dt>
+<dd><p>Precision of the output (number of decimal places). Defaults to 3.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-i">
+<span id="cmdoption-soprano-plotnmr-isotopes"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--isotopes</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ISOTOPES&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-i" title="Permalink to this definition">#</a></dt>
+<dd><p>Isotopes specification (e.g. <code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">13C</span></code> for carbon 13 <code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">2H,15N</span></code> for deuterium and 15N). When nothing is specified it defaults to the most common NMR active isotope.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-g">
+<span id="cmdoption-soprano-plotnmr-average-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--average-group</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;average_group&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-g" title="Permalink to this definition">#</a></dt>
+<dd><p>Group pattern for averaging. Currently only works for XHn groups such as CH3, CH2, NH2 etc. You can specify several, comma separated as in <code class="docutils literal notranslate"><span class="pre">-g</span> <span class="pre">CH3,CH2,NH2</span></code>. If not specified, no averaging is performed.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-euler">
+<span class="sig-name descname"><span class="pre">--euler</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;euler_convention&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-euler" title="Permalink to this definition">#</a></dt>
+<dd><p>Convention for Euler angles. Defaults to <code class="docutils literal notranslate"><span class="pre">zyz</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><p>zyz | zxz</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-references">
+<span class="sig-name descname"><span class="pre">--references</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;references&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-references" title="Permalink to this definition">#</a></dt>
+<dd><p>Reference shielding for each element (in ppm). The format is <code class="docutils literal notranslate"><span class="pre">--references</span> <span class="pre">C:170,H:123</span></code>. If the value is a single float, that reference will be used for all sites (not recommended!).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-gradients">
+<span class="sig-name descname"><span class="pre">--gradients</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;gradients&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-gradients" title="Permalink to this definition">#</a></dt>
+<dd><p>Reference shielding gradients for each element. Defaults to -1 for all elements. Set it like this: <code class="docutils literal notranslate"><span class="pre">--gradients</span> <span class="pre">H:-1,C:-0.97</span></code>. If the value is a single float, that gradient will be used for all sites (not recommended!).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-s">
+<span id="cmdoption-soprano-plotnmr-select"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--select</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-s" title="Permalink to this definition">#</a></dt>
+<dd><p>Selection string of sites include. e.g.
+<code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C</span></code> for only and all carbon atoms,
+<code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C.1-3,H.1.2</span></code> for carbons 1,2,3 and hydrogens 1 and 2,
+<code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C1,H1a,H1b</span></code> for any sites with the labels C1, H1a and H1b.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-r">
+<span id="cmdoption-soprano-plotnmr-reduce"></span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--reduce</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-r" title="Permalink to this definition">#</a></dt>
+<dd><p>Reduce the output by symmetry-equivalent sites. The merged equivalent sites are combined according to <code class="docutils literal notranslate"><span class="pre">--combine-rule</span></code>. To see the rules used for each column, set <code class="docutils literal notranslate"><span class="pre">--verbose</span></code>. If there are CIF-style labels present, then these override the symmetry-grouping in case of a clash. Note that this doesn’t take into account magnetic symmetry!</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-combine-rule">
+<span class="sig-name descname"><span class="pre">--combine-rule</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;combine_rule&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-combine-rule" title="Permalink to this definition">#</a></dt>
+<dd><p>How to combine the data from equivalent sites. <code class="docutils literal notranslate"><span class="pre">mean</span></code> is the default, which averages the data. <code class="docutils literal notranslate"><span class="pre">first</span></code> Takes the first item from each group of equivalent sites. Special handling for labels, indices, tags and multiplicity. Set verbose to True to see what rules have been used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><p>mean | first</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-query">
+<span class="sig-name descname"><span class="pre">--query</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;query&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-query" title="Permalink to this definition">#</a></dt>
+<dd><p>Filter results based on query. The filter is specified as a pandas query. Note that you must enclose the query in quotes! Refer to the column names without the units.  For example <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100'</span></code>. You can combine queries with <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> etc. e.g. <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100</span> <span class="pre">and</span> <span class="pre">MS_shielding</span> <span class="pre">&lt;</span> <span class="pre">180'</span></code>. Defaults to no filter.</p>
+</dd></dl>
+
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-p">
 <span id="cmdoption-soprano-plotnmr-plot_type"></span><span id="cmdoption-soprano-plotnmr-plot-type"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--plot_type</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;plot_type&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-p" title="Permalink to this definition">#</a></dt>
@@ -1139,27 +1241,20 @@ present in the file for all the atoms.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-fx">
-<span id="cmdoption-soprano-plotnmr-flipx"></span><span class="sig-name descname"><span class="pre">-fx</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--flipx</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-fx" title="Permalink to this definition">#</a></dt>
-<dd><p>Flip x axis</p>
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-rcut">
+<span class="sig-name descname"><span class="pre">--rcut</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rcut&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-rcut" title="Permalink to this definition">#</a></dt>
+<dd><p>Cutoff distance for plotting. Defaults to 10 Angstrom.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-fy">
-<span id="cmdoption-soprano-plotnmr-flipy"></span><span class="sig-name descname"><span class="pre">-fy</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--flipy</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-fy" title="Permalink to this definition">#</a></dt>
-<dd><p>Flip y axis</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-xlabel">
-<span class="sig-name descname"><span class="pre">--xlabel</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;xlabel&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-xlabel" title="Permalink to this definition">#</a></dt>
-<dd><p>Custom X-axis label</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-ylabel">
-<span class="sig-name descname"><span class="pre">--ylabel</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ylabel&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-ylabel" title="Permalink to this definition">#</a></dt>
-<dd><p>Custom Y-axis label.</p>
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-yaxis-order">
+<span class="sig-name descname"><span class="pre">--yaxis-order</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;yaxis_order&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-yaxis-order" title="Permalink to this definition">#</a></dt>
+<dd><p>Single (1Q) or double (2Q) quantum order for the y-axis. Defaults to 1Q.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><p>1Q | 2Q</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="std option">
@@ -1182,21 +1277,44 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-ms">
-<span id="cmdoption-soprano-plotnmr-markersize"></span><span class="sig-name descname"><span class="pre">-ms</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--markersize</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;markersize&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-ms" title="Permalink to this definition">#</a></dt>
-<dd><p>Marker size. Default is 200.</p>
+<span id="cmdoption-soprano-plotnmr-max-marker-size"></span><span class="sig-name descname"><span class="pre">-ms</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--max-marker-size</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_marker_size&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-ms" title="Permalink to this definition">#</a></dt>
+<dd><p>Maximum marker size. Default is 200.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-scale-marker-by">
+<span class="sig-name descname"><span class="pre">--scale-marker-by</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;scale_marker_by&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-scale-marker-by" title="Permalink to this definition">#</a></dt>
+<dd><p>Scale marker size by chosen property. <code class="docutils literal notranslate"><span class="pre">fixed</span></code> means that all the markers will have the same size. <code class="docutils literal notranslate"><span class="pre">distance</span></code> means that the marker size will be proportional to the distance between the sites. <code class="docutils literal notranslate"><span class="pre">inversedistance</span></code> means that the marker size will be proportional to the inverse of the distance between the sites. <code class="docutils literal notranslate"><span class="pre">dipolar</span></code> means that the marker size will be proportional to the dipolar coupling between the sites. Default is <code class="docutils literal notranslate"><span class="pre">fixed</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><p>fixed | distance | inversedistance | dipolar</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-legend">
+<span id="cmdoption-soprano-plotnmr-no-legend"></span><span class="sig-name descname"><span class="pre">--legend</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-legend</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-legend" title="Permalink to this definition">#</a></dt>
+<dd><p>Show marker legend? Default is True.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-o">
-<span id="cmdoption-soprano-plotnmr-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;plot_file&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-o" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;plot_filename&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-o" title="Permalink to this definition">#</a></dt>
 <dd><p>Name of the plot file. If not specified, the plot will be displayed in a window. The file extension determines the plot type (svg or pdf recommended).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-shift">
+<span id="cmdoption-soprano-plotnmr-shielding"></span><span class="sig-name descname"><span class="pre">--shift</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--shielding</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-shift" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot shielding or shift. Defaults to shielding.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-arg-CSV_FILE">
-<span id="cmdoption-soprano-plotnmr-arg-csv-file"></span><span class="sig-name descname"><span class="pre">CSV_FILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-arg-CSV_FILE" title="Permalink to this definition">#</a></dt>
-<dd><p>Required argument</p>
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-arg-FILES">
+<span id="cmdoption-soprano-plotnmr-arg-files"></span><span class="sig-name descname"><span class="pre">FILES</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-arg-FILES" title="Permalink to this definition">#</a></dt>
+<dd><p>Optional argument(s)</p>
 </dd></dl>
 
 </section>

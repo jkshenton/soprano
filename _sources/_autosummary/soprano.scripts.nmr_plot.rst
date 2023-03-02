@@ -1,4 +1,4 @@
-soprano.scripts.nmr\_plot
+﻿soprano.scripts.nmr\_plot
 =========================
 
 .. automodule:: soprano.scripts.nmr_plot
@@ -9,15 +9,15 @@ soprano.scripts.nmr\_plot
 
    
    
-   .. rubric:: Functions
+   
+
+   
+   
+   .. rubric:: Classes
 
    .. autosummary::
    
-      plot_2D_nmr
-   
-   
-
-   
+      Plot2D
    
    
 

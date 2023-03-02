@@ -673,6 +673,11 @@ title="Print to PDF"
    NMR data extraction
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d-nmr-plots">
+   2D NMR plots
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -695,6 +700,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#nmr-data-extraction">
    NMR data extraction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d-nmr-plots">
+   2D NMR plots
   </a>
  </li>
 </ul>
@@ -751,6 +761,31 @@ title="Print to PDF"
 </li>
 <li><p>If you want to get only the unique sites in the structure, use the reduce option:</p>
 <p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">nmr</span> <span class="pre">seedname.magres</span> <span class="pre">-r</span></code></p>
+</li>
+</ul>
+</section>
+<section id="d-nmr-plots">
+<h2>2D NMR plots<a class="headerlink" href="#d-nmr-plots" title="Permalink to this headline">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">plotnmr</span></code> subcommand can be used to generate 2D NMR plots from a Magres file. Most of the options are the same as for the <code class="docutils literal notranslate"><span class="pre">nmr</span></code> subcommand in terms of filtering sites, setting references, isotopes etc. You can see the full help by running <code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">plotnmr</span> <span class="pre">--help</span></code>.</p>
+<p>Here are some common examples:</p>
+<ul>
+<li><p>Plot proton-proton correlation spectrum:</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">plotnmr</span> <span class="pre">seedname.magres</span> <span class="pre">-p</span> <span class="pre">2D</span> <span class="pre">-x</span> <span class="pre">H</span> <span class="pre">-y</span> <span class="pre">H</span></code></p>
+</li>
+<li><p>Plot C-H correlation spectrum with marker sizes proportional to the dipolar coupling strength:</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">plotnmr</span> <span class="pre">seedname.magres</span> <span class="pre">-p</span> <span class="pre">2D</span> <span class="pre">-x</span> <span class="pre">C</span> <span class="pre">-y</span> <span class="pre">H</span> <span class="pre">--scale-marker-by</span> <span class="pre">dipolar</span></code></p>
+</li>
+<li><p>Plot the H-H double quantum correlation spectrum:</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">plotnmr</span> <span class="pre">seedname.magres</span> <span class="pre">-p</span> <span class="pre">2D</span> <span class="pre">-x</span> <span class="pre">H</span> <span class="pre">-y</span> <span class="pre">H</span> <span class="pre">--yaxis-order</span> <span class="pre">2Q</span></code></p>
+</li>
+<li><p>As previous, but averaging over dynamic CH3 and NH3 sites:</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">plotnmr</span> <span class="pre">seedname.magres</span> <span class="pre">-p</span> <span class="pre">2D</span> <span class="pre">-x</span> <span class="pre">H</span> <span class="pre">-y</span> <span class="pre">H</span> <span class="pre">--yaxis-order</span> <span class="pre">2Q</span> <span class="pre">-g</span> <span class="pre">CH3,NH3</span></code></p>
+</li>
+<li><p>Same as above but now also reduce the system to the inequivalent sites first (e.g. those with the same CIF label or a symmetrically equivalent position):</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">plotnmr</span> <span class="pre">seedname.magres</span> <span class="pre">-p</span> <span class="pre">2D</span> <span class="pre">-x</span> <span class="pre">H</span> <span class="pre">-y</span> <span class="pre">H</span> <span class="pre">--yaxis-order</span> <span class="pre">2Q</span> <span class="pre">-g</span> <span class="pre">CH3,NH3</span> <span class="pre">-r</span></code></p>
+</li>
+<li><p>Impose a distance cut-off (in Å) between pairs of sites:</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">plotnmr</span> <span class="pre">seedname.magres</span> <span class="pre">-p</span> <span class="pre">2D</span> <span class="pre">-x</span> <span class="pre">H</span> <span class="pre">-y</span> <span class="pre">H</span> <span class="pre">--yaxis-order</span> <span class="pre">2Q</span> <span class="pre">-g</span> <span class="pre">CH3,NH3</span> <span class="pre">-r</span> <span class="pre">--rcut</span> <span class="pre">3.5</span></code></p>
 </li>
 </ul>
 </section>

@@ -54,3 +54,34 @@ The `nmr` subcommand has a number of options to extract NMR data from a Magres f
 * If you want to get only the unique sites in the structure, use the reduce option:
 
     ```soprano nmr seedname.magres -r```
+
+
+## 2D NMR plots
+
+The `plotnmr` subcommand can be used to generate 2D NMR plots from a Magres file. Most of the options are the same as for the `nmr` subcommand in terms of filtering sites, setting references, isotopes etc. You can see the full help by running `soprano plotnmr --help`. 
+
+Here are some common examples:
+
+* Plot proton-proton correlation spectrum:
+
+    ```soprano plotnmr seedname.magres -p 2D -x H -y H```
+
+* Plot C-H correlation spectrum with marker sizes proportional to the dipolar coupling strength:
+
+    ```soprano plotnmr seedname.magres -p 2D -x C -y H --scale-marker-by dipolar```
+
+* Plot the H-H double quantum correlation spectrum:
+
+    ```soprano plotnmr seedname.magres -p 2D -x H -y H --yaxis-order 2Q```
+
+* As previous, but averaging over dynamic CH3 and NH3 sites:
+
+    ```soprano plotnmr seedname.magres -p 2D -x H -y H --yaxis-order 2Q -g CH3,NH3```
+
+* Same as above but now also reduce the system to the inequivalent sites first (e.g. those with the same CIF label or a symmetrically equivalent position):
+
+    ```soprano plotnmr seedname.magres -p 2D -x H -y H --yaxis-order 2Q -g CH3,NH3 -r```
+
+* Impose a distance cut-off (in Å) between pairs of sites:
+
+    ```soprano plotnmr seedname.magres -p 2D -x H -y H --yaxis-order 2Q -g CH3,NH3 -r --rcut 3.5```

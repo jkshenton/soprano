@@ -1,4 +1,4 @@
-soprano.utils
+﻿soprano.utils
 =============
 
 .. automodule:: soprano.utils
@@ -32,6 +32,11 @@ soprano.utils
       is_string
       list_distance
       max_distance_in_cell
+      merge_concatenate
+      merge_first
+      merge_mean
+      merge_sites
+      merge_sum
       minimum_periodic
       minimum_supcell
       periodic_bridson
