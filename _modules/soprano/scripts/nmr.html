@@ -684,6 +684,7 @@ title="Open an issue"
 <span class="n">logging</span><span class="o">.</span><span class="n">captureWarnings</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;cli&#39;</span><span class="p">)</span>
 <span class="n">click_log</span><span class="o">.</span><span class="n">basic_config</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+
 <span class="n">HEADER</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
 <span class="s1">##########################################</span>
 <span class="s1">#  Extracting NMR info from magres file  #</span>
@@ -697,6 +698,7 @@ title="Open an issue"
 <span class="nd">@click_log</span><span class="o">.</span><span class="n">simple_verbosity_option</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
 
 
+
 <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
 <span class="c1"># one of more files</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;files&#39;</span><span class="p">,</span>
@@ -708,7 +710,7 @@ title="Open an issue"
 
 <span class="k">def</span> <span class="nf">nmr</span><span class="p">(</span>
         <span class="n">files</span><span class="p">,</span>
-        <span class="n">selection</span><span class="p">,</span>
+        <span class="n">subset</span><span class="p">,</span>
         <span class="n">output</span><span class="p">,</span>
         <span class="n">output_format</span><span class="p">,</span>
         <span class="n">merge</span><span class="p">,</span>
@@ -728,7 +730,7 @@ title="Open an issue"
         <span class="n">exclude</span><span class="p">,</span>
         <span class="n">query</span><span class="p">,</span>
         <span class="n">view</span><span class="p">,</span>
-        <span class="n">quiet</span><span class="p">):</span>
+        <span class="n">verbosity</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract and analyse NMR data from magres file(s).</span>
 <span class="sd">    </span>
@@ -741,18 +743,19 @@ title="Open an issue"
 <span class="sd">    </span>
 <span class="sd">    See the below arguments for how to extract specific information.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">quiet</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">verbosity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
-        <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">verbosity</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
-    <span class="n">dfs</span><span class="p">,</span> <span class="n">images</span> <span class="o">=</span> <span class="n">nmr_extract</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">merge</span><span class="p">,</span> <span class="n">isotopes</span><span class="p">,</span> <span class="n">references</span><span class="p">,</span> <span class="n">gradients</span><span class="p">,</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">average_group</span><span class="p">,</span> <span class="n">combine_rule</span><span class="p">,</span> <span class="n">symprec</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">euler_convention</span><span class="p">,</span> <span class="n">sortby</span><span class="p">,</span> <span class="n">sort_order</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+    <span class="n">dfs</span><span class="p">,</span> <span class="n">images</span> <span class="o">=</span> <span class="n">nmr_extract</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">merge</span><span class="p">,</span> <span class="n">isotopes</span><span class="p">,</span> <span class="n">references</span><span class="p">,</span> <span class="n">gradients</span><span class="p">,</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">average_group</span><span class="p">,</span> <span class="n">combine_rule</span><span class="p">,</span> <span class="n">symprec</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">euler_convention</span><span class="p">,</span> <span class="n">sortby</span><span class="p">,</span> <span class="n">sort_order</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
     
     <span class="c1"># write to file(s)</span>
-    <span class="n">print_results</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">output_format</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+    <span class="n">print_results</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">output_format</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">verbosity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 
-<div class="viewcode-block" id="nmr_extract"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.nmr_extract">[docs]</a><span class="k">def</span> <span class="nf">nmr_extract</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">merge</span><span class="p">,</span> <span class="n">isotopes</span><span class="p">,</span> <span class="n">references</span><span class="p">,</span> <span class="n">gradients</span><span class="p">,</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">average_group</span><span class="p">,</span> <span class="n">combine_rule</span><span class="p">,</span> <span class="n">symprec</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">euler_convention</span><span class="p">,</span> <span class="n">sortby</span><span class="p">,</span> <span class="n">sort_order</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+<div class="viewcode-block" id="nmr_extract"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.nmr_extract">[docs]</a><span class="k">def</span> <span class="nf">nmr_extract</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">merge</span><span class="p">,</span> <span class="n">isotopes</span><span class="p">,</span> <span class="n">references</span><span class="p">,</span> <span class="n">gradients</span><span class="p">,</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">average_group</span><span class="p">,</span> <span class="n">combine_rule</span><span class="p">,</span> <span class="n">symprec</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">euler_convention</span><span class="p">,</span> <span class="n">sortby</span><span class="p">,</span> <span class="n">sort_order</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    </span>
 <span class="sd">    Returns:</span>
@@ -816,6 +819,18 @@ title="Open an issue"
             <span class="n">unique_sites</span><span class="p">,</span> <span class="n">unique_site_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    This leaves </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_sites</span><span class="p">)</span><span class="si">}</span><span class="s1"> unique sites&#39;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    The unique site labels are: </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">unique_site_idx</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># check to make sure that all sites with the same tag have the same MSIsotropy</span>
+            <span class="c1"># if not, throw a warning, suggest to turn on debug logging and --no-reduce flag</span>
+            <span class="c1"># and then continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">check_equivalent_sites_ms</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">tags</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;    Some sites with the same symmetry tag/CIF label have different MS isotropy values.&#39;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;    You can turn off symmetry reduction with the --no-reduce flag.&#39;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;    You can also turn on debug logging with the -vv flag.&#39;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;    If you find that the (symmetry) reduction algorithm is working incorrectly,&#39;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;    please report this to the developers.&#39;</span><span class="p">)</span>
+                
+
                 
 
         <span class="k">if</span> <span class="n">average_group</span><span class="p">:</span>
@@ -828,10 +843,11 @@ title="Open an issue"
         <span class="n">atoms</span><span class="o">.</span><span class="n">set_tags</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
         
         <span class="c1"># select subset of atoms based on selection string</span>
-        <span class="k">if</span> <span class="n">selection</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Selecting atoms based on selection string: </span><span class="si">{</span><span class="n">selection</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">sel_selectionstring</span> <span class="o">=</span> <span class="n">AtomSelection</span><span class="o">.</span><span class="n">from_selection_string</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">subset</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Selecting atoms based on selection subset string: </span><span class="si">{</span><span class="n">subset</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">sel_selectionstring</span> <span class="o">=</span> <span class="n">AtomSelection</span><span class="o">.</span><span class="n">from_selection_string</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">subset</span><span class="p">)</span>
             <span class="n">all_selections</span> <span class="o">*=</span> <span class="n">sel_selectionstring</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    Selected atoms: </span><span class="si">{</span><span class="n">all_selections</span><span class="o">.</span><span class="n">indices</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         
         <span class="k">if</span> <span class="n">isotopes</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Custom isotopes for: </span><span class="si">{</span><span class="n">isotopes</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -866,6 +882,9 @@ title="Open an issue"
         
         <span class="c1"># sort by tag</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_tags</span><span class="p">())]</span>
+
+        <span class="c1"># only keep the atoms that are in the dataframe (based on tag)</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_tags</span><span class="p">(),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)]</span>
 
         <span class="c1"># if the df is not empty, append it to the list</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -916,7 +935,7 @@ title="Open an issue"
             <span class="c1"># connectivity:</span>
             <span class="n">mols</span> <span class="o">=</span> <span class="n">Molecules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Found </span><span class="si">{}</span><span class="s1"> molecules&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mols</span><span class="p">)))</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Found </span><span class="si">{}</span><span class="s1"> molecules&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mols</span><span class="p">)))</span>
                 <span class="n">temp</span> <span class="o">=</span> <span class="n">mols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">use_cell_indices</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">mol</span> <span class="ow">in</span> <span class="n">mols</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
                     <span class="n">temp</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">use_cell_indices</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
@@ -1276,6 +1295,32 @@ title="Open an issue"
 
 
     <span class="k">return</span> <span class="n">efg_summary</span></div>
+
+
+
+<div class="viewcode-block" id="check_equivalent_sites_ms"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.check_equivalent_sites_ms">[docs]</a><span class="k">def</span> <span class="nf">check_equivalent_sites_ms</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if the sites with the same tags have the same MS isotropy to within a tolerance.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        atoms (Atoms): the Atoms object</span>
+<span class="sd">        tags (list): the tags to check</span>
+<span class="sd">        tolerance (float, optional): the tolerance. Defaults to 1e-3.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if the sites are equivalent, False otherwise</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">unique_sites</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ms</span> <span class="o">=</span> <span class="n">MSIsotropy</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="c1"># loop over unique sites that have more than equivalent site</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">unique_sites</span><span class="p">[</span><span class="n">counts</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]:</span>
+        <span class="c1"># get the indices of the equivalent sites</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tags</span> <span class="o">==</span> <span class="n">i</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># check if the ms isotropy is the same to within the tolerance</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">ms</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">ms</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">atol</span><span class="o">=</span><span class="n">tolerance</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
 
 
 

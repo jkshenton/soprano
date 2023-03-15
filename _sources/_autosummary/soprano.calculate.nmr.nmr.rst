@@ -1,4 +1,4 @@
-soprano.calculate.nmr.nmr
+﻿soprano.calculate.nmr.nmr
 =========================
 
 .. automodule:: soprano.calculate.nmr.nmr
@@ -18,6 +18,7 @@ soprano.calculate.nmr.nmr
    .. autosummary::
    
       NMRCalculator
+      Plot2D
    
    
 

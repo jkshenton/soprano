@@ -693,47 +693,6 @@ TODO: get plotting working with ./nmr.py. i.e. use that to extract the data and 
 </ul>
 </div></blockquote>
 <p>TODO: [x] when query is used, the indexing fails – fixed</p>
-<p class="rubric">Classes</p>
-<table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.nmr_plot.Plot2D" title="soprano.scripts.nmr_plot.Plot2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Plot2D</span></code></a>(df, atoms, xelement, yelement[, ...])</p></td>
-<td><p>Class to handle the 2D plotting of NMR data.</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py class">
-<dt class="sig sig-object py" id="soprano.scripts.nmr_plot.Plot2D">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">soprano.scripts.nmr_plot.</span></span><span class="sig-name descname"><span class="pre">Plot2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ase.atoms.Atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xelement</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yelement</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotopes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_shifts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_quadrupolar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaxis_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1Q'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_marker_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fixed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_marker_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_lines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'C1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_marker_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/nmr_plot.html#Plot2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.nmr_plot.Plot2D" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Class to handle the 2D plotting of NMR data.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="soprano.scripts.nmr_plot.Plot2D.get_2D_plot_data">
-<span class="sig-name descname"><span class="pre">get_2D_plot_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/nmr_plot.html#Plot2D.get_2D_plot_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.nmr_plot.Plot2D.get_2D_plot_data" title="Permalink to this definition">#</a></dt>
-<dd><p>Get the data for a 2D NMR plot from
-a dataframe with columns:
-‘MS_shift/ppm’ or ‘MS_shielding/ppm’</p>
-<p>If include_quadrupolar is True, then the quadrupolar
-couplings should also be included in the df.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="soprano.scripts.nmr_plot.Plot2D.get_ticks">
-<span class="sig-name descname"><span class="pre">get_ticks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/nmr_plot.html#Plot2D.get_ticks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.nmr_plot.Plot2D.get_ticks" title="Permalink to this definition">#</a></dt>
-<dd><p>Get the tick labels and ticks for the plot</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="soprano.scripts.nmr_plot.Plot2D.plot">
-<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/nmr_plot.html#Plot2D.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.nmr_plot.Plot2D.plot" title="Permalink to this definition">#</a></dt>
-<dd><p>Plot a 2D NMR spectrum from a dataframe with columns ‘MS_shift/ppm’ or ‘MS_shielding/ppm’</p>
-</dd></dl>
-
-</dd></dl>
-
 </section>
 
     <script type="text/x-thebe-config">

@@ -693,16 +693,19 @@ TODO: document config file setup</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.nmr.build_nmr_df" title="soprano.scripts.nmr.build_nmr_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_nmr_df</span></code></a>(isotopes, references, ...)</p></td>
 <td><p>Build the dataframe containing the NMR properties.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.nmr.get_aggrules" title="soprano.scripts.nmr.get_aggrules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_aggrules</span></code></a>(df, combine_rule)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.nmr.check_equivalent_sites_ms" title="soprano.scripts.nmr.check_equivalent_sites_ms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_equivalent_sites_ms</span></code></a>(atoms, tags[, ...])</p></td>
+<td><p>Check if the sites with the same tags have the same MS isotropy to within a tolerance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.nmr.get_aggrules" title="soprano.scripts.nmr.get_aggrules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_aggrules</span></code></a>(df, combine_rule)</p></td>
 <td><p>Returns a dictionary of aggregation rules for the dataframe</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.nmr.get_efg_summary" title="soprano.scripts.nmr.get_efg_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_efg_summary</span></code></a>(atoms, isotopes, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.nmr.get_efg_summary" title="soprano.scripts.nmr.get_efg_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_efg_summary</span></code></a>(atoms, isotopes, ...)</p></td>
 <td><p>For an Atoms object with EFG tensor arrays, return a summary of the tensors.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.nmr.get_ms_summary" title="soprano.scripts.nmr.get_ms_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ms_summary</span></code></a>(atoms, euler_convention[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.nmr.get_ms_summary" title="soprano.scripts.nmr.get_ms_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ms_summary</span></code></a>(atoms, euler_convention[, ...])</p></td>
 <td><p>For an Atoms object with ms tensor arrays, return a summary of the tensors.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.nmr.nmr_extract" title="soprano.scripts.nmr.nmr_extract"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nmr_extract</span></code></a>(files, selection, merge, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.nmr.nmr_extract" title="soprano.scripts.nmr.nmr_extract"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nmr_extract</span></code></a>(files, subset, merge, isotopes, ...)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">returns</dt>
 <dd class="field-odd"><p>list of pandas DataFrames containing the extracted data.</p>
@@ -710,7 +713,7 @@ TODO: document config file setup</p>
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.nmr.reload_as_molecular_crystal" title="soprano.scripts.nmr.reload_as_molecular_crystal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reload_as_molecular_crystal</span></code></a>(atoms)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.nmr.reload_as_molecular_crystal" title="soprano.scripts.nmr.reload_as_molecular_crystal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reload_as_molecular_crystal</span></code></a>(atoms)</p></td>
 <td><p>If the atoms object is a molecular crystal, reload it with the correct connectivity.</p></td>
 </tr>
 </tbody>
@@ -768,6 +771,27 @@ tags (np.array): updated tags array</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="soprano.scripts.nmr.check_equivalent_sites_ms">
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.nmr.</span></span><span class="sig-name descname"><span class="pre">check_equivalent_sites_ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/nmr.html#check_equivalent_sites_ms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.nmr.check_equivalent_sites_ms" title="Permalink to this definition">#</a></dt>
+<dd><p>Check if the sites with the same tags have the same MS isotropy to within a tolerance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>atoms</strong> (<em>Atoms</em>) – the Atoms object</p></li>
+<li><p><strong>tags</strong> (<em>list</em>) – the tags to check</p></li>
+<li><p><strong>tolerance</strong> (<em>float</em><em>, </em><em>optional</em>) – the tolerance. Defaults to 1e-3.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the sites are equivalent, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.nmr.get_aggrules">
 <span class="sig-prename descclassname"><span class="pre">soprano.scripts.nmr.</span></span><span class="sig-name descname"><span class="pre">get_aggrules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combine_rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/soprano/scripts/nmr.html#get_aggrules"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.nmr.get_aggrules" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a dictionary of aggregation rules for the dataframe</p>
@@ -818,7 +842,7 @@ tags (np.array): updated tags array</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.nmr.nmr_extract">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.nmr.</span></span><span class="sig-name descname"><span class="pre">nmr_extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotopes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average_group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combine_rule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symprec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">euler_convention</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sortby</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/nmr.html#nmr_extract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.nmr.nmr_extract" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.nmr.</span></span><span class="sig-name descname"><span class="pre">nmr_extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotopes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average_group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combine_rule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symprec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">euler_convention</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sortby</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/nmr.html#nmr_extract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.nmr.nmr_extract" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>list of pandas DataFrames containing the extracted data.

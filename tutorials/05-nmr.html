@@ -871,6 +871,12 @@ title="Print to PDF"
 
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.pyplot._IonContext at 0x7f56d8d12be0&gt;
 </pre></div>
 </div>
 </div>
@@ -1243,7 +1249,7 @@ Powder orientations: 545
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f6598353d90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f56c40d2e80&gt;
 </pre></div>
 </div>
 <img alt="../_images/05-nmr_21_1.png" src="../_images/05-nmr_21_1.png" />
@@ -1272,7 +1278,7 @@ Powder orientations: 545
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f6560999640&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f56c40be5e0&gt;
 </pre></div>
 </div>
 <img alt="../_images/05-nmr_23_1.png" src="../_images/05-nmr_23_1.png" />
@@ -1306,128 +1312,173 @@ MAS
 </div>
 <section id="d-spectra">
 <h2>7.1 - 2D spectra<a class="headerlink" href="#d-spectra" title="Permalink to this headline">#</a></h2>
-<p>[Coming soon]</p>
+<p>We can get a minimal 2D NMR plot simply by running:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">soprano.calculate.nmr</span> <span class="kn">import</span> <span class="n">Plot2D</span>
+<span class="n">atoms</span> <span class="o">=</span> <span class="n">ase_io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;./tutorial_data/ethanol.magres&#39;</span><span class="p">)</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">Plot2D</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">xelement</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">yelement</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x440 with 1 Axes&gt;,
+ &lt;AxesSubplot:xlabel=&#39;$\\mathrm{^{1}{H}}$ $\\sigma$ /ppm&#39;, ylabel=&#39;$\\mathrm{^{1}{H}}$ $\\sigma$ /ppm&#39;&gt;)
+</pre></div>
+</div>
+<img alt="../_images/05-nmr_27_1.png" src="../_images/05-nmr_27_1.png" />
+</div>
+</div>
+<p>For a more complete example, let’s set a few more options. Below we plot an proton-proton double-quantum–single-quantum plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xelement</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
+<span class="n">yelement</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
+<span class="n">rcut</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">isotopes</span>   <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">references</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+<span class="n">gradients</span>  <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.95</span><span class="p">}</span>
+<span class="n">yaxis_order</span> <span class="o">=</span> <span class="s1">&#39;2Q&#39;</span>
+<span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;+&#39;</span>
+<span class="n">marker_color</span> <span class="o">=</span> <span class="s1">&#39;C0&#39;</span>
+<span class="n">show_marker_legend</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">scale_marker_by</span> <span class="o">=</span> <span class="s1">&#39;fixed&#39;</span>
+
+<span class="n">plot</span> <span class="o">=</span> <span class="n">Plot2D</span><span class="p">(</span>
+            <span class="n">atoms</span><span class="p">,</span>
+            <span class="n">xelement</span> <span class="o">=</span> <span class="n">xelement</span><span class="p">,</span>
+            <span class="n">yelement</span> <span class="o">=</span> <span class="n">yelement</span><span class="p">,</span>
+            <span class="n">references</span> <span class="o">=</span> <span class="n">references</span><span class="p">,</span>
+            <span class="n">gradients</span> <span class="o">=</span> <span class="n">gradients</span><span class="p">,</span>
+            <span class="n">rcut</span> <span class="o">=</span> <span class="n">rcut</span><span class="p">,</span>
+            <span class="n">isotopes</span><span class="o">=</span><span class="n">isotopes</span><span class="p">,</span>
+            <span class="n">yaxis_order</span><span class="o">=</span><span class="n">yaxis_order</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+            <span class="n">scale_marker_by</span><span class="o">=</span><span class="n">scale_marker_by</span><span class="p">,</span>
+            <span class="n">marker_color</span> <span class="o">=</span> <span class="n">marker_color</span><span class="p">,</span>
+            <span class="n">show_marker_legend</span><span class="o">=</span><span class="n">show_marker_legend</span>
+            <span class="p">)</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> <span class=" -Color -Color-Bold"> WARNING: </span> Elements {&#39;C&#39;, &#39;O&#39;} are not in the references dictionary and their reference will be set to zero. (/home/jks/coding/jks_soprano/soprano/properties/nmr/ms.py, line: 188)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x440 with 1 Axes&gt;,
+ &lt;AxesSubplot:xlabel=&#39;$\\mathrm{^{1}{H}}$ $\\delta$ /ppm&#39;, ylabel=&#39;$\\mathrm{^{1}{H}}$ $\\delta$$_{\\mathrm{2Q}}$ /ppm&#39;&gt;)
+</pre></div>
+</div>
+<img alt="../_images/05-nmr_29_2.png" src="../_images/05-nmr_29_2.png" />
+</div>
+</div>
+<p>You might want to supply the pairs of sites together with a measure of their correlation strength. This can be done by supplying the <code class="docutils literal notranslate"><span class="pre">pairs</span></code> argument with a list of tuples of the form <code class="docutils literal notranslate"><span class="pre">(i,</span> <span class="pre">j)</span></code> and the <code class="docutils literal notranslate"><span class="pre">markersizes</span></code> argument. The <code class="docutils literal notranslate"><span class="pre">markersizes</span></code> argument should be a list of the same length as <code class="docutils literal notranslate"><span class="pre">pairs</span></code> and contain the size of the marker for each pair. The sizes are normalised to the maximum size in the list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here&#39;s an artificial example of how you might select custom pairs to plot</span>
+<span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">)]</span>
+<span class="c1"># and assign them different markersizes to indicate the relative correlation strength</span>
+<span class="c1"># (these are normalised internally such that the max absolute value is set to the max marker size)</span>
+<span class="n">markersizes</span><span class="o">=</span>  <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="n">xelement</span> <span class="o">=</span> <span class="s1">&#39;C&#39;</span>
+<span class="n">yelement</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
+<span class="n">yaxis_order</span> <span class="o">=</span> <span class="s1">&#39;2Q&#39;</span>
+<span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span>
+<span class="n">show_marker_legend</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">xlim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">155</span><span class="p">,</span> <span class="mi">158</span><span class="p">)</span>
+
+<span class="n">plot</span> <span class="o">=</span> <span class="n">Plot2D</span><span class="p">(</span>
+            <span class="n">atoms</span><span class="p">,</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="n">pairs</span><span class="p">,</span>
+            <span class="n">markersizes</span> <span class="o">=</span> <span class="n">markersizes</span><span class="p">,</span>
+            <span class="n">xelement</span> <span class="o">=</span> <span class="n">xelement</span><span class="p">,</span>
+            <span class="n">yelement</span> <span class="o">=</span> <span class="n">yelement</span><span class="p">,</span>
+            <span class="n">yaxis_order</span><span class="o">=</span><span class="n">yaxis_order</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+            <span class="n">show_marker_legend</span><span class="o">=</span><span class="n">show_marker_legend</span><span class="p">,</span>
+            <span class="n">xlim</span><span class="o">=</span><span class="n">xlim</span><span class="p">,</span>
+            <span class="p">)</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05-nmr_31_0.png" src="../_images/05-nmr_31_0.png" />
+</div>
+</div>
+<p>We can use matplotlib to create a customised plot in which we combine 2D and 1D spectra. For example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.gridspec</span> <span class="kn">import</span> <span class="n">GridSpec</span>
+<span class="kn">from</span> <span class="nn">soprano.calculate.nmr</span> <span class="kn">import</span> <span class="n">NMRCalculator</span><span class="p">,</span> <span class="n">NMRFlags</span>
+
+<span class="n">xlims</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">170</span><span class="p">)</span>
+<span class="n">ylims</span> <span class="o">=</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">35</span><span class="p">)</span>
+<span class="n">nbins</span> <span class="o">=</span> <span class="mi">501</span>
+
+<span class="c1"># Compute the spectrum for protons; from soprano.calculate.nmr.nmr import NMRCalculator, NMRFlags</span>
+
+<span class="n">nCalc</span> <span class="o">=</span> <span class="n">NMRCalculator</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="c1"># We create the calculator here</span>
+<span class="c1"># Set a powder averaging. Higher values of N mean finer average. Here we only care about the isotropic lines, so we can set N=1</span>
+<span class="n">nCalc</span><span class="o">.</span><span class="n">set_powder</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># proton spectrum</span>
+<span class="n">spec1H_iso</span><span class="p">,</span> <span class="n">freqs1H</span>   <span class="o">=</span> <span class="n">nCalc</span><span class="o">.</span><span class="n">spectrum_1d</span><span class="p">(</span><span class="s1">&#39;1H&#39;</span><span class="p">,</span> <span class="n">effects</span><span class="o">=</span><span class="n">NMRFlags</span><span class="o">.</span><span class="n">MAS</span><span class="p">,</span> <span class="n">max_freq</span><span class="o">=</span><span class="n">ylims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">min_freq</span><span class="o">=</span><span class="n">ylims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">nbins</span><span class="p">,</span> <span class="n">freq_broad</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="c1"># carbon spectrum</span>
+<span class="n">spec13C_iso</span><span class="p">,</span> <span class="n">freqs13C</span> <span class="o">=</span> <span class="n">nCalc</span><span class="o">.</span><span class="n">spectrum_1d</span><span class="p">(</span><span class="s1">&#39;13C&#39;</span><span class="p">,</span> <span class="n">effects</span><span class="o">=</span><span class="n">NMRFlags</span><span class="o">.</span><span class="n">MAS</span><span class="p">,</span> <span class="n">max_freq</span><span class="o">=</span><span class="n">xlims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">min_freq</span><span class="o">=</span><span class="n">xlims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">nbins</span><span class="p">,</span> <span class="n">freq_broad</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+
+<span class="c1"># Create a figure with the 2D plot and 2 1D plots above and to the right of the 2D plot</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">GridSpec</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="c1"># Create the 1D plots</span>
+<span class="n">ax1d_x</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">ax1d_x</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freqs13C</span><span class="p">,</span> <span class="n">spec13C_iso</span><span class="p">)</span>
+<span class="n">ax1d_x</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlims</span><span class="p">)</span>
+<span class="n">ax1d_x</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+<span class="n">ax1d_x</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+
+<span class="n">ax1d_y</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">ax1d_y</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec1H_iso</span><span class="p">,</span> <span class="n">freqs1H</span><span class="p">)</span>
+<span class="n">ax1d_y</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylims</span><span class="p">)</span>
+<span class="n">ax1d_y</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+<span class="n">ax1d_y</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+
+<span class="c1"># Create the 2D plot</span>
+<span class="n">ax2d</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">Plot2D</span><span class="p">(</span>
+    <span class="n">atoms</span><span class="p">,</span>
+    <span class="n">xelement</span> <span class="o">=</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span>
+    <span class="n">yelement</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax2d</span><span class="p">,</span>
+    <span class="n">ylim</span><span class="o">=</span><span class="n">ylims</span><span class="p">,</span>
+    <span class="n">xlim</span><span class="o">=</span><span class="n">xlims</span><span class="p">,</span>
+    <span class="n">marker_color</span><span class="o">=</span><span class="s1">&#39;C0&#39;</span><span class="p">,</span>
+    <span class="n">scale_marker_by</span><span class="o">=</span><span class="s1">&#39;dipolar&#39;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 600x600 with 3 Axes&gt;,
+ &lt;AxesSubplot:xlabel=&#39;$\\mathrm{^{13}{C}}$ $\\sigma$ /ppm&#39;, ylabel=&#39;$\\mathrm{^{1}{H}}$ $\\sigma$ /ppm&#39;&gt;)
+</pre></div>
+</div>
+<img alt="../_images/05-nmr_33_1.png" src="../_images/05-nmr_33_1.png" />
+</div>
+</div>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="euler-angles">
 <h1>6 - Euler angles<a class="headerlink" href="#euler-angles" title="Permalink to this headline">#</a></h1>
-<p>Let’s begin by looking at a made-up example in which we have manually rotated the MS and EFG tensors:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">soprano.properties.nmr</span> <span class="kn">import</span> <span class="n">MSQuaternion</span><span class="p">,</span> <span class="n">EFGQuaternion</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">atoms</span> <span class="o">=</span> <span class="n">ase_io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;/home/jks/coding/magresview-2/src/examples/test_euler2.magres&#39;</span><span class="p">)</span>
-<span class="n">msq</span> <span class="o">=</span> <span class="n">MSQuaternion</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-<span class="n">efgq</span> <span class="o">=</span> <span class="n">EFGQuaternion</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">msq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[((</span><span class="n">efgq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span> <span class="o">*</span> <span class="n">msq</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">euler_angles</span><span class="p">(</span><span class="s1">&#39;zyz&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="p">)</span> <span class="o">%</span><span class="k">180</span> for i in range(len(efgq))]
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([0., 0., 0.]),
- array([101.25,  90.  ,   0.  ]),
- array([112.5,  90. ,   0. ]),
- array([123.75,  90.  ,   0.  ]),
- array([135.,  90.,   0.])]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[((</span><span class="n">efgq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">msq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">())</span><span class="o">.</span><span class="n">euler_angles</span><span class="p">(</span><span class="s1">&#39;zyz&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="p">)</span> <span class="o">%</span><span class="k">180</span> for i in range(len(efgq))]
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([0., 0., 0.]),
- array([180.  ,  90.  ,  78.75]),
- array([ 0. , 90. , 67.5]),
- array([ 0.  , 90.  , 56.25]),
- array([ 0., 90., 45.])]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">atoms</span> <span class="o">=</span> <span class="n">ase_io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;/home/jks/coding/magresview-2/src/examples/ethanol.magres&#39;</span><span class="p">)</span>
-<span class="n">msq</span> <span class="o">=</span> <span class="n">MSQuaternion</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-<span class="n">efgq</span> <span class="o">=</span> <span class="n">EFGQuaternion</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[((</span><span class="n">efgq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span> <span class="o">*</span> <span class="n">msq</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">euler_angles</span><span class="p">(</span><span class="s1">&#39;zyz&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">efgq</span><span class="p">))]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([-201.57324699,   98.89763574,   16.65641797]),
- array([-77.25393893,  19.55650685,  83.6856752 ]),
- array([210.19081671,  96.49737969,  -8.8890634 ]),
- array([ 214.64275181,  142.42363691, -120.02895217]),
- array([224.08243233, 120.94047468, -88.12462746]),
- array([  19.03327896,   96.31583226, -223.5260747 ]),
- array([-177.94807412,   24.34837788,  172.36280866]),
- array([-117.08128106,    1.3933141 ,  120.66309429]),
- array([-237.04098377,  139.08076386,   60.75394885])]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[((</span><span class="n">efgq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">msq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">())</span><span class="o">.</span><span class="n">euler_angles</span><span class="p">(</span><span class="s1">&#39;zyz&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">efgq</span><span class="p">))]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([-269.09070876,   15.41154912,   85.86558009]),
- array([ 114.9757415 ,   20.40529815, -112.30723187]),
- array([ 39.52413282, 158.88094468, 224.85614856]),
- array([-131.64664346,  150.23156135,   68.11237121]),
- array([206.41737433,  21.49814811, -48.10160346]),
- array([ -75.2354901 ,  162.86450323, -248.29761846]),
- array([-89.10657406,  12.64754932,  67.53104507]),
- array([ 56.3603617 ,   3.71519185, -55.37661041]),
- array([250.98984149, 145.73687044, -75.39613871])]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">atoms</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Atoms(symbols=&#39;H6C2O&#39;, pbc=True, cell=[6.0, 6.0, 6.0], efg=..., efg_diagonal_evals=..., efg_diagonal_evals_hsort=..., efg_diagonal_evecs=..., indices=..., isc=..., isc_fc=..., isc_orbital_d=..., isc_orbital_p=..., isc_spin=..., labels=..., ms=..., ms_diagonal_evals=..., ms_diagonal_evals_hsort=..., ms_diagonal_evecs=...)
-</pre></div>
-</div>
-</div>
-</div>
+<p>[In progress]</p>
 </section>
 
     <script type="text/x-thebe-config">
