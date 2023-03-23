@@ -745,6 +745,13 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#d-spectra">
      7.1 - 2D spectra
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#customising-the-2d-nmr">
+       Customising the 2D NMR
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -818,6 +825,13 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#d-spectra">
      7.1 - 2D spectra
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#customising-the-2d-nmr">
+       Customising the 2D NMR
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -876,7 +890,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.pyplot._IonContext at 0x7f56d8d12be0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.pyplot._IonContext at 0x7f413024dd60&gt;
 </pre></div>
 </div>
 </div>
@@ -1249,7 +1263,7 @@ Powder orientations: 545
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f56c40d2e80&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f40faaaa5e0&gt;
 </pre></div>
 </div>
 <img alt="../_images/05-nmr_21_1.png" src="../_images/05-nmr_21_1.png" />
@@ -1278,7 +1292,7 @@ Powder orientations: 545
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f56c40be5e0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f40faa68460&gt;
 </pre></div>
 </div>
 <img alt="../_images/05-nmr_23_1.png" src="../_images/05-nmr_23_1.png" />
@@ -1315,19 +1329,15 @@ MAS
 <p>We can get a minimal 2D NMR plot simply by running:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">soprano.calculate.nmr</span> <span class="kn">import</span> <span class="n">Plot2D</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">soprano.calculate.nmr.nmr</span> <span class="kn">import</span> <span class="n">Plot2D</span>
 <span class="n">atoms</span> <span class="o">=</span> <span class="n">ase_io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;./tutorial_data/ethanol.magres&#39;</span><span class="p">)</span>
-<span class="n">plot</span> <span class="o">=</span> <span class="n">Plot2D</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">xelement</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">yelement</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span><span class="p">)</span>
-<span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">Plot2D</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">xelement</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span><span class="p">)</span> <span class="c1"># (yelement = xelement by default)</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x440 with 1 Axes&gt;,
- &lt;AxesSubplot:xlabel=&#39;$\\mathrm{^{1}{H}}$ $\\sigma$ /ppm&#39;, ylabel=&#39;$\\mathrm{^{1}{H}}$ $\\sigma$ /ppm&#39;&gt;)
-</pre></div>
-</div>
-<img alt="../_images/05-nmr_27_1.png" src="../_images/05-nmr_27_1.png" />
+<img alt="../_images/05-nmr_27_0.png" src="../_images/05-nmr_27_0.png" />
 </div>
 </div>
 <p>For a more complete example, let’s set a few more options. Below we plot an proton-proton double-quantum–single-quantum plot.</p>
@@ -1335,7 +1345,6 @@ MAS
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xelement</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
 <span class="n">yelement</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
-<span class="n">rcut</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">isotopes</span>   <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 <span class="n">references</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
 <span class="n">gradients</span>  <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.95</span><span class="p">}</span>
@@ -1345,36 +1354,35 @@ MAS
 <span class="n">show_marker_legend</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">scale_marker_by</span> <span class="o">=</span> <span class="s1">&#39;fixed&#39;</span>
 
+
 <span class="n">plot</span> <span class="o">=</span> <span class="n">Plot2D</span><span class="p">(</span>
             <span class="n">atoms</span><span class="p">,</span>
             <span class="n">xelement</span> <span class="o">=</span> <span class="n">xelement</span><span class="p">,</span>
             <span class="n">yelement</span> <span class="o">=</span> <span class="n">yelement</span><span class="p">,</span>
             <span class="n">references</span> <span class="o">=</span> <span class="n">references</span><span class="p">,</span>
             <span class="n">gradients</span> <span class="o">=</span> <span class="n">gradients</span><span class="p">,</span>
-            <span class="n">rcut</span> <span class="o">=</span> <span class="n">rcut</span><span class="p">,</span>
             <span class="n">isotopes</span><span class="o">=</span><span class="n">isotopes</span><span class="p">,</span>
             <span class="n">yaxis_order</span><span class="o">=</span><span class="n">yaxis_order</span><span class="p">,</span>
             <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
             <span class="n">scale_marker_by</span><span class="o">=</span><span class="n">scale_marker_by</span><span class="p">,</span>
             <span class="n">marker_color</span> <span class="o">=</span> <span class="n">marker_color</span><span class="p">,</span>
-            <span class="n">show_marker_legend</span><span class="o">=</span><span class="n">show_marker_legend</span>
+            <span class="n">show_marker_legend</span><span class="o">=</span><span class="n">show_marker_legend</span><span class="p">,</span>
             <span class="p">)</span>
-<span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> <span class=" -Color -Color-Bold"> WARNING: </span> Elements {&#39;C&#39;, &#39;O&#39;} are not in the references dictionary and their reference will be set to zero. (/home/jks/coding/jks_soprano/soprano/properties/nmr/ms.py, line: 188)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> <span class=" -Color -Color-Bold"> WARNING: </span> Elements {&#39;O&#39;, &#39;C&#39;} are not in the references dictionary and their reference will be set to zero. (/home/jks/coding/jks_soprano/soprano/properties/nmr/ms.py, line: 188)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x440 with 1 Axes&gt;,
- &lt;AxesSubplot:xlabel=&#39;$\\mathrm{^{1}{H}}$ $\\delta$ /ppm&#39;, ylabel=&#39;$\\mathrm{^{1}{H}}$ $\\delta$$_{\\mathrm{2Q}}$ /ppm&#39;&gt;)
-</pre></div>
-</div>
-<img alt="../_images/05-nmr_29_2.png" src="../_images/05-nmr_29_2.png" />
+<img alt="../_images/05-nmr_30_1.png" src="../_images/05-nmr_30_1.png" />
 </div>
 </div>
+<section id="customising-the-2d-nmr">
+<h3>Customising the 2D NMR<a class="headerlink" href="#customising-the-2d-nmr" title="Permalink to this headline">#</a></h3>
 <p>You might want to supply the pairs of sites together with a measure of their correlation strength. This can be done by supplying the <code class="docutils literal notranslate"><span class="pre">pairs</span></code> argument with a list of tuples of the form <code class="docutils literal notranslate"><span class="pre">(i,</span> <span class="pre">j)</span></code> and the <code class="docutils literal notranslate"><span class="pre">markersizes</span></code> argument. The <code class="docutils literal notranslate"><span class="pre">markersizes</span></code> argument should be a list of the same length as <code class="docutils literal notranslate"><span class="pre">pairs</span></code> and contain the size of the marker for each pair. The sizes are normalised to the maximum size in the list.</p>
+<p>The pair indices must correspond to those of the atoms in the <code class="docutils literal notranslate"><span class="pre">Atoms</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here&#39;s an artificial example of how you might select custom pairs to plot</span>
@@ -1401,20 +1409,93 @@ MAS
             <span class="n">show_marker_legend</span><span class="o">=</span><span class="n">show_marker_legend</span><span class="p">,</span>
             <span class="n">xlim</span><span class="o">=</span><span class="n">xlim</span><span class="p">,</span>
             <span class="p">)</span>
-<span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05-nmr_31_0.png" src="../_images/05-nmr_31_0.png" />
+<img alt="../_images/05-nmr_33_0.png" src="../_images/05-nmr_33_0.png" />
 </div>
 </div>
-<p>We can use matplotlib to create a customised plot in which we combine 2D and 1D spectra. For example:</p>
+<p>Alternatively, we can instead supply the peaks as a list of <code class="docutils literal notranslate"><span class="pre">Peak2D</span></code> objects. This allows us to set the peak location, strength etc. directly. The <code class="docutils literal notranslate"><span class="pre">pairs</span></code> and <code class="docutils literal notranslate"><span class="pre">markersizes</span></code> arguments are ignored in this case.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">soprano.calculate.nmr.utils</span> <span class="kn">import</span> <span class="n">Peak2D</span>
+
+<span class="n">xlabel</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$\mathrm{^</span><span class="si">{13}</span><span class="s2">C}$ $\sigma$ /ppm&quot;</span>
+<span class="n">ylabel</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$\mathrm{^</span><span class="si">{1}</span><span class="s2">H}$ $\sigma$ /ppm&quot;</span>
+<span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span>
+<span class="n">C_ms</span> <span class="o">=</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">130</span><span class="p">]</span>
+<span class="n">H_ms</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
+<span class="n">peaks</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">iC</span><span class="p">,</span> <span class="n">C</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">C_ms</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">iH</span><span class="p">,</span> <span class="n">H</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">H_ms</span><span class="p">):</span>
+        <span class="n">peaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Peak2D</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;C</span><span class="si">{</span><span class="n">iC</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;H</span><span class="si">{</span><span class="n">iH</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">correlation_strength</span><span class="o">=</span><span class="n">iC</span> <span class="o">+</span> <span class="n">iH</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># we can also get creative:</span>
+<span class="n">peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;C0&#39;</span>
+<span class="n">peaks</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;C1&#39;</span>
+<span class="n">peaks</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;C2&#39;</span>
+<span class="n">peaks</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;C3&#39;</span>
+
+<span class="n">plot</span> <span class="o">=</span> <span class="n">Plot2D</span><span class="p">(</span>
+            <span class="n">atoms</span><span class="p">,</span>
+            <span class="n">peaks</span> <span class="o">=</span> <span class="n">peaks</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+            <span class="n">x_axis_label</span><span class="o">=</span><span class="n">xlabel</span><span class="p">,</span>
+            <span class="n">y_axis_label</span><span class="o">=</span><span class="n">ylabel</span><span class="p">,</span>
+            <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">110</span><span class="p">,</span> <span class="mi">140</span><span class="p">),</span>
+            <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+            <span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05-nmr_35_0.png" src="../_images/05-nmr_35_0.png" />
+</div>
+</div>
+<p>If you don’t want to create the Peak2D objects completely from scratch, we can use the <code class="docutils literal notranslate"><span class="pre">get_peaks</span></code> to get the automatically generated peaks, edit them and then plot.</p>
+<p>For example, we can use Soprano to compute the J-coupling values for each peak and use that to determine the correlation strength:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">soprano.properties.nmr.isc</span> <span class="kn">import</span> <span class="n">JCIsotropy</span>
+<span class="n">isotopes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">Plot2D</span><span class="p">(</span>
+            <span class="n">atoms</span><span class="p">,</span>
+            <span class="n">xelement</span> <span class="o">=</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span>
+            <span class="n">yelement</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span>
+            <span class="n">isotopes</span> <span class="o">=</span> <span class="n">isotopes</span><span class="p">,</span>
+            <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
+            <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span>
+            <span class="p">)</span>
+<span class="c1"># get the peaks</span>
+<span class="n">peaks</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">get_peaks</span><span class="p">()</span>
+
+<span class="c1"># Set the J-coupling for each peak to be the correlation strength</span>
+<span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">peaks</span><span class="p">:</span>
+    <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">peak</span><span class="o">.</span><span class="n">idx_x</span><span class="p">,</span> <span class="n">peak</span><span class="o">.</span><span class="n">idx_y</span><span class="p">])</span>
+    <span class="n">jcoup</span> <span class="o">=</span> <span class="n">JCIsotropy</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">tag</span> <span class="o">=</span> <span class="s1">&#39;isc&#39;</span><span class="p">,</span> <span class="n">sel_i</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sel_j</span> <span class="o">=</span> <span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">isotopes</span> <span class="o">=</span> <span class="n">isotopes</span><span class="p">)</span>
+    <span class="n">peak</span><span class="o">.</span><span class="n">correlation_strength</span> <span class="o">=</span> <span class="n">jcoup</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]</span>
+
+<span class="c1"># update peaks</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">peaks</span> <span class="o">=</span> <span class="n">peaks</span>
+
+<span class="c1"># plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05-nmr_37_0.png" src="../_images/05-nmr_37_0.png" />
+</div>
+</div>
+<p>More complex plots are possible by first manually generating the matplotlib figure and axes and passing them to the Plot2D class. For example, we can create a customised plot in which we combine 2D and 1D spectra:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.gridspec</span> <span class="kn">import</span> <span class="n">GridSpec</span>
-<span class="kn">from</span> <span class="nn">soprano.calculate.nmr</span> <span class="kn">import</span> <span class="n">NMRCalculator</span><span class="p">,</span> <span class="n">NMRFlags</span>
+<span class="kn">from</span> <span class="nn">soprano.calculate.nmr.nmr</span> <span class="kn">import</span> <span class="n">NMRCalculator</span><span class="p">,</span> <span class="n">NMRFlags</span>
 
 <span class="n">xlims</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">170</span><span class="p">)</span>
 <span class="n">ylims</span> <span class="o">=</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">35</span><span class="p">)</span>
@@ -1432,18 +1513,18 @@ MAS
 
 
 <span class="c1"># Create a figure with the 2D plot and 2 1D plots above and to the right of the 2D plot</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 <span class="n">gs</span> <span class="o">=</span> <span class="n">GridSpec</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 
 <span class="c1"># Create the 1D plots</span>
 <span class="n">ax1d_x</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">ax1d_x</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freqs13C</span><span class="p">,</span> <span class="n">spec13C_iso</span><span class="p">)</span>
+<span class="n">ax1d_x</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freqs13C</span><span class="p">,</span> <span class="n">spec13C_iso</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">ax1d_x</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlims</span><span class="p">)</span>
 <span class="n">ax1d_x</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
 <span class="n">ax1d_x</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
 
 <span class="n">ax1d_y</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">ax1d_y</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec1H_iso</span><span class="p">,</span> <span class="n">freqs1H</span><span class="p">)</span>
+<span class="n">ax1d_y</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spec1H_iso</span><span class="p">,</span> <span class="n">freqs1H</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">ax1d_y</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylims</span><span class="p">)</span>
 <span class="n">ax1d_y</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
 <span class="n">ax1d_y</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
@@ -1463,17 +1544,16 @@ MAS
     <span class="p">)</span>
 
 <span class="n">plot</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="c1">#increase space between subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 600x600 with 3 Axes&gt;,
- &lt;AxesSubplot:xlabel=&#39;$\\mathrm{^{13}{C}}$ $\\sigma$ /ppm&#39;, ylabel=&#39;$\\mathrm{^{1}{H}}$ $\\sigma$ /ppm&#39;&gt;)
-</pre></div>
-</div>
-<img alt="../_images/05-nmr_33_1.png" src="../_images/05-nmr_33_1.png" />
+<img alt="../_images/05-nmr_39_0.png" src="../_images/05-nmr_39_0.png" />
 </div>
 </div>
+</section>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="euler-angles">

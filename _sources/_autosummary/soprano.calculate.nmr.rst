@@ -1,4 +1,4 @@
-soprano.calculate.nmr
+﻿soprano.calculate.nmr
 =====================
 
 .. automodule:: soprano.calculate.nmr
@@ -29,4 +29,5 @@ soprano.calculate.nmr
 
    soprano.calculate.nmr.nmr
    soprano.calculate.nmr.simpson
+   soprano.calculate.nmr.utils
 

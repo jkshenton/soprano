@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>soprano.calculate.nmr &#8212; Soprano</title>
+    <title>soprano.calculate.nmr.utils &#8212; Soprano</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -55,8 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="soprano.calculate.nmr.nmr" href="soprano.calculate.nmr.nmr.html" />
-    <link rel="prev" title="soprano.calculate.gulp.w99" href="soprano.calculate.gulp.w99.html" />
+    <link rel="next" title="soprano.calculate.powder" href="soprano.calculate.powder.html" />
+    <link rel="prev" title="soprano.calculate.nmr.simpson" href="soprano.calculate.nmr.simpson.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -239,7 +239,7 @@ const thebe_selector_output = ".output, .cell_output"
         </a>
        </li>
        <li class="toctree-l4 current active">
-        <a class="current reference internal" href="#">
+        <a class="reference internal" href="soprano.calculate.nmr.html">
          soprano.calculate.nmr
         </a>
        </li>
@@ -581,7 +581,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2F_autosummary/soprano.calculate.nmr.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2F_autosummary/soprano.calculate.nmr.utils.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -609,7 +609,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/_autosummary/soprano.calculate.nmr.rst"
+        <a href="../_sources/_autosummary/soprano.calculate.nmr.utils.rst"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -658,7 +658,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>soprano.calculate.nmr</h1>
+                <h1>soprano.calculate.nmr.utils</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -670,28 +670,174 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="module-soprano.calculate.nmr">
-<span id="soprano-calculate-nmr"></span><h1>soprano.calculate.nmr<a class="headerlink" href="#module-soprano.calculate.nmr" title="Permalink to this headline">#</a></h1>
-<p>Classes and functions for simulating NMR spectroscopic results from
-structures with simplified algorithms.</p>
-<p class="rubric">Modules</p>
+  <section id="module-soprano.calculate.nmr.utils">
+<span id="soprano-calculate-nmr-utils"></span><h1>soprano.calculate.nmr.utils<a class="headerlink" href="#module-soprano.calculate.nmr.utils" title="Permalink to this headline">#</a></h1>
+<p>Helper functions for NMR calculations and plotting</p>
+<p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="soprano.calculate.nmr.nmr.html#module-soprano.calculate.nmr.nmr" title="soprano.calculate.nmr.nmr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">soprano.calculate.nmr.nmr</span></code></a></p></td>
-<td><p>Classes and functions for simulating approximated NMR spectroscopic results from structures.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.calculate.nmr.utils.get_energy" title="soprano.calculate.nmr.utils.get_energy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_energy</span></code></a>(positions, positions_original, C, k)</p></td>
+<td><p>Compute the total energy of the system</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="soprano.calculate.nmr.simpson.html#module-soprano.calculate.nmr.simpson" title="soprano.calculate.nmr.simpson"><code class="xref py py-obj docutils literal notranslate"><span class="pre">soprano.calculate.nmr.simpson</span></code></a></p></td>
-<td><p>Classes and functions for interfacing with the SIMPSON spin dynamics software.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.calculate.nmr.utils.get_force_matrix" title="soprano.calculate.nmr.utils.get_force_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_force_matrix</span></code></a>(positions, positions_original)</p></td>
+<td><p>This is a vectorised version of the above function, which is much faster</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="soprano.calculate.nmr.utils.html#module-soprano.calculate.nmr.utils" title="soprano.calculate.nmr.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">soprano.calculate.nmr.utils</span></code></a></p></td>
-<td><p>Helper functions for NMR calculations and plotting</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.calculate.nmr.utils.get_total_forces" title="soprano.calculate.nmr.utils.get_total_forces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_total_forces</span></code></a>(positions, positions_original)</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">param positions</dt>
+<dd class="field-odd"><p>The y coordinates of the annotations</p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.calculate.nmr.utils.optimise_annotations" title="soprano.calculate.nmr.utils.optimise_annotations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimise_annotations</span></code></a>(positions[, max_iters, ...])</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">param positions</dt>
+<dd class="field-odd"><p>The x or y coordinates of the annotations to be optimised</p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.calculate.nmr.utils.styled_plot" title="soprano.calculate.nmr.utils.styled_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">styled_plot</span></code></a>(*style_sheets)</p></td>
+<td><p>Return a decorator that will apply matplotlib style sheets to a plot. <code class="docutils literal notranslate"><span class="pre">style_sheets</span></code> is a base set of styles, which will be ignored if <code class="docutils literal notranslate"><span class="pre">no_base_style</span></code> is set in the decorated function arguments. The style will further be overwritten by any styles in the <code class="docutils literal notranslate"><span class="pre">style</span></code> optional argument of the decorated function. :param style_sheets: Any matplotlib                      supported definition of a style sheet. Can be a list of style of                      style sheets. :type style_sheets: <code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, or <code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>.</p></td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.calculate.nmr.utils.Peak2D" title="soprano.calculate.nmr.utils.Peak2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Peak2D</span></code></a>(x, y, xlabel, ylabel[, ...])</p></td>
+<td><p>Class to hold peak data.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="soprano.calculate.nmr.utils.Peak2D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">soprano.calculate.nmr.utils.</span></span><span class="sig-name descname"><span class="pre">Peak2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correlation_strength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'C0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/calculate/nmr/utils.html#Peak2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.calculate.nmr.utils.Peak2D" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to hold peak data. This is used to store the peak data for a correlation peak in a 2D NMR spectrum.</p>
+<p>The data stored includes:
+- the peak position in x and y
+- the correlation strength
+- the x and y labels for the peak
+- the color of the peak</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>float</em>) – The x coordinate of the peak</p></li>
+<li><p><strong>y</strong> (<em>float</em>) – The y coordinate of the peak</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em>) – The x label for the peak</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em>) – The y label for the peak</p></li>
+<li><p><strong>correlation_strength</strong> (<em>float</em><em>, </em><em>optional</em>) – The correlation strength of the peak. Defaults to 1.</p></li>
+<li><p><strong>color</strong> (<em>str</em><em>, </em><em>optional</em>) – The color of the peak. Defaults to ‘C0’. Any valid matplotlib color is allowed.</p></li>
+<li><p><strong>idx_x</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the site in the original structure. Defaults to None.</p></li>
+<li><p><strong>idx_y</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the peak in the original structure. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="soprano.calculate.nmr.utils.Peak2D.equivalent_to">
+<span class="sig-name descname"><span class="pre">equivalent_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ytol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corr_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_correlation_strength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/calculate/nmr/utils.html#Peak2D.equivalent_to"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.calculate.nmr.utils.Peak2D.equivalent_to" title="Permalink to this definition">#</a></dt>
+<dd><p>Check if two peaks are equivalent. We compare the x and y coordinates and the correlation strength.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<em>Peak</em>) – The other peak to compare to</p></li>
+<li><p><strong>xtol</strong> (<em>float</em><em>, </em><em>optional</em>) – The tolerance for the x coordinate. Defaults to 0.005.</p></li>
+<li><p><strong>ytol</strong> (<em>float</em><em>, </em><em>optional</em>) – The tolerance for the y coordinate. Defaults to 0.005.</p></li>
+<li><p><strong>corr_tol</strong> (<em>float</em><em>, </em><em>optional</em>) – The tolerance for the correlation strength. Defaults to 0.1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the peaks are equivalent, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.calculate.nmr.utils.get_energy">
+<span class="sig-prename descclassname"><span class="pre">soprano.calculate.nmr.utils.</span></span><span class="sig-name descname"><span class="pre">get_energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions_original</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/calculate/nmr/utils.html#get_energy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.calculate.nmr.utils.get_energy" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the total energy of the system</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.calculate.nmr.utils.get_force_matrix">
+<span class="sig-prename descclassname"><span class="pre">soprano.calculate.nmr.utils.</span></span><span class="sig-name descname"><span class="pre">get_force_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions_original</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/calculate/nmr/utils.html#get_force_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.calculate.nmr.utils.get_force_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>This is a vectorised version of the above function, which is much faster</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>positions</strong> (<em>np.array</em>) – The y coordinates of the annotations</p></li>
+<li><p><strong>positions_original</strong> (<em>np.array</em>) – The original y coordinates of the annotations</p></li>
+<li><p><strong>C</strong> (<em>float</em><em>, </em><em>optional</em>) – The repulsive force constant between annotations, by default 0.01</p></li>
+<li><p><strong>k</strong> (<em>float</em><em>, </em><em>optional</em>) – The spring force constant for the spring holding the annotation to it’s original position, by default 0.00001</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.calculate.nmr.utils.get_total_forces">
+<span class="sig-prename descclassname"><span class="pre">soprano.calculate.nmr.utils.</span></span><span class="sig-name descname"><span class="pre">get_total_forces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions_original</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/calculate/nmr/utils.html#get_total_forces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.calculate.nmr.utils.get_total_forces" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>positions</strong> (<em>np.array</em>) – The y coordinates of the annotations</p></li>
+<li><p><strong>positions_original</strong> (<em>np.array</em>) – The original y coordinates of the annotations</p></li>
+<li><p><strong>C</strong> (<em>float</em><em>, </em><em>optional</em>) – The repulsive force constant between annotations, by default 0.01</p></li>
+<li><p><strong>k</strong> (<em>float</em><em>, </em><em>optional</em>) – The spring force constant for the spring holding the annotation to it’s original position, by default 0.00001</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.calculate.nmr.utils.optimise_annotations">
+<span class="sig-prename descclassname"><span class="pre">soprano.calculate.nmr.utils.</span></span><span class="sig-name descname"><span class="pre">optimise_annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ftol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/calculate/nmr/utils.html#optimise_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.calculate.nmr.utils.optimise_annotations" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>positions</strong> (<em>list</em><em> or </em><em>np.array</em>) – The x or y coordinates of the annotations to be optimised</p></li>
+<li><p><strong>max_iters</strong> (<em>int</em><em>, </em><em>optional</em>) – The maximum number of iterations to run for, by default 10000</p></li>
+<li><p><strong>C</strong> (<em>float</em><em>, </em><em>optional</em>) – The repulsive force constant between annotations, by default 0.01</p></li>
+<li><p><strong>k</strong> (<em>float</em><em>, </em><em>optional</em>) – The spring force constant for the spring holding the annotation to it’s original position, by default 0.00001</p></li>
+<li><p><strong>ftol</strong> (<em>float</em><em>, </em><em>optional</em>) – The tolerance for the forces, by default 1e-3. If all the net forces are below this value, the optimisation will stop
+even if the maximum number of iterations has not been reached.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.calculate.nmr.utils.styled_plot">
+<span class="sig-prename descclassname"><span class="pre">soprano.calculate.nmr.utils.</span></span><span class="sig-name descname"><span class="pre">styled_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">style_sheets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/calculate/nmr/utils.html#styled_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.calculate.nmr.utils.styled_plot" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a decorator that will apply matplotlib style sheets to a plot.
+<code class="docutils literal notranslate"><span class="pre">style_sheets</span></code> is a base set of styles, which will be ignored if
+<code class="docutils literal notranslate"><span class="pre">no_base_style</span></code> is set in the decorated function arguments.
+The style will further be overwritten by any styles in the <code class="docutils literal notranslate"><span class="pre">style</span></code>
+optional argument of the decorated function.
+:param style_sheets: Any matplotlib</p>
+<blockquote>
+<div><p>supported definition of a style sheet. Can be a list of style of
+style sheets.</p>
+</div></blockquote>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
 </section>
 
     <script type="text/x-thebe-config">
@@ -721,17 +867,17 @@ structures with simplified algorithms.</p>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="soprano.calculate.gulp.w99.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="soprano.calculate.nmr.simpson.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">soprano.calculate.gulp.w99</p>
+            <p class="prev-next-title">soprano.calculate.nmr.simpson</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="soprano.calculate.nmr.nmr.html" title="next page">
+    <a class='right-next' id="next-link" href="soprano.calculate.powder.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">soprano.calculate.nmr.nmr</p>
+        <p class="prev-next-title">soprano.calculate.powder</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

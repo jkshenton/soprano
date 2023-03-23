@@ -657,20 +657,24 @@ title="Open an issue"
 <span class="kn">from</span> <span class="nn">soprano.utils</span> <span class="kn">import</span> <span class="n">minimum_supcell</span><span class="p">,</span> <span class="n">supcell_gridgen</span>
 <span class="kn">from</span> <span class="nn">soprano.nmr.utils</span> <span class="kn">import</span> <span class="n">_dip_constant</span>
 <span class="kn">from</span> <span class="nn">soprano.data.nmr</span> <span class="kn">import</span> <span class="n">_get_isotope_data</span><span class="p">,</span> <span class="n">_get_nmr_data</span><span class="p">,</span> <span class="n">_el_iso</span><span class="p">,</span> <span class="n">EFG_TO_CHI</span><span class="p">,</span> <span class="n">_get_isotope_list</span>
+<span class="kn">from</span> <span class="nn">soprano.calculate.nmr.utils</span> <span class="kn">import</span> <span class="n">optimise_annotations</span><span class="p">,</span> <span class="n">Peak2D</span><span class="p">,</span> <span class="n">styled_plot</span><span class="p">,</span> <span class="n">nmr_base_style</span><span class="p">,</span> <span class="n">nmr_2D_style</span>
 <span class="kn">from</span> <span class="nn">soprano.calculate.powder.triavg</span> <span class="kn">import</span> <span class="n">TriAvg</span>
 <span class="kn">from</span> <span class="nn">soprano.selection</span> <span class="kn">import</span> <span class="n">AtomSelection</span>
 <span class="kn">from</span> <span class="nn">soprano.properties.nmr</span> <span class="kn">import</span> <span class="n">MSIsotropy</span><span class="p">,</span> <span class="n">DipolarCoupling</span>
 <span class="kn">from</span> <span class="nn">soprano.properties.labeling</span> <span class="kn">import</span> <span class="n">MagresViewLabels</span>
 <span class="kn">from</span> <span class="nn">soprano.utils</span> <span class="kn">import</span> <span class="n">has_cif_labels</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">re</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
 
 
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="n">DEFAULT_MARKER_SIZE</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">DEFAULT_MARKER_SIZE</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># Default marker size for 2D plots (max is 100)</span>
+<span class="n">ANNOTATION_LINE_WIDTH</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># Line width for annotation lines</span>
+<span class="n">ANNOTATION_FONT_SCALE</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># Scale factor for annotation font size wrt to plot font size</span>
 
 
 <span class="n">_nmr_data</span> <span class="o">=</span> <span class="n">_get_nmr_data</span><span class="p">()</span>
@@ -1451,11 +1455,12 @@ title="Open an issue"
 <span class="sd">    Class to handle the 2D plotting of NMR data.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
-                <span class="n">atoms</span><span class="p">:</span><span class="n">Atoms</span><span class="p">,</span>
-                <span class="n">xelement</span><span class="p">,</span>
-                <span class="n">yelement</span><span class="p">,</span>
+                <span class="n">atoms</span><span class="p">:</span><span class="n">Atoms</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">xelement</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">yelement</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">references</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">gradients</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">peaks</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">pairs</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">markersizes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">rcut</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1465,15 +1470,18 @@ title="Open an issue"
                 <span class="n">yaxis_order</span><span class="o">=</span><span class="s1">&#39;1Q&#39;</span><span class="p">,</span>
                 <span class="n">xlim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">ylim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">x_axis_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">y_axis_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>
                 <span class="n">scale_marker_by</span> <span class="o">=</span> <span class="s1">&#39;fixed&#39;</span><span class="p">,</span>
                 <span class="n">max_marker_size</span><span class="o">=</span><span class="n">DEFAULT_MARKER_SIZE</span><span class="p">,</span>
-                <span class="n">show_ticks</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">show_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">auto_adjust_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">show_lines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">show_diagonal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">show_connectors</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">plot_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">marker_color</span> <span class="o">=</span> <span class="s1">&#39;C1&#39;</span><span class="p">,</span>
+                <span class="n">marker_color</span> <span class="o">=</span> <span class="s1">&#39;C0&#39;</span><span class="p">,</span>
                 <span class="n">show_marker_legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="n">logger</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># If None, will create a new figure</span>
@@ -1486,9 +1494,10 @@ title="Open an issue"
 
         <span class="bp">self</span><span class="o">.</span><span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xelement</span> <span class="o">=</span> <span class="n">xelement</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">yelement</span> <span class="o">=</span> <span class="n">yelement</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yelement</span> <span class="o">=</span> <span class="n">yelement</span> <span class="k">if</span> <span class="n">yelement</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">xelement</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="n">references</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gradients</span> <span class="o">=</span> <span class="n">gradients</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">peaks</span> <span class="o">=</span> <span class="n">peaks</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pairs</span> <span class="o">=</span> <span class="n">pairs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">markersizes</span> <span class="o">=</span> <span class="n">markersizes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rcut</span> <span class="o">=</span> <span class="n">rcut</span>
@@ -1498,10 +1507,13 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">yaxis_order</span> <span class="o">=</span> <span class="n">yaxis_order</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xlim</span> <span class="o">=</span> <span class="n">xlim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ylim</span> <span class="o">=</span> <span class="n">ylim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_axis_label</span> <span class="o">=</span> <span class="n">x_axis_label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_axis_label</span> <span class="o">=</span> <span class="n">y_axis_label</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">marker</span> <span class="o">=</span> <span class="n">marker</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scale_marker_by</span> <span class="o">=</span> <span class="n">scale_marker_by</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_marker_size</span> <span class="o">=</span> <span class="n">max_marker_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">show_ticks</span> <span class="o">=</span> <span class="n">show_ticks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_labels</span> <span class="o">=</span> <span class="n">show_labels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_adjust_labels</span> <span class="o">=</span> <span class="n">auto_adjust_labels</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show_lines</span> <span class="o">=</span> <span class="n">show_lines</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show_diagonal</span> <span class="o">=</span> <span class="n">show_diagonal</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show_connectors</span> <span class="o">=</span> <span class="n">show_connectors</span>
@@ -1526,6 +1538,100 @@ title="Open an issue"
                 <span class="bp">self</span><span class="o">.</span><span class="n">plot_shifts</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting chemical shielding since no references are given. &quot;</span><span class="p">)</span>
                 
+<div class="viewcode-block" id="Plot2D.get_peaks"><a class="viewcode-back" href="../../../../_autosummary/soprano.calculate.nmr.nmr.html#soprano.calculate.nmr.nmr.Plot2D.get_peaks">[docs]</a>    <span class="k">def</span> <span class="nf">get_peaks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">merge_identical</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Get the correlation peaks.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">peaks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">atoms</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Either atoms or peaks must be given.&quot;</span><span class="p">)</span>
+            <span class="c1"># make sure all the data is there</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_2D_plot_data</span><span class="p">()</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">peaks</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ipair</span><span class="p">,</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pairs</span><span class="p">):</span>
+                <span class="n">idx_x</span><span class="p">,</span> <span class="n">idx_y</span> <span class="o">=</span> <span class="n">pair</span>
+
+                <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx_x</span><span class="p">]</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx_y</span><span class="p">]</span>
+                <span class="n">strength</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">markersizes</span><span class="p">[</span><span class="n">ipair</span><span class="p">]</span>
+                <span class="n">xlabel</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">idx_x</span><span class="p">]</span>
+                <span class="n">ylabel</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">idx_y</span><span class="p">]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaxis_order</span> <span class="o">==</span> <span class="s1">&#39;2Q&#39;</span><span class="p">:</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xelement</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">yelement</span><span class="p">:</span>
+                        <span class="c1"># then we might have both e.g. H1 + H2 and H2 + H1</span>
+                        <span class="c1"># let&#39;s set them both to be H1 + H2 by sorting the labels</span>
+                        <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">])</span>
+                    <span class="n">ylabel</span>  <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">xlabel</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">ylabel</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="n">peak</span> <span class="o">=</span> <span class="n">Peak2D</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">correlation_strength</span> <span class="o">=</span> <span class="n">strength</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">idx_x</span><span class="o">=</span><span class="n">idx_x</span><span class="p">,</span> <span class="n">idx_y</span><span class="o">=</span><span class="n">idx_y</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">peaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peak</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Custom peaks provided. &quot;</span><span class="p">)</span>
+
+        
+        <span class="k">if</span> <span class="n">merge_identical</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">peaks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge_peaks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">peaks</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">peaks</span></div>
+<div class="viewcode-block" id="Plot2D.merge_peaks"><a class="viewcode-back" href="../../../../_autosummary/soprano.calculate.nmr.nmr.html#soprano.calculate.nmr.nmr.Plot2D.merge_peaks">[docs]</a>    <span class="k">def</span> <span class="nf">merge_peaks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">xtol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">ytol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">corr_tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">ignore_correlation_strength</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Merge peaks that are identical.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># first, get the unique peaks</span>
+        <span class="n">unique_peaks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">unique_xlabels</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">unique_ylabels</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">peak</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">peaks</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">unique_peaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peak</span><span class="p">)</span>
+                <span class="n">unique_xlabels</span><span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">xlabel</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">xlabel</span><span class="p">]</span>
+                <span class="n">unique_ylabels</span><span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">ylabel</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">ylabel</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># check if it&#39;s identical to any of the unique peaks</span>
+                <span class="n">is_identical</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">unique_peak</span> <span class="ow">in</span> <span class="n">unique_peaks</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">peak</span><span class="o">.</span><span class="n">equivalent_to</span><span class="p">(</span>
+                                    <span class="n">unique_peak</span><span class="p">,</span>
+                                    <span class="n">xtol</span><span class="o">=</span><span class="n">xtol</span><span class="p">,</span>
+                                    <span class="n">ytol</span><span class="o">=</span><span class="n">ytol</span><span class="p">,</span>
+                                    <span class="n">corr_tol</span><span class="o">=</span><span class="n">corr_tol</span><span class="p">,</span>
+                                    <span class="n">ignore_correlation_strength</span><span class="o">=</span><span class="n">ignore_correlation_strength</span><span class="p">):</span>
+                        <span class="n">is_identical</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="c1"># update labels to include both</span>
+                        <span class="n">unique_xlabels</span><span class="p">[</span><span class="n">unique_peak</span><span class="o">.</span><span class="n">xlabel</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peak</span><span class="o">.</span><span class="n">xlabel</span><span class="p">)</span>
+                        <span class="n">unique_ylabels</span><span class="p">[</span><span class="n">unique_peak</span><span class="o">.</span><span class="n">ylabel</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peak</span><span class="o">.</span><span class="n">ylabel</span><span class="p">)</span>
+                        
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_identical</span><span class="p">:</span>
+                    <span class="n">unique_peaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peak</span><span class="p">)</span>
+                    <span class="n">unique_xlabels</span><span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">xlabel</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">xlabel</span><span class="p">]</span>
+                    <span class="n">unique_ylabels</span><span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">ylabel</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">ylabel</span><span class="p">]</span>
+        <span class="c1"># now, update the labels</span>
+        <span class="c1">#custom sort function </span>
+        <span class="k">def</span> <span class="nf">sort_func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="c1"># if there are any integers, sort by those</span>
+            <span class="c1"># otherwise, sort by the string</span>
+            <span class="c1"># use regex to find integers</span>
+            <span class="n">int_list</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">int_list</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">int_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">x</span>
+            
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">unique_peak</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">unique_peaks</span><span class="p">):</span>
+            <span class="n">xlabel_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">unique_xlabels</span><span class="p">[</span><span class="n">unique_peak</span><span class="o">.</span><span class="n">xlabel</span><span class="p">]))</span>
+            <span class="n">ylabel_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">unique_ylabels</span><span class="p">[</span><span class="n">unique_peak</span><span class="o">.</span><span class="n">ylabel</span><span class="p">]))</span>
+            <span class="c1"># sort the labels</span>
+            <span class="n">xlabel_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">sort_func</span><span class="p">)</span>
+            <span class="n">ylabel_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">sort_func</span><span class="p">)</span>
+            <span class="c1"># join the labels</span>
+            <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xlabel_list</span><span class="p">)</span>
+            <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ylabel_list</span><span class="p">)</span>
+            <span class="n">unique_peak</span><span class="o">.</span><span class="n">xlabel</span> <span class="o">=</span> <span class="n">xlabel</span>
+            <span class="n">unique_peak</span><span class="o">.</span><span class="n">ylabel</span> <span class="o">=</span> <span class="n">ylabel</span>
+        <span class="k">return</span> <span class="n">unique_peaks</span></div>
 
 <div class="viewcode-block" id="Plot2D.get_2D_plot_data"><a class="viewcode-back" href="../../../../_autosummary/soprano.calculate.nmr.nmr.html#soprano.calculate.nmr.nmr.Plot2D.get_2D_plot_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_2D_plot_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -1538,6 +1644,8 @@ title="Open an issue"
 <span class="sd">        </span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xelement</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;xelement must be given.&quot;</span><span class="p">)</span>
         <span class="n">all_elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
         <span class="n">isotopes</span> <span class="o">=</span> <span class="n">_get_isotope_list</span><span class="p">(</span><span class="n">all_elements</span><span class="p">,</span> <span class="n">isotopes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">isotopes</span><span class="p">,</span> <span class="n">use_q_isotopes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xelement</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_elements</span><span class="p">:</span>
@@ -1577,23 +1685,22 @@ title="Open an issue"
 
         <span class="c1"># log the x and y values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;X values: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_x</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Y values: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_y</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Y values: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_y</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-        <span class="c1"># tick labels and ticks</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">get_axis_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_shifts</span><span class="p">:</span>
             <span class="n">axis_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$\delta$&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">axis_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$\sigma$&quot;</span>
-        
-        <span class="bp">self</span><span class="o">.</span><span class="n">x_axis_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">xspecies</span><span class="si">}</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="n">axis_label</span> <span class="o">+</span> <span class="s1">&#39; /ppm&#39;</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaxis_order</span> <span class="o">==</span> <span class="s1">&#39;2Q&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">y_axis_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">yspecies</span><span class="si">}</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="n">axis_label</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;$_{\mathrm{</span><span class="si">%s</span><span class="s1">}}$&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaxis_order</span> <span class="o">+</span> <span class="s1">&#39; /ppm&#39;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">y_axis_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">yspecies</span><span class="si">}</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="n">axis_label</span> <span class="o">+</span> <span class="s1">&#39; /ppm&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_axis_label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x_axis_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">xspecies</span><span class="si">}</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="n">axis_label</span> <span class="o">+</span> <span class="s1">&#39; /ppm&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_axis_label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaxis_order</span> <span class="o">==</span> <span class="s1">&#39;2Q&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y_axis_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">yspecies</span><span class="si">}</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="n">axis_label</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;$_{\mathrm{</span><span class="si">%s</span><span class="s1">}}$&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaxis_order</span> <span class="o">+</span> <span class="s1">&#39; /ppm&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y_axis_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">yspecies</span><span class="si">}</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="n">axis_label</span> <span class="o">+</span> <span class="s1">&#39; /ppm&#39;</span>
     
     <span class="k">def</span> <span class="nf">get_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">has_cif_labels</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="p">):</span>
@@ -1608,42 +1715,107 @@ title="Open an issue"
             <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">labels</span>
 
-<div class="viewcode-block" id="Plot2D.get_ticks"><a class="viewcode-back" href="../../../../_autosummary/soprano.calculate.nmr.nmr.html#soprano.calculate.nmr.nmr.Plot2D.get_ticks">[docs]</a>    <span class="k">def</span> <span class="nf">get_ticks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Plot2D.add_annotations"><a class="viewcode-back" href="../../../../_autosummary/soprano.calculate.nmr.nmr.html#soprano.calculate.nmr.nmr.Plot2D.add_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">add_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">optimise</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Get the tick labels and ticks for the plot</span>
+<span class="sd">        Get the annotations for the plot</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># annotation font size is 2/3 the general font size</span>
+        <span class="n">font_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">get_fontsize</span><span class="p">()</span> <span class="o">*</span> <span class="n">ANNOTATION_FONT_SCALE</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">peaks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_peaks</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_ticks</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">xticks</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">yticks</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">xticks_labels</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">yticks_labels</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">return</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">xpos</span><span class="p">,</span> <span class="n">ypos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">peak</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">peak</span><span class="o">.</span><span class="n">y</span><span class="p">]</span> <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">peaks</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">xpos_label</span> <span class="o">=</span> <span class="n">xpos</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">ypos_label</span> <span class="o">=</span> <span class="n">ypos</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">xlabels</span> <span class="o">=</span> <span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">xlabel</span> <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">peaks</span><span class="p">]</span>
+        <span class="n">ylabels</span> <span class="o">=</span> <span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">ylabel</span> <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">peaks</span><span class="p">]</span>
+
+        <span class="c1"># get the unique labels, keeping the indices</span>
+        <span class="k">if</span> <span class="n">unique</span><span class="p">:</span>
+            <span class="n">xlabels</span><span class="p">,</span> <span class="n">xidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">xlabels</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">ylabels</span><span class="p">,</span> <span class="n">yidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">ylabels</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># update the positions</span>
+            <span class="n">xpos</span> <span class="o">=</span> <span class="n">xpos</span><span class="p">[</span><span class="n">xidx</span><span class="p">]</span>
+            <span class="n">ypos</span> <span class="o">=</span> <span class="n">ypos</span><span class="p">[</span><span class="n">yidx</span><span class="p">]</span>
+            <span class="n">xpos_label</span> <span class="o">=</span> <span class="n">xpos_label</span><span class="p">[</span><span class="n">xidx</span><span class="p">]</span>
+            <span class="n">ypos_label</span> <span class="o">=</span> <span class="n">ypos_label</span><span class="p">[</span><span class="n">yidx</span><span class="p">]</span>
+
+        <span class="c1"># we might still have some ylabels that are not the same but are at exactly the same position</span>
+        <span class="c1"># so we need to check for this</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ylabels</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">ypos</span><span class="p">,</span><span class="mi">6</span><span class="p">))):</span>
+            <span class="c1"># randomly perturb those y positions that are the same</span>
+            <span class="n">unique_ypos</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">ypos</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">counts</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">ypos_label</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">count</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;X labels: </span><span class="si">{</span><span class="n">xlabels</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;X positions: </span><span class="si">{</span><span class="n">xpos</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Y labels: </span><span class="si">{</span><span class="n">ylabels</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Y positions: </span><span class="si">{</span><span class="n">ypos</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">optimise</span><span class="p">:</span>
+            <span class="c1"># optimise the positions of the annotations to prevent overlap</span>
+            <span class="n">xpos_label</span> <span class="o">=</span> <span class="n">optimise_annotations</span><span class="p">(</span><span class="n">xpos_label</span><span class="p">,</span> <span class="n">max_iters</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">C</span> <span class="o">=</span> <span class="mf">5e-7</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">ftol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+            <span class="n">ypos_label</span> <span class="o">=</span> <span class="n">optimise_annotations</span><span class="p">(</span><span class="n">ypos_label</span><span class="p">,</span> <span class="n">max_iters</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">C</span> <span class="o">=</span> <span class="mf">5e-7</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">ftol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Optimised X positions: </span><span class="si">{</span><span class="n">xpos_label</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Optimised Y positions: </span><span class="si">{</span><span class="n">ypos_label</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
         
+        <span class="n">x_left</span><span class="p">,</span> <span class="n">x_right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+        <span class="n">y_bottom</span><span class="p">,</span> <span class="n">y_top</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+        <span class="c1"># hack to get the arm lengths correct for pdf and interactive rendering</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">armA</span> <span class="o">=</span> <span class="mi">25</span>
+            <span class="n">armB</span> <span class="o">=</span> <span class="mi">15</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pdf&#39;</span><span class="p">):</span>
+            <span class="n">armA</span> <span class="o">=</span> <span class="mi">5</span>
+            <span class="n">armB</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">armA</span> <span class="o">=</span> <span class="mi">30</span>
+            <span class="n">armB</span> <span class="o">=</span> <span class="mi">20</span>
+            
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">xlabel</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">xlabels</span><span class="p">):</span>
+            <span class="n">an</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+                <span class="n">xlabel</span><span class="p">,</span>
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">xpos</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_top</span><span class="p">),</span>
+                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">xpos_label</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mf">1.05</span><span class="p">),</span>
+                <span class="n">textcoords</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;axes fraction&#39;</span><span class="p">),</span>
+                <span class="n">fontsize</span> <span class="o">=</span> <span class="n">font_size</span><span class="p">,</span>
+                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+                <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+                <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                    <span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+                    <span class="n">connectionstyle</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;arc,angleA=-90,armA=</span><span class="si">{</span><span class="n">armA</span><span class="si">}</span><span class="s2">,angleB=90,armB=</span><span class="si">{</span><span class="n">armB</span><span class="si">}</span><span class="s2">,rad=0&quot;</span><span class="p">,</span>
+                    <span class="n">relpos</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+                    <span class="n">lw</span><span class="o">=</span><span class="n">ANNOTATION_LINE_WIDTH</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">an</span><span class="p">)</span>
         
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ylabel</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ylabels</span><span class="p">):</span>
+            <span class="n">an</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+                <span class="n">ylabel</span><span class="p">,</span>
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x_right</span><span class="p">,</span> <span class="n">ypos</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="n">ypos_label</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+                <span class="n">textcoords</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;axes fraction&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">),</span>
+                <span class="n">fontsize</span> <span class="o">=</span> <span class="n">font_size</span><span class="p">,</span>
+                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+                <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                    <span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+                    <span class="n">connectionstyle</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;arc,angleA=180,armA=</span><span class="si">{</span><span class="n">armA</span><span class="si">}</span><span class="s2">,angleB=0,armB=</span><span class="si">{</span><span class="n">armB</span><span class="si">}</span><span class="s2">,rad=0&quot;</span><span class="p">,</span>
+                    <span class="n">relpos</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+                    <span class="n">lw</span> <span class="o">=</span> <span class="n">ANNOTATION_LINE_WIDTH</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">an</span><span class="p">)</span>
 
-
-        
-        <span class="c1"># custom ticks</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xticks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_x</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xticks_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_x</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaxis_order</span> <span class="o">==</span> <span class="s1">&#39;1Q&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">yticks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_y</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">yticks_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_y</span><span class="p">]</span>
-
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaxis_order</span> <span class="o">==</span> <span class="s1">&#39;2Q&#39;</span><span class="p">:</span>
-            <span class="c1"># loop over pairs</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">yticks</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">yticks_labels</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pairs</span><span class="p">:</span>
-                <span class="n">ticky</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">yticks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ticky</span><span class="p">)</span>
-                <span class="n">ticky_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="si">}</span><span class="s1">&#39;</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">yticks_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ticky_label</span><span class="p">)</span></div>
-
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span></div>
+    
 <div class="viewcode-block" id="Plot2D.get_plot_pairs"><a class="viewcode-back" href="../../../../_autosummary/soprano.calculate.nmr.nmr.html#soprano.calculate.nmr.nmr.Plot2D.get_plot_pairs">[docs]</a>    <span class="k">def</span> <span class="nf">get_plot_pairs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Get the pairs of x and y indices to plot</span>
@@ -1668,8 +1840,10 @@ title="Open an issue"
                 <span class="n">xidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_x</span> <span class="o">==</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># there should only be one match</span>
                 <span class="n">yidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_y</span> <span class="o">==</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># there should only be one match</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">pairs_el_idx</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">xidx</span><span class="p">,</span> <span class="n">yidx</span><span class="p">))</span>
+            <span class="c1"># update self.idx_x and self.idx_y to be the indices within the self.atoms object</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">idx_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pairs</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">idx_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pairs</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># We need to generate the pairs ourselves</span>
             
             <span class="c1"># self.pairs is a list of tuples of the form (xindex, yindex)</span>
             <span class="c1"># these are the indices within the self.x and self.y arrays</span>
@@ -1677,6 +1851,7 @@ title="Open an issue"
             <span class="c1"># self.pairs_original_idx is a list of tuples of the form (xindex, yindex)</span>
             <span class="c1"># these are the indices within the self.atoms object</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pairs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idx_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">idx_y</span><span class="p">))</span>
+
             
         <span class="c1"># remove any pairs where the x and y indices are the same</span>
         <span class="c1"># this should only be the case if xelement == yelement</span>
@@ -1801,8 +1976,8 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pair with largest (abs) </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">marker_label</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">largest_pair_labels</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">markersizes</span><span class="p">[</span><span class="n">max_idx</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">markersizes</span>
-    
-<div class="viewcode-block" id="Plot2D.plot"><a class="viewcode-back" href="../../../../_autosummary/soprano.calculate.nmr.nmr.html#soprano.calculate.nmr.nmr.Plot2D.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Plot2D.plot"><a class="viewcode-back" href="../../../../_autosummary/soprano.calculate.nmr.nmr.html#soprano.calculate.nmr.nmr.Plot2D.plot">[docs]</a>    <span class="nd">@styled_plot</span><span class="p">(</span><span class="n">nmr_base_style</span><span class="p">,</span> <span class="n">nmr_2D_style</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Plot a 2D NMR spectrum from a dataframe with columns &#39;MS_shift/ppm&#39; or &#39;MS_shielding/ppm&#39;</span>
 
@@ -1811,14 +1986,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">xelement</span><span class="si">}</span><span class="s2"> vs </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">yelement</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
 
         <span class="c1"># get the data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_2D_plot_data</span><span class="p">()</span>
-
-        <span class="c1"># some syle</span>
-        <span class="n">linealpha</span> <span class="o">=</span> <span class="mf">0.5</span>
-        <span class="n">linecolor</span> <span class="o">=</span> <span class="s1">&#39;0.75&#39;</span>
-        <span class="n">linewidth</span> <span class="o">=</span> <span class="mf">0.5</span>
-        <span class="n">linestyle</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
-        <span class="n">matplotlib</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-paper&#39;</span><span class="p">)</span>
+        <span class="n">peaks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_peaks</span><span class="p">(</span><span class="n">merge_identical</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># make the plot!</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="p">:</span>
@@ -1826,45 +1994,42 @@ title="Open an issue"
             <span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-
-        <span class="n">ax_r</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">secondary_yaxis</span><span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
-        <span class="n">ax_t</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">secondary_xaxis</span><span class="p">(</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
-        <span class="n">ax_r</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">,</span> <span class="n">labelrotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">ax_t</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">,</span> <span class="n">labelrotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
-
-        <span class="c1"># set the ticks</span>
-        <span class="n">ax_t</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xticks</span><span class="p">)</span>
-        <span class="n">ax_r</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yticks</span><span class="p">)</span>
-        <span class="c1"># and tick labels</span>
-        <span class="n">ax_r</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yticks_labels</span><span class="p">)</span>
-        <span class="n">ax_t</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xticks_labels</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span> <span class="o">=</span> <span class="n">fig</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span>
 
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_lines</span><span class="p">:</span>
+            <span class="n">xvals</span> <span class="o">=</span> <span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">x</span> <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">peaks</span><span class="p">]</span>
+            <span class="n">yvals</span> <span class="o">=</span> <span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">y</span> <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">peaks</span><span class="p">]</span>
+            <span class="c1"># unique xvals within a tolerance</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+            <span class="c1"># unique yvals within a tolerance</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">yticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">yvals</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+            <span class="c1"># plot the lines</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">xval</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xticks</span><span class="p">):</span>
-                <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">xval</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">linestyle</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span> <span class="n">linealpha</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">linewidth</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">linecolor</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">xval</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="c1">#, ls=linestyle, alpha= linealpha, lw=linewidth, c=linecolor)</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">yval</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yticks</span><span class="p">):</span>
-                <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">yval</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">linestyle</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span> <span class="n">linealpha</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">linewidth</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">linecolor</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">yval</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="c1">#, ls=linestyle, alpha= linealpha, lw=linewidth, c=linecolor)</span>
         
         <span class="c1"># --- plot the markers ---</span>
-        <span class="n">xvals</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pairs</span><span class="p">]</span>
-        <span class="n">yvals</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pairs</span><span class="p">]</span>
-        
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaxis_order</span> <span class="o">==</span> <span class="s1">&#39;2Q&#39;</span><span class="p">:</span>
-            <span class="n">yvals</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">yvals</span><span class="p">)]</span>
+        <span class="n">xvals</span> <span class="o">=</span> <span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">x</span> <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">peaks</span><span class="p">]</span>
+        <span class="n">yvals</span> <span class="o">=</span> <span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">y</span> <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">peaks</span><span class="p">]</span>
         
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_connectors</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaxis_order</span> <span class="o">==</span> <span class="s1">&#39;2Q&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">xelement</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">yelement</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pairs</span><span class="p">):</span>
-                <span class="c1"># plot line from x1 to x2 and y1 to y2 if pair[0] != pair[1]</span>
-                <span class="k">if</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-                    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]],</span>
-                            <span class="p">[</span><span class="n">yvals</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">yvals</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+            <span class="n">y_order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">yvals</span><span class="p">)</span>
+            <span class="c1"># loop over peaks and plot lines between peaks with the same y value</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y_order</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">peaks</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">peaks</span><span class="p">[</span><span class="n">y_order</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+                    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">peaks</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">peaks</span><span class="p">[</span><span class="n">y_order</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">x</span><span class="p">],</span>
+                            <span class="p">[</span><span class="n">peaks</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">peaks</span><span class="p">[</span><span class="n">y_order</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">y</span><span class="p">],</span>
                             <span class="n">c</span><span class="o">=</span><span class="s1">&#39;0.25&#39;</span><span class="p">,</span>
                             <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                             <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
-                            <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="c1"># make sure the marker sizes are all positive</span>
-        <span class="n">markersizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">markersizes</span><span class="p">)</span>
+                            <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># marker sizes based on correlation strength</span>
+        <span class="n">markersizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">peak</span><span class="o">.</span><span class="n">correlation_strength</span> <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">peaks</span><span class="p">])</span>
+        <span class="c1"># make sure the marker sizes are all positive</span>
+        <span class="n">markersizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">markersizes</span><span class="p">)</span>
         <span class="n">marker_size_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">markersizes</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">markersizes</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_marker_by</span> <span class="o">!=</span> <span class="s1">&#39;fixed&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Marker size range: </span><span class="si">{</span><span class="n">marker_size_range</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">marker_unit</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1877,7 +2042,8 @@ title="Open an issue"
             <span class="n">yvals</span><span class="p">,</span>
             <span class="n">s</span><span class="o">=</span><span class="n">markersizes</span><span class="p">,</span>
             <span class="n">marker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span>
-            <span class="n">c</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">marker_color</span><span class="p">,</span>
+            <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">peak</span><span class="o">.</span><span class="n">color</span> <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">peaks</span><span class="p">],</span>
+            <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
         
 
@@ -1896,7 +2062,7 @@ title="Open an issue"
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ylim</span><span class="p">:</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ylim</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xelement</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">yelement</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_diagonal</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">xelement</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xelement</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">yelement</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_diagonal</span><span class="p">):</span>
             <span class="c1"># use self.xlim and self.ylim to draw a diagonal line</span>
             <span class="n">ylims</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
             <span class="n">xlims</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
@@ -1913,7 +2079,11 @@ title="Open an issue"
                       <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">marker_label</span><span class="p">,</span>
                       <span class="n">fancybox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                       <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span><span class="o">.</span><span class="n">set_zorder</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+        
 
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_labels</span><span class="p">:</span>
+            <span class="c1"># add the annotations to the plot</span>
+            <span class="n">annotations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_annotations</span><span class="p">(</span><span class="n">optimise</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">auto_adjust_labels</span><span class="p">)</span> <span class="c1"># list of Annotation objects</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_filename</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
