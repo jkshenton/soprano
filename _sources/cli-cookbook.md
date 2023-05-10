@@ -55,9 +55,9 @@ The `nmr` subcommand has a number of options to extract NMR data from a Magres f
 
     ```soprano nmr seedname.magres --no-reduce```
 
-* You can construct queries that are applied to all loaded Magres files using the pandas dataframe query syntax. For example, to extract the MS data for all sites with a chemical shielding greater than 100 ppm and an asymmetry parameter greater than 0.6:
+* You can construct queries that are applied to all loaded Magres files using the pandas dataframe query syntax. For example, to extract the MS data for all sites with a chemical shielding between 100 and 200 ppm *and* an asymmetry parameter greater than 0.5:
 
-    ```soprano nmr *.magres -p ms --query "MS_shielding > 100 and MS_asymmetry > 0.6"```
+    ```soprano nmr *.magres -p ms --query "100 < MS_shielding < 200 and MS_asymmetry > 0.5"```
 
 ## 2D NMR plots
 

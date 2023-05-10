@@ -179,6 +179,11 @@ const thebe_selector_output = ".output, .cell_output"
      Tutorial 6 - Soprano for defect calculations
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/07-soprano-cli.html">
+     Tutorial 7 - Command-line interface
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -772,8 +777,8 @@ title="Print to PDF"
 <li><p>By default, Soprano will reduce the structure to the uniques sites (based either on CIF labels or symmetry operations. If you want to disable this, you can use the <code class="docutils literal notranslate"><span class="pre">--no-reduce</span></code> option:</p>
 <p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">nmr</span> <span class="pre">seedname.magres</span> <span class="pre">--no-reduce</span></code></p>
 </li>
-<li><p>You can construct queries that are applied to all loaded Magres files using the pandas dataframe query syntax. For example, to extract the MS data for all sites with a chemical shielding greater than 100 ppm and an asymmetry parameter greater than 0.6:</p>
-<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">nmr</span> <span class="pre">*.magres</span> <span class="pre">-p</span> <span class="pre">ms</span> <span class="pre">--query</span> <span class="pre">&quot;MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100</span> <span class="pre">and</span> <span class="pre">MS_asymmetry</span> <span class="pre">&gt;</span> <span class="pre">0.6&quot;</span></code></p>
+<li><p>You can construct queries that are applied to all loaded Magres files using the pandas dataframe query syntax. For example, to extract the MS data for all sites with a chemical shielding between 100 and 200 ppm <em>and</em> an asymmetry parameter greater than 0.5:</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">nmr</span> <span class="pre">*.magres</span> <span class="pre">-p</span> <span class="pre">ms</span> <span class="pre">--query</span> <span class="pre">&quot;100</span> <span class="pre">&lt;</span> <span class="pre">MS_shielding</span> <span class="pre">&lt;</span> <span class="pre">200</span> <span class="pre">and</span> <span class="pre">MS_asymmetry</span> <span class="pre">&gt;</span> <span class="pre">0.5&quot;</span></code></p>
 </li>
 </ul>
 </section>
