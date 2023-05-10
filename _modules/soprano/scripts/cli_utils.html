@@ -176,6 +176,11 @@ const thebe_selector_output = ".output, .cell_output"
      Tutorial 6 - Soprano for defect calculations
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/07-soprano-cli.html">
+     Tutorial 7 - Command-line interface
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -659,7 +664,8 @@ title="Open an issue"
 <span class="kn">from</span> <span class="nn">configparser</span> <span class="kn">import</span> <span class="n">ConfigParser</span>
 <span class="kn">from</span> <span class="nn">ase.visualize</span> <span class="kn">import</span> <span class="n">view</span> <span class="k">as</span> <span class="n">aseview</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 
 
 <span class="c1"># join home and config file</span>
@@ -888,7 +894,7 @@ title="Open an issue"
         <span class="s1">&#39;``-i 2H,15N`` for deuterium and 15N). &#39;</span>
         <span class="s1">&#39;When nothing is specified it defaults to the most common NMR active isotope.&#39;</span><span class="p">)</span>         
 <span class="c1"># flag option to reduce by symmetry</span>
-<span class="n">df_reduce</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--reduce/--no-reduce&#39;</span><span class="p">,</span>
+<span class="n">reduce</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--reduce/--no-reduce&#39;</span><span class="p">,</span>
             <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Reduce the output by symmetry-equivalent sites. &quot;</span>
@@ -911,15 +917,6 @@ title="Open an issue"
             <span class="s2">&quot;Currently only works for XHn groups such as CH3, CH2, NH2 etc. &quot;</span>
             <span class="s2">&quot;You can specify several, comma separated as in ``-g CH3,CH2,NH2``. &quot;</span>
             <span class="s2">&quot;If not specified, no averaging is performed.&quot;</span><span class="p">)</span>
-<span class="c1"># combine rule</span>
-<span class="n">df_combine_rule</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--combine-rule&#39;</span><span class="p">,</span>
-            <span class="n">default</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
-            <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">([</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">]),</span>
-            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;How to combine the data from equivalent sites. &quot;</span>
-        <span class="s2">&quot;``mean`` is the default, which averages the data. &quot;</span>
-        <span class="s2">&quot;``first`` Takes the first item from each group of equivalent sites. &quot;</span>
-        <span class="s2">&quot;Special handling for labels, indices, tags and multiplicity. &quot;</span>
-        <span class="s2">&quot;Increase verbosity to see what rules have been used.&quot;</span><span class="p">)</span>
 
 <span class="c1"># optional argument for the precision of the output</span>
 <span class="n">precision</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--precision&#39;</span><span class="p">,</span>
@@ -1145,27 +1142,46 @@ title="Open an issue"
 
 <span class="c1"># option to select a subset of atoms</span>
 <span class="n">dip_selection_i</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--select_i&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;-s_i&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;-i&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;selection_i&#39;</span><span class="p">,</span>
                 <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
                 <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">help</span><span class="o">=</span><span class="n">subset_help</span>
                 <span class="p">)</span>
 <span class="n">dip_selection_j</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--select_j&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;-s_j&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;-j&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;selection_j&#39;</span><span class="p">,</span>
                 <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
                 <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">help</span><span class="o">=</span><span class="n">subset_help</span>
                 <span class="p">)</span>
+<span class="n">dip_rss_flag</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--rss&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;rss_flag&#39;</span><span class="p">,</span>
+                <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Calculate the dipolar constant Root Sum Square for each atom in a system (includes periodicity).&#39;</span>
+                <span class="s1">&#39;(As opposed to the dipolar couplings between pairs of atoms).&#39;</span>
+                <span class="s1">&#39;Default is False.&#39;</span>
+                <span class="p">)</span>
+<span class="n">dip_rss_cutoff</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--cutoff&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;rss_cutoff&#39;</span><span class="p">,</span>
+                <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+                <span class="n">default</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+                <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Cutoff for Dipolar constant Root Sum Square for each atom in a system (includes periodicity).&#39;</span>
+                <span class="s1">&#39; Units are Angstroms. Default is 5.0 Angstroms.&#39;</span><span class="p">)</span>
+<span class="n">dip_isonuclear</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--isonuclear&#39;</span><span class="p">,</span>
+                <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Include only dipolar interactions between atoms of the same type.&#39;</span>
+                <span class="s1">&#39;Default is False.&#39;</span>
+                <span class="p">)</span>
+
 <span class="c1">#### Groups of CLI options</span>
 <span class="c1"># options that apply to pandas dataframes</span>
 <span class="n">DF_OPTIONS</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">df_output</span><span class="p">,</span>
     <span class="n">df_output_format</span><span class="p">,</span>
     <span class="n">df_merge</span><span class="p">,</span>
-    <span class="n">df_reduce</span><span class="p">,</span>
-    <span class="n">df_combine_rule</span><span class="p">,</span>
     <span class="n">df_sortby</span><span class="p">,</span>
     <span class="n">df_sort_order</span><span class="p">,</span>
     <span class="n">df_include</span><span class="p">,</span>
@@ -1177,6 +1193,7 @@ title="Open an issue"
     <span class="n">nmrproperties</span><span class="p">,</span>
     <span class="n">isotopes</span><span class="p">,</span>
     <span class="n">average_group</span><span class="p">,</span>
+    <span class="n">reduce</span><span class="p">,</span>
     <span class="n">euler</span><span class="p">,</span>
     <span class="n">references</span><span class="p">,</span>
     <span class="n">gradients</span><span class="p">,</span>
@@ -1197,7 +1214,7 @@ title="Open an issue"
     <span class="n">references</span><span class="p">,</span>
     <span class="n">gradients</span><span class="p">,</span>
     <span class="n">subset</span><span class="p">,</span>
-    <span class="n">df_reduce</span><span class="p">,</span>
+    <span class="n">reduce</span><span class="p">,</span>
     <span class="n">df_query</span><span class="p">,</span>
     <span class="n">plot_type</span><span class="p">,</span>
     <span class="n">plot_xelement</span><span class="p">,</span>
@@ -1227,6 +1244,9 @@ title="Open an issue"
     <span class="n">average_group</span><span class="p">,</span>
     <span class="n">dip_selection_i</span><span class="p">,</span>
     <span class="n">dip_selection_j</span><span class="p">,</span>
+    <span class="n">dip_rss_flag</span><span class="p">,</span>
+    <span class="n">dip_rss_cutoff</span><span class="p">,</span>
+    <span class="n">dip_isonuclear</span><span class="p">,</span>
     <span class="p">]</span>
 
 <span class="n">NMREXTRACT_OPTIONS</span> <span class="o">=</span> <span class="n">COMMON_OPTIONS</span> <span class="o">+</span> <span class="n">NMR_OPTIONS</span> <span class="o">+</span> <span class="n">DF_OPTIONS</span>
@@ -1286,7 +1306,7 @@ title="Open an issue"
     <span class="c1"># set pandas print precision</span>
     <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span> <span class="n">precision</span><span class="p">)</span>
     <span class="c1"># make sure we output all rows, even if there are lots!</span>
-    <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">99</span><span class="p">)</span>
     <span class="n">nframes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dfs</span><span class="p">):</span>
@@ -1347,6 +1367,65 @@ title="Open an issue"
     <span class="c1"># if no matches found, return original name</span>
     <span class="k">return</span> <span class="n">colname</span>
 
+
+<div class="viewcode-block" id="apply_df_filtering"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.cli_utils.html#soprano.scripts.cli_utils.apply_df_filtering">[docs]</a><span class="k">def</span> <span class="nf">apply_df_filtering</span><span class="p">(</span>
+                    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                    <span class="n">include</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span>
+                    <span class="n">exclude</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span>
+                    <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                    <span class="n">essential_columns</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="p">[],</span>
+                    <span class="n">logger</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Inlcude/exclude columns and filter the dataframe using a pandas query.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): the dataframe to filter</span>
+<span class="sd">        include (list): list of columns to include</span>
+<span class="sd">        exclude (list): list of columns to exclude</span>
+<span class="sd">        query (str): pandas query string to filter the dataframe</span>
+<span class="sd">        essential_columns (list): list of columns that must be included</span>
+<span class="sd">        logger (logging.Logger): logger to use</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: the filtered dataframe</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># if no logger specified, use the default</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">logger</span><span class="p">:</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+    
+
+    <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
+        <span class="c1"># use pandas query to filter the dataframe</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Filtering dataframe using query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;-----&gt; Filtered to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s1"> sites.&#39;</span><span class="p">)</span>
+
+
+    <span class="c1"># what columns should we include/exclude?</span>
+    
+    <span class="k">if</span> <span class="n">include</span><span class="p">:</span>
+        <span class="c1"># what columns should we include/exclude?</span>
+        <span class="n">specified_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">include</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">essential_columns</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Including only columns containing: </span><span class="si">{</span><span class="n">specified_columns</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">columns_to_include</span> <span class="o">=</span><span class="n">essential_columns</span> <span class="o">+</span> <span class="n">specified_columns</span>
+        <span class="n">missing_columns</span> <span class="o">=</span> <span class="n">get_missing_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns_to_include</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;These columns specified </span><span class="si">{</span><span class="n">missing_columns</span><span class="si">}</span><span class="s1">&#39;</span>
+                            <span class="sa">f</span><span class="s1">&#39; do not match any in the dataframe (</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+        <span class="n">columns_to_include</span> <span class="o">=</span> <span class="n">get_matching_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns_to_include</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">columns_to_include</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">exclude</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Excluding columns: </span><span class="si">{</span><span class="n">exclude</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="c1"># remove those that are already not in df</span>
+        <span class="n">specified_columns</span> <span class="o">=</span> <span class="n">get_matching_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">exclude</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">specified_columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># drop any that have only NaN values</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
 
 <div class="viewcode-block" id="sortdf"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.cli_utils.html#soprano.scripts.cli_utils.sortdf">[docs]</a><span class="k">def</span> <span class="nf">sortdf</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">sortby</span><span class="p">,</span> <span class="n">sort_order</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; sort df by column, return new df&#39;&#39;&#39;</span>

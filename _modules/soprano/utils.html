@@ -678,7 +678,7 @@ title="Open an issue"
     <span class="c1"># if T is an array of strings, join them</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">unique_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unique_labels</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unique_labels</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Concatenation of arrays of type </span><span class="si">{}</span><span class="s2"> not implemented&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span></div>
 <div class="viewcode-block" id="merge_sum"><a class="viewcode-back" href="../../_autosummary/soprano.utils.html#soprano.utils.merge_sum">[docs]</a><span class="k">def</span> <span class="nf">merge_sum</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
@@ -686,17 +686,31 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 <span class="n">DEFAULT_MERGING_STRATEGIES</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;ms&#39;</span> <span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
+    <span class="s1">&#39;ms_isotropy&#39;</span><span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
+    <span class="s1">&#39;ms_shielding&#39;</span><span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
+    <span class="s1">&#39;ms_diagonal_evals&#39;</span><span class="p">:</span> <span class="n">merge_first</span><span class="p">,</span> <span class="c1">## since they might be in different order ?</span>
+    <span class="s1">&#39;ms_diagonal_evals_hsort&#39;</span><span class="p">:</span> <span class="n">merge_first</span><span class="p">,</span> <span class="c1">## since they might be in different order ?</span>
+    <span class="s1">&#39;ms_diagonal_evecs&#39;</span><span class="p">:</span> <span class="n">merge_first</span><span class="p">,</span> <span class="c1">## since they might be in different order ?</span>
     <span class="s1">&#39;efg&#39;</span><span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
     <span class="s1">&#39;isc&#39;</span><span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
+    <span class="s1">&#39;isc_spin&#39;</span><span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
+    <span class="s1">&#39;isc_fc&#39;</span><span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
+    <span class="s1">&#39;isc_orbital_p&#39;</span><span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
+    <span class="s1">&#39;isc_orbital_d&#39;</span><span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
+    <span class="s1">&#39;isc_orbital_f&#39;</span><span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
     <span class="s1">&#39;labels&#39;</span><span class="p">:</span> <span class="n">merge_concatenate</span><span class="p">,</span>
     <span class="s1">&#39;positions&#39;</span><span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
     <span class="s1">&#39;magmoms&#39;</span><span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
     <span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="n">merge_first</span><span class="p">,</span>
+    <span class="s1">&#39;indices&#39;</span><span class="p">:</span> <span class="n">merge_first</span><span class="p">,</span>
     <span class="s1">&#39;numbers&#39;</span> <span class="p">:</span> <span class="n">merge_first</span><span class="p">,</span>
     <span class="s1">&#39;momentum&#39;</span><span class="p">:</span> <span class="n">merge_mean</span><span class="p">,</span>
     <span class="s1">&#39;masses&#39;</span><span class="p">:</span> <span class="n">merge_first</span><span class="p">,</span>
     <span class="s1">&#39;charges&#39;</span><span class="p">:</span> <span class="n">merge_first</span><span class="p">,</span>
     <span class="s1">&#39;multiplicity&#39;</span><span class="p">:</span> <span class="n">merge_sum</span><span class="p">,</span>
+    <span class="s1">&#39;order_tag&#39;</span><span class="p">:</span> <span class="n">merge_first</span><span class="p">,</span>
+    <span class="s1">&#39;cell_indices&#39;</span><span class="p">:</span> <span class="n">merge_first</span><span class="p">,</span> <span class="c1"># goes with positions</span>
+    <span class="s1">&#39;bonds&#39;</span><span class="p">:</span> <span class="n">merge_first</span><span class="p">,</span> <span class="c1"># does not make sense to merge bonds</span>
 <span class="p">}</span>
 
 
@@ -1759,7 +1773,7 @@ title="Open an issue"
 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">fied</span><span class="p">)</span>
 
-<div class="viewcode-block" id="merge_sites"><a class="viewcode-back" href="../../_autosummary/soprano.utils.html#soprano.utils.merge_sites">[docs]</a><span class="k">def</span> <span class="nf">merge_sites</span><span class="p">(</span><span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">merging_strategies</span><span class="o">=</span><span class="p">{}):</span>
+<div class="viewcode-block" id="merge_sites"><a class="viewcode-back" href="../../_autosummary/soprano.utils.html#soprano.utils.merge_sites">[docs]</a><span class="k">def</span> <span class="nf">merge_sites</span><span class="p">(</span><span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">merging_strategies</span><span class="o">=</span><span class="p">{},</span> <span class="n">keep_all</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Merge sites in a structure.</span>
 
@@ -1770,6 +1784,10 @@ title="Open an issue"
 <span class="sd">    |                             properties, e.g. {&#39;positions&#39;: lambda x: x.mean(axis=0)}</span>
 <span class="sd">    |                             if not specified, the default strategies will be used</span>
 <span class="sd">    |                             (see DEFAULT_MERGING_STRATEGIES)</span>
+<span class="sd">    |   keep_all (bool): whether to keep all sites in the structure, default is False. If True, the</span>
+<span class="sd">    |                    merged sites will have the same properties (determined by merging_strategies)</span>
+<span class="sd">    |                    but will have a different index, so that they can be identified. If False, only one of the merged</span>
+<span class="sd">    |                    sites will be kept, and the others will be removed from the Atoms object.</span>
 
 <span class="sd">    | Returns:</span>
 <span class="sd">    |   atoms (ase.Atoms): structure with sites merged</span>
@@ -1777,6 +1795,18 @@ title="Open an issue"
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">atoms_orig</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">atoms_to_merge</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">copy</span><span class="p">()[</span><span class="n">indices</span><span class="p">]</span>
+
+    <span class="c1"># if we already have multiplicity </span>
+    <span class="c1"># we must update it to reflect the merging</span>
+    <span class="c1"># otherwise we can just assume they all start with a multiplicity of 1</span>
+    <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;multiplicity&#39;</span><span class="p">):</span>
+        <span class="n">multiplicity</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;multiplicity&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">multiplicity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="c1"># update multiplicity for merged sites depending on whether we keep all sites or not</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">keep_all</span><span class="p">:</span>
+        <span class="n">multiplicity</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">multiplicity</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>
 
     <span class="c1"># let input merging strategies override the default ones</span>
     <span class="n">merging_strategies</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">DEFAULT_MERGING_STRATEGIES</span><span class="p">,</span> <span class="o">**</span><span class="n">merging_strategies</span><span class="p">}</span>
@@ -1804,29 +1834,48 @@ title="Open an issue"
             <span class="n">new_prop</span> <span class="o">=</span> <span class="n">strategy</span><span class="p">(</span><span class="n">atoms_to_merge</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
         <span class="n">new_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_prop</span>
 
-    <span class="c1"># Now we can delete all but the first of the old sites</span>
+    <span class="c1"># if we are not keeping all sites, we need to delete the other ones</span>
+    <span class="c1"># we can delete all but the first of the old sites</span>
     <span class="c1"># loop backwards to avoid index problems</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">[</span><span class="mi">1</span><span class="p">:][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-        <span class="n">atoms</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">keep_all</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">[</span><span class="mi">1</span><span class="p">:][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">atoms</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">multiplicity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">multiplicity</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="c1"># update indices to reflect the fact that we have deleted all other sites</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
 
-    <span class="n">idx</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_properties</span><span class="p">[</span><span class="s1">&#39;positions&#39;</span><span class="p">]</span>
-    <span class="n">atoms</span><span class="o">.</span><span class="n">numbers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_properties</span><span class="p">[</span><span class="s1">&#39;numbers&#39;</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">):</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
-        <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_properties</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span>
-        <span class="c1"># first delete the old array </span>
-        <span class="c1"># (this is needed to avoid a bug in ASE)</span>
-        <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
 
-    <span class="c1"># custom arrays</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">new_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;positions&#39;</span><span class="p">,</span> <span class="s1">&#39;numbers&#39;</span><span class="p">,</span> <span class="s1">&#39;labels&#39;</span><span class="p">]:</span>
-            <span class="n">arr</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-            <span class="n">arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-            <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span>
+    <span class="c1"># Now loop over (remaining) indices and set new properties:</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">positions</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_properties</span><span class="p">[</span><span class="s1">&#39;positions&#39;</span><span class="p">]</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">numbers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_properties</span><span class="p">[</span><span class="s1">&#39;numbers&#39;</span><span class="p">]</span>
+        <span class="c1"># -- labels --#</span>
+        <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">):</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
+            <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_properties</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span>
+            <span class="c1"># first delete the old array </span>
+            <span class="c1"># (this is needed to avoid a bug in ASE)</span>
+            <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
+            <span class="c1"># also update the magresview_labels array if it exists</span>
+            <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;magresview_labels&#39;</span><span class="p">):</span>
+                <span class="n">labels</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;magresview_labels&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
+                <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_properties</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span>
+                <span class="c1"># first delete the old array </span>
+                <span class="c1"># (this is needed to avoid a bug in ASE)</span>
+                <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;magresview_labels&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;magresview_labels&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
+
+        <span class="c1"># -- custom arrays -- #</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">new_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;positions&#39;</span><span class="p">,</span> <span class="s1">&#39;numbers&#39;</span><span class="p">,</span> <span class="s1">&#39;labels&#39;</span><span class="p">]:</span>
+                <span class="n">arr</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                <span class="n">arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span>
     
+    <span class="c1"># update multiplicity</span>
+    <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;multiplicity&#39;</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">atoms</span></div>
 </pre></div>
 

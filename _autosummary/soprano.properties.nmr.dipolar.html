@@ -755,6 +755,10 @@ directions in the orthogonal plane.</p>
 <div class="line">chunks of pairs. Necessary to avoid memory problems</div>
 <div class="line">for very large systems. Default is 1000.</div>
 </div>
+<div class="line">isonuclear (bool): if True, only compute couplings between nuclei of</div>
+<div class="line-block">
+<div class="line">the same element. Default is False.</div>
+</div>
 </div>
 </div>
 <div class="line-block">
@@ -815,7 +819,7 @@ extracted with the parameters of this specific instance.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="soprano.properties.nmr.dipolar.DipolarCoupling.extract">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sel_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sel_j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotopes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotope_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">self_coupling</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/properties/nmr/dipolar.html#DipolarCoupling.extract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.properties.nmr.dipolar.DipolarCoupling.extract" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sel_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sel_j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotopes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotope_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">self_coupling</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isonuclear</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/properties/nmr/dipolar.html#DipolarCoupling.extract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.properties.nmr.dipolar.DipolarCoupling.extract" title="Permalink to this definition">#</a></dt>
 <dd><p>Extract the given property with given parameters from an Atoms
 object.</p>
 <div class="line-block">

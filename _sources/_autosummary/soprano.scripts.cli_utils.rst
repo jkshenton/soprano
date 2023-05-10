@@ -1,4 +1,4 @@
-soprano.scripts.cli\_utils
+﻿soprano.scripts.cli\_utils
 ==========================
 
 .. automodule:: soprano.scripts.cli_utils
@@ -14,6 +14,7 @@ soprano.scripts.cli\_utils
    .. autosummary::
    
       add_options
+      apply_df_filtering
       average_quaternions_by_tags
       configure
       find_XHn_groups

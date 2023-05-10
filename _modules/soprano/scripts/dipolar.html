@@ -673,7 +673,8 @@ title="Open an issue"
                                     <span class="n">print_results</span><span class="p">,</span>\
                                     <span class="n">find_XHn_groups</span><span class="p">,</span>\
                                     <span class="n">sortdf</span><span class="p">,</span>\
-                                    <span class="n">viewimages</span>
+                                    <span class="n">viewimages</span><span class="p">,</span> \
+                                    <span class="n">apply_df_filtering</span>
 <span class="n">HEADER</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
 <span class="s1">@click_log.simple_verbosity_option(logger)</span>
 <span class="s1">##################################################</span>
@@ -699,22 +700,27 @@ title="Open an issue"
                 <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="nd">@add_options</span><span class="p">(</span><span class="n">DIPOLAR_OPTIONS</span><span class="p">)</span>
+
 <span class="k">def</span> <span class="nf">dipolar</span><span class="p">(</span>
         <span class="n">files</span><span class="p">,</span>
-        <span class="n">selection_i</span><span class="p">,</span>
-        <span class="n">selection_j</span><span class="p">,</span>
-        <span class="n">output</span><span class="p">,</span>
-        <span class="n">output_format</span><span class="p">,</span>
-        <span class="n">merge</span><span class="p">,</span>
-        <span class="n">isotopes</span><span class="p">,</span>
-        <span class="n">precision</span><span class="p">,</span>
-        <span class="n">sortby</span><span class="p">,</span>
-        <span class="n">sort_order</span><span class="p">,</span>
-        <span class="n">include</span><span class="p">,</span>
-        <span class="n">exclude</span><span class="p">,</span>
-        <span class="n">query</span><span class="p">,</span>
-        <span class="n">view</span><span class="p">,</span>
-        <span class="n">quiet</span><span class="p">,</span>
+        <span class="n">selection_i</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">selection_j</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">rss_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">rss_cutoff</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">self_coupling</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">isonuclear</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_format</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">merge</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">isotopes</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">precision</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">sortby</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">sort_order</span><span class="o">=</span><span class="s1">&#39;ascending&#39;</span><span class="p">,</span>
+        <span class="n">include</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">view</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -723,13 +729,13 @@ title="Open an issue"
 <span class="sd">    Usage:</span>
 <span class="sd">    soprano dipolar seedname.{magres|cif|POSCAR|etc}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">if</span> <span class="n">quiet</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">verbosity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
-        <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">verbosity</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+    
 
     <span class="c1"># set pandas print precision</span>
     <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span> <span class="n">precision</span><span class="p">)</span>
@@ -764,54 +770,64 @@ title="Open an issue"
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Selecting atoms based on selection string: </span><span class="si">{</span><span class="n">selection_i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="n">sel_i</span> <span class="o">=</span> <span class="n">AtomSelection</span><span class="o">.</span><span class="n">from_selection_string</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">selection_i</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">selection_j</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rss_flag</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot use --rss flag with selection_j&#39;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Selecting atoms based on selection string: </span><span class="si">{</span><span class="n">selection_j</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="n">sel_j</span> <span class="o">=</span> <span class="n">AtomSelection</span><span class="o">.</span><span class="n">from_selection_string</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">selection_j</span><span class="p">)</span>
+        
+        <span class="c1"># --- rss or pairs --- # </span>
+        <span class="k">if</span> <span class="n">rss_flag</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">extract_dipolar_RSS_couplings</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span>
+                                               <span class="n">isotopes</span><span class="o">=</span><span class="n">isotopes</span><span class="p">,</span>
+                                               <span class="n">cutoff</span><span class="o">=</span><span class="n">rss_cutoff</span><span class="p">,</span>
+                                               <span class="n">isonuclear</span><span class="o">=</span><span class="n">isonuclear</span><span class="p">,</span>
+                                               <span class="n">sel_i</span><span class="o">=</span><span class="n">sel_i</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">essential_columns</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s1">&#39;index&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;label&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;isotope&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;D_RSS&#39;</span><span class="p">,</span>
+            <span class="p">]</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">apply_df_filtering</span><span class="p">(</span>
+                    <span class="n">df</span><span class="p">,</span>
+                    <span class="n">include</span><span class="p">,</span>
+                    <span class="n">exclude</span><span class="p">,</span>
+                    <span class="n">query</span><span class="p">,</span>
+                    <span class="n">essential_columns</span> <span class="o">=</span> <span class="n">essential_columns</span><span class="p">,</span>
+                    <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">extract_dipolar_couplings</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span>
+                                        <span class="n">sel_i</span> <span class="o">=</span> <span class="n">sel_i</span><span class="p">,</span>
+                                        <span class="n">sel_j</span> <span class="o">=</span> <span class="n">sel_j</span><span class="p">,</span>
+                                        <span class="n">isotopes</span> <span class="o">=</span> <span class="n">isotopes</span><span class="p">,</span>
+                                        <span class="n">rss_cutoff</span><span class="o">=</span><span class="n">rss_cutoff</span><span class="p">,</span>
+                                        <span class="n">isonuclear</span><span class="o">=</span><span class="n">isonuclear</span><span class="p">,)</span>
+            <span class="n">essential_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pair&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;label_i&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;label_j&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;isotope_i&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;isotope_i&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;file&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;D&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;alpha&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;beta&#39;</span><span class="p">]</span>
 
+            <span class="n">df</span> <span class="o">=</span> <span class="n">apply_df_filtering</span><span class="p">(</span>
+                <span class="n">df</span><span class="p">,</span>
+                <span class="n">include</span><span class="p">,</span>
+                <span class="n">exclude</span><span class="p">,</span>
+                <span class="n">query</span><span class="p">,</span>
+                <span class="n">essential_columns</span> <span class="o">=</span> <span class="n">essential_columns</span><span class="p">,</span>
+                <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+            
+            <span class="c1"># reformat the &#39;v&#39; column</span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">precision</span><span class="p">))</span>
+        <span class="c1">###############################################</span>
 
-        <span class="n">df</span> <span class="o">=</span> <span class="n">extract_dipolar_couplings</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span>
-                                       <span class="n">sel_i</span><span class="o">=</span><span class="n">sel_i</span><span class="p">,</span>
-                                       <span class="n">sel_j</span> <span class="o">=</span> <span class="n">sel_j</span><span class="p">,</span>
-                                       <span class="n">isotopes</span> <span class="o">=</span> <span class="n">isotopes</span><span class="p">)</span>
         <span class="c1"># add file info</span>
         <span class="n">df</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fname</span>
-
-        <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
-        <span class="c1"># use pandas query to filter the dataframe</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Filtering dataframe using query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;-----&gt; Filtered to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s1"> sites.&#39;</span><span class="p">)</span>
         
-        <span class="c1"># reformat the &#39;v&#39; column</span>
-        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">precision</span><span class="p">))</span>
-
-        <span class="c1"># what columns should we include/exclude?</span>
-        <span class="n">essential_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pair&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;label_i&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;label_j&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;isotope_i&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;isotope_i&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;file&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;D&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;alpha&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;beta&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">include</span><span class="p">:</span>
-            <span class="c1"># what columns should we include/exclude?</span>
-            <span class="n">specified_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">include</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">essential_columns</span><span class="p">]</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Including only columns containing: </span><span class="si">{</span><span class="n">specified_columns</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">columns_to_include</span> <span class="o">=</span><span class="n">essential_columns</span> <span class="o">+</span> <span class="n">specified_columns</span>
-            <span class="n">missing_columns</span> <span class="o">=</span> <span class="n">get_missing_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns_to_include</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;These columns specified </span><span class="si">{</span><span class="n">missing_columns</span><span class="si">}</span><span class="s1">&#39;</span>
-                            <span class="sa">f</span><span class="s1">&#39; do not match any in the dataframe (</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
-            <span class="n">columns_to_include</span> <span class="o">=</span> <span class="n">get_matching_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns_to_include</span><span class="p">)</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">columns_to_include</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">exclude</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Excluding columns: </span><span class="si">{</span><span class="n">exclude</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="c1"># remove those that are already not in df</span>
-            <span class="n">specified_columns</span> <span class="o">=</span> <span class="n">get_matching_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">exclude</span><span class="p">)</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">specified_columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="c1"># drop any that have only NaN values</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -830,34 +846,81 @@ title="Open an issue"
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dfs</span><span class="p">):</span>
         <span class="n">dfs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sortdf</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">sortby</span><span class="p">,</span> <span class="n">sort_order</span><span class="p">)</span>
     <span class="c1"># write to file(s)</span>
-    <span class="n">print_results</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">output_format</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+    <span class="n">print_results</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">output_format</span><span class="p">,</span> <span class="n">verbosity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="extract_dipolar_RSS_couplings"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.dipolar.html#soprano.scripts.dipolar.extract_dipolar_RSS_couplings">[docs]</a><span class="k">def</span> <span class="nf">extract_dipolar_RSS_couplings</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">isotopes</span><span class="o">=</span><span class="p">{},</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">isonuclear</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sel_i</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts the dipolar couplings from the atoms object.</span>
+
+<span class="sd">    We compute the dipolar constant including all atoms within a cutoff radius. </span>
+<span class="sd">    We only then filter out the atoms that are not in the selection. </span>
+
+<span class="sd">    If you instead want to compute the dipolar constant only including isonuclear atoms,</span>
+<span class="sd">    you can set isonuclear=True.</span>
+
+<span class="sd">    :param atoms : ASE atoms object</span>
+<span class="sd">    :return: a pandas dataframe with the couplings</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># subset to include in the df:</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">sel_i</span><span class="p">:</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">sel_i</span><span class="o">.</span><span class="n">indices</span>
+    
+    <span class="n">elements</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
+    <span class="n">isotopelist</span> <span class="o">=</span> <span class="n">_get_isotope_list</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">isotopes</span><span class="o">=</span><span class="n">isotopes</span><span class="p">,</span> <span class="n">use_q_isotopes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">species</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">iso</span><span class="si">}{</span><span class="n">el</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">el</span><span class="p">,</span> <span class="n">iso</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">isotopelist</span><span class="p">)]</span>
+    <span class="n">dip_RSS</span> <span class="o">=</span> <span class="n">DipolarRSS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">isotopes</span><span class="o">=</span><span class="n">isotopes</span><span class="p">,</span><span class="n">cutoff</span><span class="o">=</span><span class="n">cutoff</span><span class="p">,</span> <span class="n">isonuclear</span><span class="o">=</span><span class="n">isonuclear</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">):</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">MagresViewLabels</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">store_array</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">index</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">],</span>
+        <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span>
+        <span class="s1">&#39;isotope&#39;</span><span class="p">:</span> <span class="n">species</span><span class="p">,</span>
+        <span class="s1">&#39;D_RSS&#39;</span><span class="p">:</span> <span class="n">dip_RSS</span><span class="p">,</span>
+        <span class="p">})</span>
+    
+    <span class="c1"># filter out the atoms that are not in the selection</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">idx</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
 
 
 
 
-
-
-<div class="viewcode-block" id="extract_dipolar_couplings"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.dipolar.html#soprano.scripts.dipolar.extract_dipolar_couplings">[docs]</a><span class="k">def</span> <span class="nf">extract_dipolar_couplings</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="extract_dipolar_couplings"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.dipolar.html#soprano.scripts.dipolar.extract_dipolar_couplings">[docs]</a><span class="k">def</span> <span class="nf">extract_dipolar_couplings</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">isotopes</span><span class="o">=</span><span class="p">{},</span> <span class="n">self_coupling</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">isonuclear</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sel_i</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sel_j</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extracts the dipolar couplings from the atoms object.</span>
 <span class="sd">    :param atoms : ASE atoms object</span>
 <span class="sd">    :return: a pandas dataframe with the couplings</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># isotopes</span>
-    <span class="k">if</span> <span class="s1">&#39;isotopes&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="n">isotopes</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;isotopes&#39;</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">isotopes</span> <span class="o">=</span> <span class="kc">None</span>
+    
     <span class="n">elements</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
     <span class="n">isotopelist</span> <span class="o">=</span> <span class="n">_get_isotope_list</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">isotopes</span><span class="o">=</span><span class="n">isotopes</span><span class="p">,</span> <span class="n">use_q_isotopes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">species</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">iso</span><span class="si">}{</span><span class="n">el</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">el</span><span class="p">,</span> <span class="n">iso</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">isotopelist</span><span class="p">)]</span>
 
 
-    <span class="n">dip</span> <span class="o">=</span> <span class="n">DipolarCoupling</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">has_cif_labels</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
+    <span class="n">dip</span> <span class="o">=</span> <span class="n">DipolarCoupling</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">atoms</span><span class="p">,</span>
+        <span class="n">isotopes</span><span class="o">=</span><span class="n">isotopes</span><span class="p">,</span>
+        <span class="n">sel_i</span><span class="o">=</span><span class="n">sel_i</span><span class="p">,</span>
+        <span class="n">sel_j</span><span class="o">=</span><span class="n">sel_j</span><span class="p">,</span>
+        <span class="n">self_coupling</span><span class="o">=</span><span class="n">self_coupling</span><span class="p">,</span>
+        <span class="n">isonuclear</span><span class="o">=</span><span class="n">isonuclear</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="c1"># if dip is an empty dict, return an empty dataframe</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dip</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">):</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="n">MagresViewLabels</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">MagresViewLabels</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">store_array</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># transform dip into columns </span>
     <span class="n">pairs</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="nb">sorted</span><span class="p">(</span><span class="n">dip</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>

@@ -749,7 +749,7 @@ conversions between different representations etc.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.merge_mean" title="soprano.utils.merge_mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_mean</span></code></a>(T)</p></td>
 <td><p>Merge a list of arrays by taking the mean</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.merge_sites" title="soprano.utils.merge_sites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_sites</span></code></a>(atoms, indices[, merging_strategies])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.utils.merge_sites" title="soprano.utils.merge_sites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_sites</span></code></a>(atoms, indices[, ...])</p></td>
 <td><p>Merge sites in a structure.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#soprano.utils.merge_sum" title="soprano.utils.merge_sum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_sum</span></code></a>(T)</p></td>
@@ -1005,7 +1005,7 @@ corners of the cube of side 1 in fractional space.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="soprano.utils.merge_sites">
-<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">merge_sites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ase.atoms.Atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merging_strategies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#merge_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.merge_sites" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.utils.</span></span><span class="sig-name descname"><span class="pre">merge_sites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ase.atoms.Atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merging_strategies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/utils.html#merge_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.utils.merge_sites" title="Permalink to this definition">#</a></dt>
 <dd><p>Merge sites in a structure.</p>
 <div class="line-block">
 <div class="line">Parameters:</div>
@@ -1017,6 +1017,12 @@ corners of the cube of side 1 in fractional space.</p>
 <div class="line">properties, e.g. {‘positions’: lambda x: x.mean(axis=0)}</div>
 <div class="line">if not specified, the default strategies will be used</div>
 <div class="line">(see DEFAULT_MERGING_STRATEGIES)</div>
+</div>
+<div class="line">keep_all (bool): whether to keep all sites in the structure, default is False. If True, the</div>
+<div class="line-block">
+<div class="line">merged sites will have the same properties (determined by merging_strategies)</div>
+<div class="line">but will have a different index, so that they can be identified. If False, only one of the merged</div>
+<div class="line">sites will be kept, and the others will be removed from the Atoms object.</div>
 </div>
 </div>
 </div>

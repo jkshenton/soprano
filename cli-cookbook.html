@@ -678,6 +678,11 @@ title="Print to PDF"
    2D NMR plots
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dipolar-couplings">
+   Dipolar Couplings
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -705,6 +710,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#d-nmr-plots">
    2D NMR plots
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dipolar-couplings">
+   Dipolar Couplings
   </a>
  </li>
 </ul>
@@ -759,8 +769,11 @@ title="Print to PDF"
 <li><p>Set custom isotope</p>
 <p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">nmr</span> <span class="pre">seedname.magres</span> <span class="pre">-p</span> <span class="pre">efg</span> <span class="pre">--isotopes</span> <span class="pre">13C,2H</span></code></p>
 </li>
-<li><p>If you want to get only the unique sites in the structure, use the reduce option:</p>
-<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">nmr</span> <span class="pre">seedname.magres</span> <span class="pre">-r</span></code></p>
+<li><p>By default, Soprano will reduce the structure to the uniques sites (based either on CIF labels or symmetry operations. If you want to disable this, you can use the <code class="docutils literal notranslate"><span class="pre">--no-reduce</span></code> option:</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">nmr</span> <span class="pre">seedname.magres</span> <span class="pre">--no-reduce</span></code></p>
+</li>
+<li><p>You can construct queries that are applied to all loaded Magres files using the pandas dataframe query syntax. For example, to extract the MS data for all sites with a chemical shielding greater than 100 ppm and an asymmetry parameter greater than 0.6:</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">nmr</span> <span class="pre">*.magres</span> <span class="pre">-p</span> <span class="pre">ms</span> <span class="pre">--query</span> <span class="pre">&quot;MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100</span> <span class="pre">and</span> <span class="pre">MS_asymmetry</span> <span class="pre">&gt;</span> <span class="pre">0.6&quot;</span></code></p>
 </li>
 </ul>
 </section>
@@ -781,11 +794,25 @@ title="Print to PDF"
 <li><p>As previous, but averaging over dynamic CH3 and NH3 sites:</p>
 <p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">plotnmr</span> <span class="pre">seedname.magres</span> <span class="pre">-p</span> <span class="pre">2D</span> <span class="pre">-x</span> <span class="pre">H</span> <span class="pre">-y</span> <span class="pre">H</span> <span class="pre">--yaxis-order</span> <span class="pre">2Q</span> <span class="pre">-g</span> <span class="pre">CH3,NH3</span></code></p>
 </li>
-<li><p>Same as above but now also reduce the system to the inequivalent sites first (e.g. those with the same CIF label or a symmetrically equivalent position):</p>
-<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">plotnmr</span> <span class="pre">seedname.magres</span> <span class="pre">-p</span> <span class="pre">2D</span> <span class="pre">-x</span> <span class="pre">H</span> <span class="pre">-y</span> <span class="pre">H</span> <span class="pre">--yaxis-order</span> <span class="pre">2Q</span> <span class="pre">-g</span> <span class="pre">CH3,NH3</span> <span class="pre">-r</span></code></p>
+<li><p>By default, Soprano will reduce the system to the inequivalent sites first (e.g. those with the same CIF label or a symmetrically equivalent position). To prevent this, use the <code class="docutils literal notranslate"><span class="pre">--no-reduce</span></code> option:</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">plotnmr</span> <span class="pre">seedname.magres</span> <span class="pre">-p</span> <span class="pre">2D</span> <span class="pre">-x</span> <span class="pre">H</span> <span class="pre">-y</span> <span class="pre">H</span> <span class="pre">--yaxis-order</span> <span class="pre">2Q</span> <span class="pre">-g</span> <span class="pre">CH3,NH3</span> <span class="pre">--no-reduce</span></code></p>
 </li>
 <li><p>Impose a distance cut-off (in Å) between pairs of sites:</p>
 <p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">plotnmr</span> <span class="pre">seedname.magres</span> <span class="pre">-p</span> <span class="pre">2D</span> <span class="pre">-x</span> <span class="pre">H</span> <span class="pre">-y</span> <span class="pre">H</span> <span class="pre">--yaxis-order</span> <span class="pre">2Q</span> <span class="pre">-g</span> <span class="pre">CH3,NH3</span> <span class="pre">-r</span> <span class="pre">--rcut</span> <span class="pre">3.5</span></code></p>
+</li>
+</ul>
+</section>
+<section id="dipolar-couplings">
+<h2>Dipolar Couplings<a class="headerlink" href="#dipolar-couplings" title="Permalink to this headline">#</a></h2>
+<ul>
+<li><p>Extract dipolar couplings between all pairs of sites:</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">dipolar</span> <span class="pre">seedname.magres</span></code></p>
+</li>
+<li><p>Extract dipolar couplings between all pairs of sites, outputting to a CSV file:</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">dipolar</span> <span class="pre">seedname.magres</span> <span class="pre">-o</span> <span class="pre">dipolar.csv</span></code></p>
+</li>
+<li><p>Extract dipolar couplings between all pairs of sites, and print out those whose absolute value is greater than 10 kHz:</p>
+<p><code class="docutils literal notranslate"><span class="pre">soprano</span> <span class="pre">dipolar</span> <span class="pre">seedname.magres</span> <span class="pre">--query</span> <span class="pre">&quot;abs(D)</span> <span class="pre">&gt;</span> <span class="pre">10.0&quot;</span></code></p>
 </li>
 </ul>
 </section>

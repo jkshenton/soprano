@@ -679,7 +679,8 @@ title="Open an issue"
                                     <span class="n">find_XHn_groups</span><span class="p">,</span>\
                                     <span class="n">sortdf</span><span class="p">,</span>\
                                     <span class="n">viewimages</span><span class="p">,</span> \
-                                    <span class="n">units_rename</span>
+                                    <span class="n">units_rename</span><span class="p">,</span> \
+                                    <span class="n">apply_df_filtering</span>
 <span class="c1"># logging</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">captureWarnings</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;cli&#39;</span><span class="p">)</span>
@@ -695,9 +696,6 @@ title="Open an issue"
 <span class="s1">&#39;&#39;&#39;</span>
 
 
-<span class="nd">@click_log</span><span class="o">.</span><span class="n">simple_verbosity_option</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
-
-
 
 <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
 <span class="c1"># one of more files</span>
@@ -710,27 +708,27 @@ title="Open an issue"
 
 <span class="k">def</span> <span class="nf">nmr</span><span class="p">(</span>
         <span class="n">files</span><span class="p">,</span>
-        <span class="n">subset</span><span class="p">,</span>
-        <span class="n">output</span><span class="p">,</span>
-        <span class="n">output_format</span><span class="p">,</span>
-        <span class="n">merge</span><span class="p">,</span>
-        <span class="n">isotopes</span><span class="p">,</span>
-        <span class="n">references</span><span class="p">,</span>
-        <span class="n">gradients</span><span class="p">,</span>
-        <span class="n">reduce</span><span class="p">,</span>
-        <span class="n">average_group</span><span class="p">,</span>
-        <span class="n">combine_rule</span><span class="p">,</span>
-        <span class="n">symprec</span><span class="p">,</span>
-        <span class="n">properties</span><span class="p">,</span>
-        <span class="n">precision</span><span class="p">,</span>
-        <span class="n">euler_convention</span><span class="p">,</span>
-        <span class="n">sortby</span><span class="p">,</span>
-        <span class="n">sort_order</span><span class="p">,</span>
-        <span class="n">include</span><span class="p">,</span>
-        <span class="n">exclude</span><span class="p">,</span>
-        <span class="n">query</span><span class="p">,</span>
-        <span class="n">view</span><span class="p">,</span>
-        <span class="n">verbosity</span><span class="p">):</span>
+        <span class="n">subset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">merge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">isotopes</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">references</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">gradients</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">average_group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">combine_rule</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+        <span class="n">symprec</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;efg&#39;</span><span class="p">,</span> <span class="s1">&#39;ms&#39;</span><span class="p">],</span>
+        <span class="n">precision</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">euler_convention</span><span class="o">=</span><span class="s1">&#39;zyz&#39;</span><span class="p">,</span>
+        <span class="n">sortby</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">sort_order</span><span class="o">=</span><span class="s1">&#39;ascending&#39;</span><span class="p">,</span>
+        <span class="n">include</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">view</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract and analyse NMR data from magres file(s).</span>
 <span class="sd">    </span>
@@ -750,18 +748,90 @@ title="Open an issue"
     <span class="k">else</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 
-    <span class="n">dfs</span><span class="p">,</span> <span class="n">images</span> <span class="o">=</span> <span class="n">nmr_extract</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">merge</span><span class="p">,</span> <span class="n">isotopes</span><span class="p">,</span> <span class="n">references</span><span class="p">,</span> <span class="n">gradients</span><span class="p">,</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">average_group</span><span class="p">,</span> <span class="n">combine_rule</span><span class="p">,</span> <span class="n">symprec</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">euler_convention</span><span class="p">,</span> <span class="n">sortby</span><span class="p">,</span> <span class="n">sort_order</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
-    
+    <span class="n">dfs</span><span class="p">,</span> <span class="n">images</span> <span class="o">=</span> <span class="n">nmr_extract</span><span class="p">(</span>
+                    <span class="n">files</span><span class="p">,</span>
+                    <span class="n">subset</span> <span class="o">=</span> <span class="n">subset</span><span class="p">,</span>
+                    <span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span><span class="p">,</span>
+                    <span class="n">isotopes</span> <span class="o">=</span> <span class="n">isotopes</span><span class="p">,</span>
+                    <span class="n">references</span> <span class="o">=</span> <span class="n">references</span><span class="p">,</span>
+                    <span class="n">gradients</span> <span class="o">=</span> <span class="n">gradients</span><span class="p">,</span>
+                    <span class="n">reduce</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">,</span>
+                    <span class="n">average_group</span> <span class="o">=</span> <span class="n">average_group</span><span class="p">,</span>
+                    <span class="n">symprec</span> <span class="o">=</span> <span class="n">symprec</span><span class="p">,</span>
+                    <span class="n">properties</span> <span class="o">=</span> <span class="n">properties</span><span class="p">,</span>
+                    <span class="n">euler_convention</span> <span class="o">=</span> <span class="n">euler_convention</span><span class="p">,</span>
+                    <span class="n">sortby</span> <span class="o">=</span> <span class="n">sortby</span><span class="p">,</span>
+                    <span class="n">sort_order</span> <span class="o">=</span> <span class="n">sort_order</span><span class="p">,</span>
+                    <span class="n">include</span> <span class="o">=</span> <span class="n">include</span><span class="p">,</span>
+                    <span class="n">exclude</span> <span class="o">=</span> <span class="n">exclude</span><span class="p">,</span>
+                    <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="p">,</span>
+                    <span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span><span class="p">,</span>
+                    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">view</span><span class="p">:</span>
+        <span class="n">viewimages</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+        
     <span class="c1"># write to file(s)</span>
     <span class="n">print_results</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">output_format</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">verbosity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 
-<div class="viewcode-block" id="nmr_extract"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.nmr_extract">[docs]</a><span class="k">def</span> <span class="nf">nmr_extract</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">merge</span><span class="p">,</span> <span class="n">isotopes</span><span class="p">,</span> <span class="n">references</span><span class="p">,</span> <span class="n">gradients</span><span class="p">,</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">average_group</span><span class="p">,</span> <span class="n">combine_rule</span><span class="p">,</span> <span class="n">symprec</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">euler_convention</span><span class="p">,</span> <span class="n">sortby</span><span class="p">,</span> <span class="n">sort_order</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+<div class="viewcode-block" id="nmr_extract"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.nmr_extract">[docs]</a><span class="k">def</span> <span class="nf">nmr_extract</span><span class="p">(</span>
+        <span class="n">files</span><span class="p">,</span>
+        <span class="n">subset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">merge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">isotopes</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">references</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">gradients</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">average_group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">merging_strategies</span><span class="o">=</span> <span class="p">{</span>
+            <span class="c1"># for the positions, just take the first one </span>
+            <span class="s1">&#39;positions&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="c1"># for the labels, just take the first one</span>
+            <span class="s1">&#39;labels&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">symprec</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;efg&#39;</span><span class="p">,</span> <span class="s1">&#39;ms&#39;</span><span class="p">],</span>
+        <span class="n">euler_convention</span><span class="o">=</span><span class="s1">&#39;zyz&#39;</span><span class="p">,</span>
+        <span class="n">sortby</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">sort_order</span><span class="o">=</span><span class="s1">&#39;ascending&#39;</span><span class="p">,</span>
+        <span class="n">include</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Extract NMR data from magres file(s). See CLI help for more details on the arguments. (`soprano nmr --help`)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        files (list): list of magres files to extract data from.</span>
+<span class="sd">        subset (str): subset of atoms to extract data from. e.g. &quot;H1,H2,C&quot; for all H1, H2 and C atoms.</span>
+<span class="sd">        merge (bool): whether to merge the pandas dataframes from more than one .magres file.</span>
+<span class="sd">        isotopes (dict): dictionary of isotope labels to use for each element. e.g. {&quot;H&quot;: &quot;1H&quot;, &quot;C&quot;: &quot;13C&quot;}.</span>
+<span class="sd">        references (dict): dictionary of shielding reference values to use for each element. e.g. {&quot;H&quot;: 30.0, &quot;C&quot;: 100.0}.</span>
+<span class="sd">        gradients (dict): dictionary of gradient reference values to use for each element. e.g. {&quot;H&quot;: -1.0, &quot;C&quot;: -0.95}. </span>
+<span class="sd">                          If not provided, the gradient is assumed to be -1 for all elements.</span>
+<span class="sd">        reduce (bool): whether to reduce to symmetry equivalent sites (using either the CIF labels or symmetry operations found using SPGLIB).</span>
+<span class="sd">        average_group (str): comma-separated list of functional groups to average over e.g. methyl groups. e.g. &quot;CH3&quot; averages over H atoms in methyl groups.</span>
+<span class="sd">        merging_strategies (dict): dictionary of merging strategies to use for each property. e.g. {&quot;positions&quot;: lambda x: x[0]}.</span>
+<span class="sd">        symprec (float): tolerance for symmetry operations. Default is 1e-4.</span>
+<span class="sd">        properties (list): list of properties to extract. Options are &#39;efg&#39;, &#39;ms&#39;.</span>
+<span class="sd">        euler_convention (str): convention to use for Euler angles. Options are &#39;zyz&#39; or &#39;zxz&#39;.</span>
+<span class="sd">        sortby (str): column to sort the dataframe by.</span>
+<span class="sd">        sort_order (str): order to sort the dataframe by. Options are &#39;ascending&#39; or &#39;descending&#39;.</span>
+<span class="sd">        include (str): comma-separated list of columns to include in the output.</span>
+<span class="sd">        exclude (str): comma-separated list of columns to exclude from the output.</span>
+<span class="sd">        query (str): query string to filter the dataframe.</span>
+<span class="sd">        logger (logging.Logger): logger to use for logging. If None, a new logger is created.</span>
+
+
 <span class="sd">    </span>
 <span class="sd">    Returns:</span>
 <span class="sd">        dfs (list): list of pandas DataFrames containing the extracted data.</span>
 <span class="sd">        images (list): list of ASE Atoms objects containing the crystal structures.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
     
     <span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
@@ -774,6 +844,10 @@ title="Open an issue"
         <span class="c1"># try to read in the file:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">atoms</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+            <span class="c1"># immediately try to reload as molecular crystal</span>
+            <span class="n">atoms</span> <span class="o">=</span> <span class="n">reload_as_molecular_crystal</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+            <span class="c1"># label atoms </span>
+            <span class="n">atoms</span> <span class="o">=</span> <span class="n">label_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not read file </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">, skipping.&quot;</span><span class="p">)</span>
             <span class="k">continue</span>
@@ -783,42 +857,38 @@ title="Open an issue"
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2"> has no </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span><span class="si">}</span><span class="s2"> data to extract. Skipping.&quot;</span><span class="p">)</span>
             <span class="k">continue</span>
 
-        <span class="c1"># Inform user of best practice RE CIF labels</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">has_cif_labels</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">NO_CIF_LABEL_WARNING</span><span class="p">)</span>
-            <span class="c1"># add magresview labels</span>
-            <span class="n">magresview_labels</span> <span class="o">=</span> <span class="n">MagresViewLabels</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">store_array</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            
 
         <span class="n">all_selections</span> <span class="o">=</span> <span class="n">AtomSelection</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="c1"># select subset of atoms based on selection string</span>
+        <span class="k">if</span> <span class="n">subset</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Selecting atoms based on selection subset string: </span><span class="si">{</span><span class="n">subset</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">sel_selectionstring</span> <span class="o">=</span> <span class="n">AtomSelection</span><span class="o">.</span><span class="n">from_selection_string</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">subset</span><span class="p">)</span>
+            <span class="n">all_selections</span> <span class="o">*=</span> <span class="n">sel_selectionstring</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    Selected atoms: </span><span class="si">{</span><span class="n">all_selections</span><span class="o">.</span><span class="n">indices</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="c1">## apply selection string to atoms object</span>
+            <span class="n">atoms</span> <span class="o">=</span> <span class="n">all_selections</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        
         <span class="c1"># create new array for multiplicity</span>
         <span class="n">multiplicity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;multiplicity&#39;</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">)</span>
 
         
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">has_cif_labels</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;magresview_labels&#39;</span><span class="p">):</span>
-                <span class="n">labels</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;magresview_labels&#39;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">labels</span> <span class="o">=</span> <span class="n">MagresViewLabels</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">store_array</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">labels</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
-
-        <span class="c1"># note we must change datatype to allow more space!</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
+        
         
         <span class="c1"># reduce by symmetry?</span>
         <span class="n">tags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">reduce</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Tagging equivalent sites&#39;</span><span class="p">)</span>
             <span class="c1"># tag equivalent sites</span>
             <span class="n">tags</span> <span class="o">=</span> <span class="n">UniqueSites</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">symprec</span><span class="o">=</span><span class="n">symprec</span><span class="p">)</span>
+            
 
             <span class="c1"># log the number of unique sites</span>
             <span class="n">unique_sites</span><span class="p">,</span> <span class="n">unique_site_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    This leaves </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_sites</span><span class="p">)</span><span class="si">}</span><span class="s1"> unique sites&#39;</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    The unique site labels are: </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">unique_site_idx</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    This leaves </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_sites</span><span class="p">)</span><span class="si">}</span><span class="s1"> unique sites&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    The unique site labels are: </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">unique_site_idx</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
             <span class="c1"># check to make sure that all sites with the same tag have the same MSIsotropy</span>
             <span class="c1"># if not, throw a warning, suggest to turn on debug logging and --no-reduce flag</span>
@@ -829,59 +899,42 @@ title="Open an issue"
                 <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;    You can also turn on debug logging with the -vv flag.&#39;</span><span class="p">)</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;    If you find that the (symmetry) reduction algorithm is working incorrectly,&#39;</span><span class="p">)</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;    please report this to the developers.&#39;</span><span class="p">)</span>
-                
 
-                
+        <span class="c1"># set tags to atoms object</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">set_tags</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">average_group</span><span class="p">:</span>
-            <span class="n">labels</span><span class="p">,</span> <span class="n">tags</span> <span class="o">=</span> <span class="n">average_over_groups</span><span class="p">(</span><span class="n">average_group</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
-        <span class="c1"># update atoms object with new labels</span>
-        <span class="c1"># note we must change datatype to allow more space!</span>
-        <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
-        <span class="c1"># update atoms tags</span>
-        <span class="n">atoms</span><span class="o">.</span><span class="n">set_tags</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
+            <span class="n">atoms</span> <span class="o">=</span> <span class="n">tag_functional_groups</span><span class="p">(</span><span class="n">average_group</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">vdw_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">merge_tagged_sites</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">merging_strategies</span><span class="o">=</span><span class="n">merging_strategies</span><span class="p">)</span>
         
-        <span class="c1"># select subset of atoms based on selection string</span>
-        <span class="k">if</span> <span class="n">subset</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Selecting atoms based on selection subset string: </span><span class="si">{</span><span class="n">subset</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">sel_selectionstring</span> <span class="o">=</span> <span class="n">AtomSelection</span><span class="o">.</span><span class="n">from_selection_string</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">subset</span><span class="p">)</span>
-            <span class="n">all_selections</span> <span class="o">*=</span> <span class="n">sel_selectionstring</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    Selected atoms: </span><span class="si">{</span><span class="n">all_selections</span><span class="o">.</span><span class="n">indices</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         
         <span class="k">if</span> <span class="n">isotopes</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Custom isotopes for: </span><span class="si">{</span><span class="n">isotopes</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
         <span class="c1"># build the dataframe</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">build_nmr_df</span><span class="p">(</span><span class="n">isotopes</span><span class="p">,</span> <span class="n">references</span><span class="p">,</span> <span class="n">gradients</span><span class="p">,</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">average_group</span><span class="p">,</span> <span class="n">combine_rule</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">euler_convention</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">all_selections</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
-
+        <span class="n">df</span> <span class="o">=</span> <span class="n">build_nmr_df</span><span class="p">(</span>
+                <span class="n">atoms</span><span class="p">,</span>
+                <span class="n">fname</span><span class="p">,</span>
+                <span class="n">isotopes</span> <span class="o">=</span> <span class="n">isotopes</span><span class="p">,</span>
+                <span class="n">references</span> <span class="o">=</span> <span class="n">references</span><span class="p">,</span>
+                <span class="n">gradients</span> <span class="o">=</span> <span class="n">gradients</span><span class="p">,</span>
+                <span class="n">properties</span> <span class="o">=</span> <span class="n">properties</span><span class="p">,</span>
+                <span class="n">euler_convention</span> <span class="o">=</span> <span class="n">euler_convention</span><span class="p">,</span>
+                <span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span><span class="p">,</span>
+        <span class="p">)</span>
+        
+        <span class="n">essential_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="s1">&#39;multiplicity&#39;</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">]</span>
         <span class="c1"># apply filters</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">apply_df_filtering</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">apply_df_filtering</span><span class="p">(</span>
+            <span class="n">df</span><span class="p">,</span>
+            <span class="n">include</span><span class="p">,</span>
+            <span class="n">exclude</span><span class="p">,</span>
+            <span class="n">query</span><span class="p">,</span>
+            <span class="n">essential_columns</span><span class="o">=</span><span class="n">essential_columns</span><span class="p">,</span>
+            <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
 
         <span class="c1"># ----- atoms object manipulation -----</span>
-        <span class="n">atoms</span> <span class="o">=</span> <span class="n">reload_as_molecular_crystal</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-
-        <span class="c1"># now we need to apply the filters etc to the atoms object</span>
-        <span class="c1"># first we need to merge sites with the same tag</span>
-        <span class="n">unique_tags</span><span class="p">,</span> <span class="n">unique_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span>
-                                               <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="c1"># groups with more than one atom</span>
-        <span class="n">multi_group_tags</span> <span class="o">=</span> <span class="n">unique_tags</span><span class="p">[</span><span class="n">unique_counts</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">multi_group_tags</span><span class="p">:</span>
-            <span class="c1"># where are these tags in the original tags?</span>
-            <span class="n">tag_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_tags</span><span class="p">()</span> <span class="o">==</span> <span class="n">tag</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="c1"># merge the sites</span>
-
-            <span class="n">atoms</span> <span class="o">=</span> <span class="n">merge_sites</span><span class="p">(</span>
-                <span class="n">atoms</span><span class="p">,</span>
-                <span class="n">tag_idx</span><span class="p">,</span>
-                <span class="n">merging_strategies</span><span class="o">=</span><span class="p">{</span>
-                    <span class="s1">&#39;positions&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                    <span class="s1">&#39;labels&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                    <span class="p">})</span>
         
-        <span class="c1"># sort by tag</span>
-        <span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_tags</span><span class="p">())]</span>
+
 
         <span class="c1"># only keep the atoms that are in the dataframe (based on tag)</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_tags</span><span class="p">(),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)]</span>
@@ -896,8 +949,6 @@ title="Open an issue"
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No results found for </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2"> &quot;</span>
                 <span class="s2">&quot;Try removing filters/checking the file contents.&quot;</span><span class="p">)</span>
             
-    <span class="k">if</span> <span class="n">view</span><span class="p">:</span>
-        <span class="n">viewimages</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
         
     <span class="k">if</span> <span class="n">merge</span><span class="p">:</span>
         <span class="c1"># merge all dataframes into one</span>
@@ -946,12 +997,35 @@ title="Open an issue"
                 <span class="n">atoms</span> <span class="o">=</span><span class="n">temp</span>
 
         <span class="k">return</span> <span class="n">atoms</span></div>
-<div class="viewcode-block" id="average_over_groups"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.average_over_groups">[docs]</a><span class="k">def</span> <span class="nf">average_over_groups</span><span class="p">(</span>
+
+<span class="k">def</span> <span class="nf">label_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Atoms</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">has_cif_labels</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">atoms</span>
+    
+    <span class="c1"># Inform user of best practice RE CIF labels</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">NO_CIF_LABEL_WARNING</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;magresview_labels&#39;</span><span class="p">):</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;magresview_labels&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">MagresViewLabels</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">store_array</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># note we must change datatype to allow more space!</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
+
+    <span class="c1"># remove current labels:</span>
+    <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">):</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="c1"># add labels to atoms object</span>
+    <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">atoms</span>
+
+
+<div class="viewcode-block" id="tag_functional_groups"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.tag_functional_groups">[docs]</a><span class="k">def</span> <span class="nf">tag_functional_groups</span><span class="p">(</span>
         <span class="n">average_group</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
         <span class="n">atoms</span><span class="p">:</span><span class="n">Atoms</span><span class="p">,</span>
-        <span class="n">labels</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">],</span>
-        <span class="n">tags</span><span class="p">:</span>  <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]</span>
-        <span class="p">)</span><span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
+        <span class="n">vdw_scale</span><span class="p">:</span><span class="nb">float</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Average over groups of atoms based on the average_group string.</span>
 <span class="sd">    See find_XHn_groups for more details.</span>
@@ -959,63 +1033,114 @@ title="Open an issue"
 <span class="sd">    Args:</span>
 <span class="sd">        average_group (str): string of comma-separated patterns to average over. e.g. &#39;CH3,CH2&#39;</span>
 <span class="sd">        atoms (Atoms): Atoms object</span>
-<span class="sd">        labels (np.array): labels array</span>
-<span class="sd">        tags (np.array): tags array</span>
+<span class="sd">        vdw_scale (float): scaling factor for the van der Waals radii. Default is 1.0.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        labels (np.array): updated labels array</span>
-<span class="sd">        tags (np.array): updated tags array</span>
+<span class="sd">        Atoms</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">XHn_groups</span> <span class="o">=</span> <span class="n">find_XHn_groups</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">average_group</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span> <span class="n">tags</span><span class="p">,</span> <span class="n">vdw_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;tags&#39;</span><span class="p">):</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_tags</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
+
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+    <span class="c1"># make sure dtype of labels allows for enough characters</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
+    <span class="n">XHn_groups</span> <span class="o">=</span> <span class="n">find_XHn_groups</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">average_group</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span> <span class="n">tags</span><span class="p">,</span> <span class="n">vdw_scale</span><span class="o">=</span><span class="n">vdw_scale</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Averaging over functional groups: </span><span class="si">{</span><span class="n">average_group</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">ipat</span><span class="p">,</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">XHn_groups</span><span class="p">):</span>
         <span class="c1"># check if we found any that matched this pattern</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No XHn groups found for pattern </span><span class="si">{</span><span class="n">average_group</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="n">ipat</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">continue</span>
-                
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">average_group</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="n">ipat</span><span class="p">]</span><span class="si">}</span><span class="s2"> groups&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">average_group</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="n">ipat</span><span class="p">]</span><span class="si">}</span><span class="s2"> groups&quot;</span><span class="p">)</span>
         <span class="c1"># get the indices of the atoms that matched this pattern</span>
         <span class="c1"># update the tags and labels accordingly</span>
         <span class="k">for</span> <span class="n">ig</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Group </span><span class="si">{</span><span class="n">ig</span><span class="si">}</span><span class="s2"> contains: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">group</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Group </span><span class="si">{</span><span class="n">ig</span><span class="si">}</span><span class="s2"> contains: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">group</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="c1"># fix labels here as aggregate of those in group</span>
-            <span class="n">combined_label</span> <span class="o">=</span> <span class="s1">&#39;--&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">group</span><span class="p">]))</span>
+            <span class="n">combined_label</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">group</span><span class="p">]))</span>
             <span class="c1"># labels[group] = f&#39;{ig}&#39;#combined_label</span>
             <span class="n">labels</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">combined_label</span>
 
             <span class="n">tags</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">ipat</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mf">1e5</span><span class="o">-</span><span class="n">ig</span>
-    <span class="k">return</span> <span class="n">labels</span><span class="p">,</span> <span class="n">tags</span></div>
+    <span class="c1"># update atoms object with new labels</span>
+    <span class="c1"># note we must change datatype to allow more space!</span>
+    <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
+    <span class="c1"># update atoms tags</span>
+    <span class="n">atoms</span><span class="o">.</span><span class="n">set_tags</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">atoms</span></div>
 
 
+<div class="viewcode-block" id="merge_tagged_sites"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.merge_tagged_sites">[docs]</a><span class="k">def</span> <span class="nf">merge_tagged_sites</span><span class="p">(</span><span class="n">atoms_in</span><span class="p">:</span><span class="n">Atoms</span><span class="p">,</span> <span class="n">merging_strategies</span><span class="p">:</span><span class="nb">dict</span> <span class="o">=</span> <span class="p">{})</span><span class="o">-&gt;</span><span class="n">Atoms</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Merge sites that are tagged with the same tag.</span>
 
+<span class="sd">    Args:</span>
+<span class="sd">        atoms (Atoms): Atoms object. Must have tags.</span>
+<span class="sd">        merging_strategies (dict): dictionary of merging strategies. See merge_sites for more details.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms_in</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># if there are no tags present, return the atoms object</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;tags&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">atoms</span>
+    
+    <span class="c1"># now we need to apply the filters etc to the atoms object</span>
+    <span class="c1"># first we need to merge sites with the same tag</span>
+    <span class="n">unique_tags</span><span class="p">,</span> <span class="n">unique_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_tags</span><span class="p">(),</span>
+                                            <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># groups with more than one atom</span>
+    <span class="n">multi_group_tags</span> <span class="o">=</span> <span class="n">unique_tags</span><span class="p">[</span><span class="n">unique_counts</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">multi_group_tags</span><span class="p">:</span>
+        <span class="c1"># where are these tags in the current tags?</span>
+        <span class="n">tag_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_tags</span><span class="p">()</span> <span class="o">==</span> <span class="n">tag</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># merge the sites</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">merge_sites</span><span class="p">(</span>
+            <span class="n">atoms</span><span class="p">,</span>
+            <span class="n">tag_idx</span><span class="p">,</span>
+            <span class="n">merging_strategies</span><span class="o">=</span><span class="n">merging_strategies</span><span class="p">,</span>
+            <span class="n">keep_all</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    
+    <span class="c1"># sort by tag</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_tags</span><span class="p">())]</span>
 
-
-
+    <span class="k">return</span> <span class="n">atoms</span></div>
 
 
 <div class="viewcode-block" id="build_nmr_df"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.build_nmr_df">[docs]</a><span class="k">def</span> <span class="nf">build_nmr_df</span><span class="p">(</span>
-        <span class="n">isotopes</span><span class="p">,</span>
-        <span class="n">references</span><span class="p">,</span>
-        <span class="n">gradients</span><span class="p">,</span>
-        <span class="n">reduce</span><span class="p">,</span>
-        <span class="n">average_group</span><span class="p">,</span>
-        <span class="n">combine_rule</span><span class="p">,</span>
-        <span class="n">properties</span><span class="p">,</span>
-        <span class="n">euler_convention</span><span class="p">,</span>
-        <span class="n">fname</span><span class="p">,</span>
-        <span class="n">atoms</span><span class="p">,</span>
-        <span class="n">all_selections</span><span class="p">,</span>
-        <span class="n">labels</span><span class="p">,</span>
-        <span class="n">tags</span>
+        <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
+        <span class="n">fname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">isotopes</span><span class="p">:</span> <span class="nb">dict</span>   <span class="o">=</span> <span class="p">{},</span>
+        <span class="n">references</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
+        <span class="n">gradients</span><span class="p">:</span> <span class="nb">dict</span>  <span class="o">=</span><span class="p">{},</span>
+        <span class="n">properties</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;efg&#39;</span><span class="p">,</span> <span class="s1">&#39;ms&#39;</span><span class="p">],</span>
+        <span class="n">euler_convention</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span><span class="s1">&#39;zyz&#39;</span><span class="p">,</span>
+        <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;cli&#39;</span><span class="p">),</span>
         <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Build the dataframe containing the NMR properties.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        atoms (ASE Atoms object): the atoms object to be reloaded.</span>
+<span class="sd">        fname (str): the filename of the file being processed.</span>
+<span class="sd">        all_selections (AtomSelection): the AtomSelection object containing all selections.</span>
+<span class="sd">        isotopes (dict): dictionary of isotopes to use for each element. e.g. {&#39;H&#39;: 2, &#39;C&#39;: 13}</span>
+<span class="sd">        references (dict): dictionary of shielding references for each element. e.g. {&#39;H&#39;: 20.0, &#39;C&#39;: 100.0}</span>
+<span class="sd">        gradients (dict): dictionary of gradients for each element. e.g. {&#39;H&#39;: -1.0, &#39;C&#39;: -0.95} defaults to {} == -1 for all elements.</span>
+<span class="sd">        average_group (str): string of comma-separated patterns to average over. e.g. &#39;CH3,CH2&#39;</span>
+<span class="sd">        properties (list): list of properties to extract. e.g. [&#39;efg&#39;, &#39;ms&#39;]</span>
+<span class="sd">        euler_convention (str): the euler convention to use for the EFG tensor. Options are &#39;zyz&#39; or &#39;zxz&#39;</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df (pandas DataFrame): the dataframe containing the NMR properties.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">elements</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
     <span class="n">isotopelist</span> <span class="o">=</span> <span class="n">_get_isotope_list</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">isotopes</span><span class="o">=</span><span class="n">isotopes</span><span class="p">,</span> <span class="n">use_q_isotopes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">species</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">iso</span><span class="si">}{</span><span class="n">el</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">el</span><span class="p">,</span> <span class="n">iso</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">isotopelist</span><span class="p">)]</span>
-    
-    
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_tags</span><span class="p">()</span>
+
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
                 <span class="s1">&#39;indices&#39;</span><span class="p">:</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;indices&#39;</span><span class="p">),</span>
                 <span class="s1">&#39;original_index&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)),</span>
@@ -1025,20 +1150,12 @@ title="Open an issue"
                 <span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="p">,</span>
                 <span class="p">})</span>
 
-        <span class="c1"># If there are no cif labels, generate and save MagresView-style labels</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_cif_labels</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
-        <span class="c1"># do we already have MagresView labels?</span>
-        <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;magresview_labels&#39;</span><span class="p">):</span>
-            <span class="n">magresview_labels</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;magresview_labels&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># generate MagresView-type Labels</span>
-            <span class="n">magresview_labels</span> <span class="o">=</span> <span class="n">MagresViewLabels</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">save_asarray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MagresView labels generated&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">magresview_labels</span><span class="p">)</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;MagresView_labels&#39;</span><span class="p">,</span> <span class="n">magresview_labels</span><span class="p">)</span>
+    <span class="c1"># If there are MagresView-style labels, add them in</span>
+    <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;magresview_labels&#39;</span><span class="p">):</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;MagresView_labels&#39;</span><span class="p">,</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;magresview_labels&#39;</span><span class="p">))</span>
 
-        <span class="c1"># Let&#39;s add a column for the file name -- useful to keep track of </span>
-        <span class="c1"># which file the data came from if merging multiple files.</span>
+    <span class="c1"># Let&#39;s add a column for the file name -- useful to keep track of </span>
+    <span class="c1"># which file the data came from if merging multiple files.</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fname</span>
     <span class="k">if</span> <span class="s1">&#39;ms&#39;</span> <span class="ow">in</span> <span class="n">properties</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
@@ -1067,117 +1184,19 @@ title="Open an issue"
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Failed to load EFG data from .magres&#39;</span><span class="p">)</span>
             <span class="k">raise</span>
 
-    <span class="c1"># Apply selections </span>
-    <span class="n">selection_indices</span> <span class="o">=</span> <span class="n">all_selections</span><span class="o">.</span><span class="n">indices</span>
-    <span class="c1"># sort</span>
-    <span class="n">selection_indices</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-    <span class="c1"># extract from df</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">selection_indices</span><span class="p">]</span>
-
-    <span class="c1"># apply group averaging</span>
-    <span class="k">if</span> <span class="n">average_group</span> <span class="ow">or</span> <span class="n">reduce</span><span class="p">:</span>
-        <span class="c1"># These are the rules for aggregating groups</span>
-        <span class="c1"># Default rule: take the mean</span>
-        <span class="n">aggrules</span> <span class="o">=</span> <span class="n">get_aggrules</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">combine_rule</span><span class="p">)</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Averaging over sites with the same tag&#39;</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   We apply the following rules to each column:</span><span class="se">\n</span><span class="s1"> </span><span class="si">{</span><span class="n">aggrules</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="c1"># apply group averaging</span>
-        <span class="n">grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;tags&#39;</span><span class="p">)</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">aggrules</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-        <span class="c1"># fix the labels print formatting            </span>
-        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-        <span class="k">if</span> <span class="s1">&#39;MagresView_labels&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;MagresView_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;MagresView_labels&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">))))</span>
-            
         
     <span class="c1">## how many sites do we have now?</span>
     <span class="n">total_explicit_sites</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;multiplicity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Found </span><span class="si">{</span><span class="n">total_explicit_sites</span><span class="si">}</span><span class="s1"> total sites.&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">average_group</span> <span class="ow">or</span> <span class="n">reduce</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    -&gt; reduced to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s1"> sites after averaging equivalent ones&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Found </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">total_explicit_sites</span><span class="p">)</span><span class="si">}</span><span class="s1"> total sites.&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Reduced to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s1"> sites.&#39;</span><span class="p">)</span>
 
 
     <span class="k">return</span> <span class="n">df</span></div>
 
-<div class="viewcode-block" id="get_aggrules"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.get_aggrules">[docs]</a><span class="k">def</span> <span class="nf">get_aggrules</span><span class="p">(</span>
-        <span class="n">df</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
-        <span class="n">combine_rule</span><span class="p">:</span><span class="nb">str</span>
-        <span class="p">)</span><span class="o">-&gt;</span><span class="nb">dict</span><span class="p">:</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Returns a dictionary of aggregation rules for the dataframe</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">aggrules</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">combine_rule</span><span class="p">)</span>
-    <span class="c1"># note we could add more things here! e.g.</span>
-    <span class="c1"># aggrules = dict.fromkeys(df, [&#39;mean&#39;, &#39;std&#39;])</span>
-    <span class="c1"># for most of the columns that have objects, we just take the first one</span>
-    <span class="n">aggrules</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="nb">object</span><span class="p">)],</span> <span class="s1">&#39;first&#39;</span><span class="p">))</span>
-
-    <span class="c1"># we no longer need these two columns</span>
-    <span class="k">del</span> <span class="n">aggrules</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">]</span>
-    <span class="c1"># use &#39;first&#39; for the original indices</span>
-    <span class="n">aggrules</span><span class="p">[</span><span class="s1">&#39;original_index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span>
-    <span class="k">del</span> <span class="n">aggrules</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">]</span>
-
-    <span class="n">aggrules</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span>
-    <span class="k">if</span> <span class="s1">&#39;MagresViewLabels&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-        <span class="n">aggrules</span><span class="p">[</span><span class="s1">&#39;MagresView_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span>
-    <span class="n">aggrules</span><span class="p">[</span><span class="s1">&#39;multiplicity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span>
-    <span class="k">return</span> <span class="n">aggrules</span></div>
 
 
 
 
-<div class="viewcode-block" id="apply_df_filtering"><a class="viewcode-back" href="../../../_autosummary/soprano.scripts.nmr.html#soprano.scripts.nmr.apply_df_filtering">[docs]</a><span class="k">def</span> <span class="nf">apply_df_filtering</span><span class="p">(</span>
-                    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
-                    <span class="n">include</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span>
-                    <span class="n">exclude</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span>
-                    <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Inlcude/exclude columns and filter the dataframe using a pandas query.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        df (pd.DataFrame): the dataframe to filter</span>
-<span class="sd">        include (list): list of columns to include</span>
-<span class="sd">        exclude (list): list of columns to exclude</span>
-<span class="sd">        query (str): pandas query string to filter the dataframe</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        pd.DataFrame: the filtered dataframe</span>
-
-<span class="sd">    &#39;&#39;&#39;</span>
-
-    
-
-    <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
-            <span class="c1"># use pandas query to filter the dataframe</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Filtering dataframe using query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;-----&gt; Filtered to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s1"> sites.&#39;</span><span class="p">)</span>
-
-
-        <span class="c1"># what columns should we include/exclude?</span>
-    <span class="n">essential_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="s1">&#39;multiplicity&#39;</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">include</span><span class="p">:</span>
-            <span class="c1"># what columns should we include/exclude?</span>
-        <span class="n">essential_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="s1">&#39;multiplicity&#39;</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">]</span>
-        <span class="n">specified_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">include</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">essential_columns</span><span class="p">]</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Including only columns containing: </span><span class="si">{</span><span class="n">specified_columns</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">columns_to_include</span> <span class="o">=</span><span class="n">essential_columns</span> <span class="o">+</span> <span class="n">specified_columns</span>
-        <span class="n">missing_columns</span> <span class="o">=</span> <span class="n">get_missing_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns_to_include</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;These columns specified </span><span class="si">{</span><span class="n">missing_columns</span><span class="si">}</span><span class="s1">&#39;</span>
-                            <span class="sa">f</span><span class="s1">&#39; do not match any in the dataframe (</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
-        <span class="n">columns_to_include</span> <span class="o">=</span> <span class="n">get_matching_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns_to_include</span><span class="p">)</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">columns_to_include</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">exclude</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Excluding columns: </span><span class="si">{</span><span class="n">exclude</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="c1"># remove those that are already not in df</span>
-        <span class="n">specified_columns</span> <span class="o">=</span> <span class="n">get_matching_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">exclude</span><span class="p">)</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">specified_columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="c1"># drop any that have only NaN values</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">df</span></div>
         
 
 

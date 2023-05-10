@@ -179,6 +179,11 @@ const thebe_selector_output = ".output, .cell_output"
      Tutorial 6 - Soprano for defect calculations
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/07-soprano-cli.html">
+     Tutorial 7 - Command-line interface
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -684,14 +689,29 @@ title="Print to PDF"
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.dipolar.extract_dipolar_couplings" title="soprano.scripts.dipolar.extract_dipolar_couplings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_dipolar_couplings</span></code></a>(atoms, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.dipolar.extract_dipolar_RSS_couplings" title="soprano.scripts.dipolar.extract_dipolar_RSS_couplings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_dipolar_RSS_couplings</span></code></a>(atoms[, ...])</p></td>
+<td><p>Extracts the dipolar couplings from the atoms object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.dipolar.extract_dipolar_couplings" title="soprano.scripts.dipolar.extract_dipolar_couplings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_dipolar_couplings</span></code></a>(atoms[, isotopes, ...])</p></td>
 <td><p>Extracts the dipolar couplings from the atoms object.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
+<dt class="sig sig-object py" id="soprano.scripts.dipolar.extract_dipolar_RSS_couplings">
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.dipolar.</span></span><span class="sig-name descname"><span class="pre">extract_dipolar_RSS_couplings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotopes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isonuclear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sel_i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/dipolar.html#extract_dipolar_RSS_couplings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.dipolar.extract_dipolar_RSS_couplings" title="Permalink to this definition">#</a></dt>
+<dd><p>Extracts the dipolar couplings from the atoms object.</p>
+<p>We compute the dipolar constant including all atoms within a cutoff radius.
+We only then filter out the atoms that are not in the selection.</p>
+<p>If you instead want to compute the dipolar constant only including isonuclear atoms,
+you can set isonuclear=True.</p>
+<p>:param atoms : ASE atoms object
+:return: a pandas dataframe with the couplings</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.dipolar.extract_dipolar_couplings">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.dipolar.</span></span><span class="sig-name descname"><span class="pre">extract_dipolar_couplings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/dipolar.html#extract_dipolar_couplings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.dipolar.extract_dipolar_couplings" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.dipolar.</span></span><span class="sig-name descname"><span class="pre">extract_dipolar_couplings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotopes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">self_coupling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isonuclear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sel_i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sel_j</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/dipolar.html#extract_dipolar_couplings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.dipolar.extract_dipolar_couplings" title="Permalink to this definition">#</a></dt>
 <dd><p>Extracts the dipolar couplings from the atoms object.
 :param atoms : ASE atoms object
 :return: a pandas dataframe with the couplings</p>

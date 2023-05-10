@@ -179,6 +179,11 @@ const thebe_selector_output = ".output, .cell_output"
      Tutorial 6 - Soprano for defect calculations
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tutorials/07-soprano-cli.html">
+     Tutorial 7 - Command-line interface
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -683,47 +688,74 @@ title="Print to PDF"
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_options</span></code>(options)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.average_quaternions_by_tags" title="soprano.scripts.cli_utils.average_quaternions_by_tags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average_quaternions_by_tags</span></code></a>(quaternions, tags)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.apply_df_filtering" title="soprano.scripts.cli_utils.apply_df_filtering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_df_filtering</span></code></a>(df, include, exclude, query)</p></td>
+<td><p>Inlcude/exclude columns and filter the dataframe using a pandas query.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.average_quaternions_by_tags" title="soprano.scripts.cli_utils.average_quaternions_by_tags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average_quaternions_by_tags</span></code></a>(quaternions, tags)</p></td>
 <td><p>For repeated tags, average the quaternions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">configure</span></code>(ctx, param, filename)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">configure</span></code>(ctx, param, filename)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.find_XHn_groups" title="soprano.scripts.cli_utils.find_XHn_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_XHn_groups</span></code></a>(atoms, pattern_string[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.find_XHn_groups" title="soprano.scripts.cli_utils.find_XHn_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_XHn_groups</span></code></a>(atoms, pattern_string[, ...])</p></td>
 <td><p>Find groups of atoms based on a functional group pattern.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_column_list" title="soprano.scripts.cli_utils.get_column_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_column_list</span></code></a>(ctx, parameter, value)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_column_list" title="soprano.scripts.cli_utils.get_column_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_column_list</span></code></a>(ctx, parameter, value)</p></td>
 <td><p>Parse the column names string. TODO: Document this a bit better. :param ctx: click context :param parameter: click parameter :param value: The column names, comma-separated. Some shortcuts defined for MS_angles and EFG_angles. :type value: str.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_duplicates" title="soprano.scripts.cli_utils.get_duplicates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_duplicates</span></code></a>(seq)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_duplicates" title="soprano.scripts.cli_utils.get_duplicates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_duplicates</span></code></a>(seq)</p></td>
 <td><p>Returns dict {duplicate_value: [indices]} for duplicates in a list</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_matching_cols" title="soprano.scripts.cli_utils.get_matching_cols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_matching_cols</span></code></a>(df, lst)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_matching_cols" title="soprano.scripts.cli_utils.get_matching_cols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_matching_cols</span></code></a>(df, lst)</p></td>
 <td><p>Get the columns of a dataframe that roughly match a list of strings.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_missing_cols" title="soprano.scripts.cli_utils.get_missing_cols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_missing_cols</span></code></a>(df, lst)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_missing_cols" title="soprano.scripts.cli_utils.get_missing_cols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_missing_cols</span></code></a>(df, lst)</p></td>
 <td><p>Get the items in list that don't match any of the columns of a dataframe</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.isotope_selection" title="soprano.scripts.cli_utils.isotope_selection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isotope_selection</span></code></a>(ctx, parameter, isotope_string)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.isotope_selection" title="soprano.scripts.cli_utils.isotope_selection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isotope_selection</span></code></a>(ctx, parameter, isotope_string)</p></td>
 <td><p>Parse the isotope string.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.keyvalue_parser" title="soprano.scripts.cli_utils.keyvalue_parser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keyvalue_parser</span></code></a>(ctx, parameter, value)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.keyvalue_parser" title="soprano.scripts.cli_utils.keyvalue_parser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keyvalue_parser</span></code></a>(ctx, parameter, value)</p></td>
 <td><p>Parse strings in the form 'C:1,H:2' into a dictionary.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_results</span></code>(dfs[, output, output_format, ...])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_results</span></code>(dfs[, output, output_format, ...])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.sortdf" title="soprano.scripts.cli_utils.sortdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sortdf</span></code></a>(df, sortby, sort_order)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.sortdf" title="soprano.scripts.cli_utils.sortdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sortdf</span></code></a>(df, sortby, sort_order)</p></td>
 <td><p>sort df by column, return new df</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">units_rename</span></code>(colname[, units_dict])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">units_rename</span></code>(colname[, units_dict])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.viewimages" title="soprano.scripts.cli_utils.viewimages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewimages</span></code></a>(images)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.viewimages" title="soprano.scripts.cli_utils.viewimages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewimages</span></code></a>(images)</p></td>
 <td><p>Use ASE GUI to view the images.</p></td>
 </tr>
 </tbody>
 </table>
+<dl class="py function">
+<dt class="sig sig-object py" id="soprano.scripts.cli_utils.apply_df_filtering">
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">apply_df_filtering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">essential_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">logging.Logger</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#apply_df_filtering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.apply_df_filtering" title="Permalink to this definition">#</a></dt>
+<dd><p>Inlcude/exclude columns and filter the dataframe using a pandas query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – the dataframe to filter</p></li>
+<li><p><strong>include</strong> (<em>list</em>) – list of columns to include</p></li>
+<li><p><strong>exclude</strong> (<em>list</em>) – list of columns to exclude</p></li>
+<li><p><strong>query</strong> (<em>str</em>) – pandas query string to filter the dataframe</p></li>
+<li><p><strong>essential_columns</strong> (<em>list</em>) – list of columns that must be included</p></li>
+<li><p><strong>logger</strong> (<em>logging.Logger</em>) – logger to use</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the filtered dataframe</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.cli_utils.average_quaternions_by_tags">
 <span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">average_quaternions_by_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quaternions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#average_quaternions_by_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.average_quaternions_by_tags" title="Permalink to this definition">#</a></dt>
