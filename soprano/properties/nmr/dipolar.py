@@ -84,6 +84,8 @@ class DipolarCoupling(AtomsProperty):
     |   block_size (int): maximum size of blocks used when processing large
     |                     chunks of pairs. Necessary to avoid memory problems
     |                     for very large systems. Default is 1000.
+    |   isonuclear (bool): if True, only compute couplings between nuclei of
+    |                      the same element. Default is False.
 
     | Returns:
     |   dip_dict (dict): Dictionary of couplings in Hz and r_{ij} versors,
@@ -99,10 +101,11 @@ class DipolarCoupling(AtomsProperty):
         "isotope_list": None,
         "self_coupling": False,
         "block_size": 1000,
+        "isonuclear": False,
     }
 
     @staticmethod
-    def extract(s, sel_i, sel_j, isotopes, isotope_list, self_coupling, block_size):
+    def extract(s, sel_i, sel_j, isotopes, isotope_list, self_coupling, block_size, isonuclear):
 
         # Selections
         if sel_i is None:
@@ -125,6 +128,9 @@ class DipolarCoupling(AtomsProperty):
         if not self_coupling:
             pairs = [p for p in pairs if p[0] != p[1]]
 
+        if isonuclear:
+            pairs = [p for p in pairs if elems[p[0]] == elems[p[1]]]
+
         pairs = np.array(pairs).T
         # Need to sort them and remove any duplicates, also take i < j as
         # convention
@@ -136,6 +142,10 @@ class DipolarCoupling(AtomsProperty):
 
         d_ij = np.zeros((0,))
         v_ij = np.zeros((0, 3))
+
+        # check if empty
+        if pairs.shape[0] == 0:
+            return {}
 
         npairs = pairs.shape[1]
 
