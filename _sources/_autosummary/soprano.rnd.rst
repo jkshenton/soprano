@@ -1,4 +1,4 @@
-soprano.rnd
+﻿soprano.rnd
 ===========
 
 .. automodule:: soprano.rnd

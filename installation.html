@@ -179,6 +179,11 @@ const thebe_selector_output = ".output, .cell_output"
      Tutorial 6 - Soprano for defect calculations
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/07-soprano-cli.html">
+     Tutorial 7 - Command-line interface
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -646,12 +651,90 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dependencies">
+   Dependencies
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#virtual-environments">
+   Virtual environments
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installation-using-pip">
+   Installation using pip
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installation-from-pypi-recommended">
+     Installation from PyPI (recommended)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installation-from-latest-source-code-git">
+     Installation from latest source code (git)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installation-from-latest-source-code-zip">
+     Installation from latest source code (zip)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bleeding-edge-version">
+     Bleeding edge-version
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#other-useful-flags">
+   Other useful flags
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installation-for-development">
+     Installation for development
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#no-admin-rights">
+     No admin rights
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#testing-your-installation">
+   Testing your installation
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -663,6 +746,73 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dependencies">
+   Dependencies
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#virtual-environments">
+   Virtual environments
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installation-using-pip">
+   Installation using pip
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installation-from-pypi-recommended">
+     Installation from PyPI (recommended)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installation-from-latest-source-code-git">
+     Installation from latest source code (git)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installation-from-latest-source-code-zip">
+     Installation from latest source code (zip)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bleeding-edge-version">
+     Bleeding edge-version
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#other-useful-flags">
+   Other useful flags
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installation-for-development">
+     Installation for development
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#no-admin-rights">
+     No admin rights
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#testing-your-installation">
+   Testing your installation
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -672,10 +822,163 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h1>
-<p>You can install Soprano using pip:</p>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">#</a></h2>
+<p>Soprano requires Python 3 or higher and the libraries Numpy, Scipy and <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/">ASE (Atomic Simulation Environment)</a>. If you have no experience with the latter, you might want to familiarise yourself before using Soprano - it’s an excellent library with support for loading and manipulating lots of chemical structure formats, like .cif, as well as interfacing with many of the most used classical molecular dynamics, tight binding and ab initio simulation software packages.</p>
+<p>These dependencies should be install automatically when you install Soprano using pip (see below). If you want to install them manually, you can do so using pip.</p>
+</section>
+<section id="virtual-environments">
+<h2>Virtual environments<a class="headerlink" href="#virtual-environments" title="Permalink to this headline">#</a></h2>
+<p>It is recommended that you install Soprano in a virtual environment. This is a way of isolating the Python packages you install from the system Python packages, which can be useful if you have multiple projects that require different versions of the same package. You can read more about virtual environments <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">here</a>.</p>
+<p>Popular virtual environment managers include <a class="reference external" href="https://virtualenv.pypa.io/en/latest/">virtualenv</a> and <a class="reference external" href="https://docs.conda.io/en/latest/">conda</a>.</p>
+<p>To set up a new virtual environment using virtualenv, you can do the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">-p</span> <span class="pre">python3</span> <span class="pre">soprano_env</span></code></p>
+<p>This will create a new virtual environment called <code class="docutils literal notranslate"><span class="pre">soprano_env</span></code> in the current directory. You can then activate the environment using:</p>
+<p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">soprano_env/bin/activate</span></code></p>
+<p>and install Soprano using pip (see below).</p>
+<p>To set up a new virtual environment using conda, you can do the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">soprano_env</span> <span class="pre">python=3</span></code></p>
+<p>This will create a new virtual environment called <code class="docutils literal notranslate"><span class="pre">soprano_env</span></code> in the current directory. You can then activate the environment using:</p>
+<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">soprano_env</span></code></p>
+<p>and install Soprano using pip (see below).</p>
+</section>
+<section id="installation-using-pip">
+<h2>Installation using pip<a class="headerlink" href="#installation-using-pip" title="Permalink to this headline">#</a></h2>
+<p>There are several ways to install and work with Soprano depending on your needs and computer setup (e.g. whether you have admin rights or not).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using a virtual environment, make sure you have activated it before installing Soprano.</p>
+</div>
+<section id="installation-from-pypi-recommended">
+<h3>Installation from PyPI (recommended)<a class="headerlink" href="#installation-from-pypi-recommended" title="Permalink to this headline">#</a></h3>
+<p>You can install the latest stable version of Soprano using pip:</p>
 <p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">soprano</span></code></p>
-<p>or you can download the library from Github and install it from your local computer.</p>
-<p>Soprano requires Python 3 or higher and the libraries Numpy, Scipy and ASE (Atomic Simulation Environment). If you have no experience with the latter, you might want to familiarise yourself before using Soprano - it’s an excellent library with support for loading and manipulating lots of chemical structure formats, like .cif, as well as interfacing with many of the most used classical molecular dynamics, tight binding and ab initio simulation software packages.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For now Soprano is mainly being developed on the <code class="docutils literal notranslate"><span class="pre">jkshenton</span></code> fork of the repository, which is where the latest features will be added, particularly for NMR-related functionality. For this, see the instructions below for the <a class="reference external" href="#bleeding-edge-version">bleeding edge-version</a>.</p>
+</div>
+</section>
+<section id="installation-from-latest-source-code-git">
+<h3>Installation from latest source code (git)<a class="headerlink" href="#installation-from-latest-source-code-git" title="Permalink to this headline">#</a></h3>
+<p>You can clone the Soprano repository from Github and install it like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/CCP-NC/soprano.git</span></code></p>
+<p>and then install it using pip:</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code></p>
+<p>from within the <code class="docutils literal notranslate"><span class="pre">soprano</span></code> directory.</p>
+</section>
+<section id="installation-from-latest-source-code-zip">
+<h3>Installation from latest source code (zip)<a class="headerlink" href="#installation-from-latest-source-code-zip" title="Permalink to this headline">#</a></h3>
+<p>If you don’t have git installed, you can grab the source code from Github and install it via a zipped file, e.g. using this <code class="docutils literal notranslate"><span class="pre">pip</span></code> command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">https://github.com/CCP-NC/soprano/archive/refs/heads/master.zip</span></code></p>
+<p>You may want to add in the <code class="docutils literal notranslate"><span class="pre">--upgrade</span></code> flag to make sure you have the latest version.</p>
+</section>
+<section id="bleeding-edge-version">
+<h3>Bleeding edge-version<a class="headerlink" href="#bleeding-edge-version" title="Permalink to this headline">#</a></h3>
+<p>For now Soprano is mainly being developed on the <code class="docutils literal notranslate"><span class="pre">jkshenton</span></code> fork of the repository, which is where the latest features will be added. This should be considered unstable. You can install this version using the following command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">https://github.com/jkshenton/soprano/archive/refs/heads/master.zip</span></code></p>
+<p>Changes made to this fork will eventually make it to the main repository (and then to PyPI), but this may take some time.</p>
+</section>
+</section>
+<section id="other-useful-flags">
+<h2>Other useful flags<a class="headerlink" href="#other-useful-flags" title="Permalink to this headline">#</a></h2>
+<section id="installation-for-development">
+<h3>Installation for development<a class="headerlink" href="#installation-for-development" title="Permalink to this headline">#</a></h3>
+<p>You can combine any of the above <code class="docutils literal notranslate"><span class="pre">pip</span></code> commands with the <code class="docutils literal notranslate"><span class="pre">-e</span></code> flag to install in editable mode, which means that you can edit the source code and the changes will be reflected in the installed version:</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">https://github.com/CCP-NC/soprano/archive/refs/heads/master.zip</span></code></p>
+<p>If you do this and are working with Jupyter notebooks, it’s useful to add in the following lines to the top of your notebook:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load_ext</span> <span class="n">autoreload</span>
+<span class="o">%</span><span class="n">autoreload</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>so that you don’t need to restart your kernel every time you make a change to the source code.</p>
+</section>
+<section id="no-admin-rights">
+<h3>No admin rights<a class="headerlink" href="#no-admin-rights" title="Permalink to this headline">#</a></h3>
+<p>If you don’t have admin rights on your computer, you can install Soprano in your home directory by adding the <code class="docutils literal notranslate"><span class="pre">--user</span></code> flag to any of the above <code class="docutils literal notranslate"><span class="pre">pip</span></code> commands. For example:</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span> <span class="pre">soprano</span></code></p>
+</section>
+</section>
+<section id="testing-your-installation">
+<h2>Testing your installation<a class="headerlink" href="#testing-your-installation" title="Permalink to this headline">#</a></h2>
+<p>You can test your installation by first going into the tests directory:</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">tests</span></code></p>
+<p>and  running the following command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">unittest</span> <span class="pre">*.py</span> <span class="pre">--verbose</span></code></p>
+<p>If everything is working correctly, you should see a message like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test_file_not_found</span> <span class="p">(</span><span class="n">cli_tests</span><span class="o">.</span><span class="n">TestCLI</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_read_valid_ms</span> <span class="p">(</span><span class="n">cli_tests</span><span class="o">.</span><span class="n">TestCLI</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_arrays</span> <span class="p">(</span><span class="n">collection_tests</span><span class="o">.</span><span class="n">TestCollection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_calculator</span> <span class="p">(</span><span class="n">collection_tests</span><span class="o">.</span><span class="n">TestCollection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_chunks</span> <span class="p">(</span><span class="n">collection_tests</span><span class="o">.</span><span class="n">TestCollection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_loadres</span> <span class="p">(</span><span class="n">collection_tests</span><span class="o">.</span><span class="n">TestCollection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_save</span> <span class="p">(</span><span class="n">collection_tests</span><span class="o">.</span><span class="n">TestCollection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_slices</span> <span class="p">(</span><span class="n">collection_tests</span><span class="o">.</span><span class="n">TestCollection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_sorting</span> <span class="p">(</span><span class="n">collection_tests</span><span class="o">.</span><span class="n">TestCollection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_sum</span> <span class="p">(</span><span class="n">collection_tests</span><span class="o">.</span><span class="n">TestCollection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_tree</span> <span class="p">(</span><span class="n">collection_tests</span><span class="o">.</span><span class="n">TestCollection</span><span class="p">)</span> <span class="o">...</span> <span class="mi">100</span><span class="o">%</span> <span class="n">of</span> <span class="n">structures</span> <span class="n">loaded</span> <span class="n">successfully</span><span class="o">.</span> <span class="n">ok</span>
+<span class="n">test_gamma</span> <span class="p">(</span><span class="n">data_tests</span><span class="o">.</span><span class="n">TestData</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_quadrupole</span> <span class="p">(</span><span class="n">data_tests</span><span class="o">.</span><span class="n">TestData</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_spin</span> <span class="p">(</span><span class="n">data_tests</span><span class="o">.</span><span class="n">TestData</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_vdw</span> <span class="p">(</span><span class="n">data_tests</span><span class="o">.</span><span class="n">TestData</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_airss</span> <span class="p">(</span><span class="n">generator_tests</span><span class="o">.</span><span class="n">TestGenerate</span><span class="p">)</span> <span class="o">...</span> <span class="n">WARNING</span> <span class="o">-</span> <span class="n">The</span> <span class="n">AIRSS</span> <span class="n">generator</span> <span class="n">could</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">tested</span> <span class="k">as</span> <span class="n">no</span> <span class="n">AIRSS</span> <span class="n">installation</span> <span class="n">has</span> <span class="n">been</span> <span class="n">found</span> <span class="n">on</span> <span class="n">this</span> <span class="n">system</span><span class="o">.</span> <span class="n">ok</span>
+<span class="n">test_defect</span> <span class="p">(</span><span class="n">generator_tests</span><span class="o">.</span><span class="n">TestGenerate</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_linspace</span> <span class="p">(</span><span class="n">generator_tests</span><span class="o">.</span><span class="n">TestGenerate</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_molneigh</span> <span class="p">(</span><span class="n">generator_tests</span><span class="o">.</span><span class="n">TestGenerate</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_rattle</span> <span class="p">(</span><span class="n">generator_tests</span><span class="o">.</span><span class="n">TestGenerate</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_coordhist</span> <span class="p">(</span><span class="n">gene_tests</span><span class="o">.</span><span class="n">TestGenes</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_dipolar</span> <span class="p">(</span><span class="n">nmr_tests</span><span class="o">.</span><span class="n">TestNMR</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_diprotavg</span> <span class="p">(</span><span class="n">nmr_tests</span><span class="o">.</span><span class="n">TestNMR</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_efg</span> <span class="p">(</span><span class="n">nmr_tests</span><span class="o">.</span><span class="n">TestNMR</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_shielding</span> <span class="p">(</span><span class="n">nmr_tests</span><span class="o">.</span><span class="n">TestNMR</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_tensor</span> <span class="p">(</span><span class="n">nmr_tests</span><span class="o">.</span><span class="n">TestNMR</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_cluster</span> <span class="p">(</span><span class="n">phylogen_tests</span><span class="o">.</span><span class="n">TestPhylogen</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_customgene</span> <span class="p">(</span><span class="n">phylogen_tests</span><span class="o">.</span><span class="n">TestPhylogen</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_gene</span> <span class="p">(</span><span class="n">phylogen_tests</span><span class="o">.</span><span class="n">TestPhylogen</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_genefail</span> <span class="p">(</span><span class="n">phylogen_tests</span><span class="o">.</span><span class="n">TestPhylogen</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_instantiate</span> <span class="p">(</span><span class="n">phylogen_tests</span><span class="o">.</span><span class="n">TestPhylogen</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_loadarray</span> <span class="p">(</span><span class="n">phylogen_tests</span><span class="o">.</span><span class="n">TestPhylogen</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_loadgene</span> <span class="p">(</span><span class="n">phylogen_tests</span><span class="o">.</span><span class="n">TestPhylogen</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_basicprop</span> <span class="p">(</span><span class="n">properties_tests</span><span class="o">.</span><span class="n">TestPropertyLoad</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_dummyprop</span> <span class="p">(</span><span class="n">properties_tests</span><span class="o">.</span><span class="n">TestPropertyLoad</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_labelprops</span> <span class="p">(</span><span class="n">properties_tests</span><span class="o">.</span><span class="n">TestPropertyLoad</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_linkageprops</span> <span class="p">(</span><span class="n">properties_tests</span><span class="o">.</span><span class="n">TestPropertyLoad</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_propertymap</span> <span class="p">(</span><span class="n">properties_tests</span><span class="o">.</span><span class="n">TestPropertyLoad</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_remap</span> <span class="p">(</span><span class="n">properties_tests</span><span class="o">.</span><span class="n">TestPropertyLoad</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_transformprops</span> <span class="p">(</span><span class="n">properties_tests</span><span class="o">.</span><span class="n">TestPropertyLoad</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_randomness</span> <span class="p">(</span><span class="n">random_tests</span><span class="o">.</span><span class="n">TestRandom</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_seed</span> <span class="p">(</span><span class="n">random_tests</span><span class="o">.</span><span class="n">TestRandom</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_arrays</span> <span class="p">(</span><span class="n">selection_tests</span><span class="o">.</span><span class="n">TestSelection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_basic</span> <span class="p">(</span><span class="n">selection_tests</span><span class="o">.</span><span class="n">TestSelection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_iterate</span> <span class="p">(</span><span class="n">selection_tests</span><span class="o">.</span><span class="n">TestSelection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_mapsel</span> <span class="p">(</span><span class="n">selection_tests</span><span class="o">.</span><span class="n">TestSelection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_operators</span> <span class="p">(</span><span class="n">selection_tests</span><span class="o">.</span><span class="n">TestSelection</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_selectors</span> <span class="p">(</span><span class="n">selection_tests</span><span class="o">.</span><span class="n">TestSelection</span><span class="p">)</span> <span class="o">...</span> <span class="mi">37</span> <span class="n">ok</span>
+<span class="n">test_queueint</span> <span class="p">(</span><span class="n">submit_tests</span><span class="o">.</span><span class="n">TestSubmit</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_symdataset</span> <span class="p">(</span><span class="n">symmetry_tests</span><span class="o">.</span><span class="n">TestSymmetry</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_wyckoff</span> <span class="p">(</span><span class="n">symmetry_tests</span><span class="o">.</span><span class="n">TestSymmetry</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_merge_tagged_sites</span> <span class="p">(</span><span class="n">test_cli_utils</span><span class="o">.</span><span class="n">TestCLIUtils</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_tag_functional_groups</span> <span class="p">(</span><span class="n">test_cli_utils</span><span class="o">.</span><span class="n">TestCLIUtils</span><span class="p">)</span> <span class="o">...</span> <span class="n">Averaging</span> <span class="n">over</span> <span class="n">functional</span> <span class="n">groups</span><span class="p">:</span> <span class="n">CH3</span> <span class="n">ok</span>
+<span class="n">test_abc2cart</span> <span class="p">(</span><span class="n">utils_tests</span><span class="o">.</span><span class="n">TestLatticeMethods</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_cart2abc</span> <span class="p">(</span><span class="n">utils_tests</span><span class="o">.</span><span class="n">TestLatticeMethods</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_merge_sites</span> <span class="p">(</span><span class="n">utils_tests</span><span class="o">.</span><span class="n">TestMergeSites</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_seedname</span> <span class="p">(</span><span class="n">utils_tests</span><span class="o">.</span><span class="n">TestOthers</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_specsort</span> <span class="p">(</span><span class="n">utils_tests</span><span class="o">.</span><span class="n">TestOthers</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_swing_twist</span> <span class="p">(</span><span class="n">utils_tests</span><span class="o">.</span><span class="n">TestOthers</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_min_periodic</span> <span class="p">(</span><span class="n">utils_tests</span><span class="o">.</span><span class="n">TestSupercellMethods</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_min_supcell</span> <span class="p">(</span><span class="n">utils_tests</span><span class="o">.</span><span class="n">TestSupercellMethods</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_func_interface</span> <span class="p">(</span><span class="n">xrd_tests</span><span class="o">.</span><span class="n">TestXRDCalculator</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_lebail_fit</span> <span class="p">(</span><span class="n">xrd_tests</span><span class="o">.</span><span class="n">TestXRDCalculator</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_powder_peaks</span> <span class="p">(</span><span class="n">xrd_tests</span><span class="o">.</span><span class="n">TestXRDCalculator</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">test_sel_rules</span> <span class="p">(</span><span class="n">xrd_tests</span><span class="o">.</span><span class="n">TestXRDRules</span><span class="p">)</span> <span class="o">...</span> <span class="n">ok</span>
+
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Ran</span> <span class="mi">65</span> <span class="n">tests</span> <span class="ow">in</span> <span class="mf">0.958</span><span class="n">s</span>
+
+<span class="n">OK</span>
+</pre></div>
+</div>
+<!--TODO: For more information on contributing to Soprano, see the [contributing guide]() -->
+</section>
 </section>
 
     <script type="text/x-thebe-config">

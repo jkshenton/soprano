@@ -763,7 +763,7 @@ subcommands, each of which has its own set of options and help.</p>
 </dd></dl>
 
 <p>Author: J. Kane Shenton (<a class="reference external" href="mailto:kane&#46;shenton&#37;&#52;&#48;stfc&#46;ac&#46;uk">kane<span>&#46;</span>shenton<span>&#64;</span>stfc<span>&#46;</span>ac<span>&#46;</span>uk</a>)</p>
-<p>Last updated: July 04, 2022</p>
+<p>Last updated: June 21, 2023</p>
 <section id="soprano-dipolar">
 <h3>dipolar<a class="headerlink" href="#soprano-dipolar" title="Permalink to this headline">#</a></h3>
 <p>Extract and summarise dipolar couplings from structure files.</p>
@@ -785,9 +785,9 @@ soprano dipolar seedname.{magres|cif|POSCAR|etc}</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-dipolar-q">
-<span id="cmdoption-soprano-dipolar-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-q" title="Permalink to this definition">#</a></dt>
-<dd><p>If present, log less information.</p>
+<dt class="sig sig-object std" id="cmdoption-soprano-dipolar-v">
+<span id="cmdoption-soprano-dipolar-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-v" title="Permalink to this definition">#</a></dt>
+<dd><p>Increase verbosity. Use -v for info, -vv for debug. Defaults to only showing warnings and errors.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -821,21 +821,39 @@ soprano dipolar seedname.{magres|cif|POSCAR|etc}</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-dipolar-s_i">
-<span id="cmdoption-soprano-dipolar-s-i"></span><span id="cmdoption-soprano-dipolar-select_i"></span><span id="cmdoption-soprano-dipolar-select-i"></span><span class="sig-name descname"><span class="pre">-s_i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--select_i</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection_i&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-s_i" title="Permalink to this definition">#</a></dt>
-<dd><p>Selection string of sites include. e.g.
+<dt class="sig sig-object std" id="cmdoption-soprano-dipolar-0">
+<span id="cmdoption-soprano-dipolar-select_i"></span><span id="cmdoption-soprano-dipolar-select-i"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--select_i</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection_i&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-0" title="Permalink to this definition">#</a></dt>
+<dd><p>Selection string of subset of sites include. e.g.
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C</span></code> for only and all carbon atoms,
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C.1-3,H.1.2</span></code> for carbons 1,2,3 and hydrogens 1 and 2,
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C1,H1a,H1b</span></code> for any sites with the labels C1, H1a and H1b.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-dipolar-s_j">
-<span id="cmdoption-soprano-dipolar-s-j"></span><span id="cmdoption-soprano-dipolar-select_j"></span><span id="cmdoption-soprano-dipolar-select-j"></span><span class="sig-name descname"><span class="pre">-s_j</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--select_j</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection_j&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-s_j" title="Permalink to this definition">#</a></dt>
-<dd><p>Selection string of sites include. e.g.
+<dt class="sig sig-object std" id="cmdoption-soprano-dipolar-j">
+<span id="cmdoption-soprano-dipolar-select_j"></span><span id="cmdoption-soprano-dipolar-select-j"></span><span class="sig-name descname"><span class="pre">-j</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--select_j</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection_j&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-j" title="Permalink to this definition">#</a></dt>
+<dd><p>Selection string of subset of sites include. e.g.
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C</span></code> for only and all carbon atoms,
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C.1-3,H.1.2</span></code> for carbons 1,2,3 and hydrogens 1 and 2,
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C1,H1a,H1b</span></code> for any sites with the labels C1, H1a and H1b.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-dipolar-rss">
+<span class="sig-name descname"><span class="pre">--rss</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-rss" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate the dipolar constant Root Sum Square for each atom in a system (includes periodicity).(As opposed to the dipolar couplings between pairs of atoms).Default is False.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-dipolar-cutoff">
+<span class="sig-name descname"><span class="pre">--cutoff</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rss_cutoff&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-cutoff" title="Permalink to this definition">#</a></dt>
+<dd><p>Cutoff for Dipolar constant Root Sum Square for each atom in a system (includes periodicity). Units are Angstroms. Default is 5.0 Angstroms.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-dipolar-isonuclear">
+<span class="sig-name descname"><span class="pre">--isonuclear</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-isonuclear" title="Permalink to this definition">#</a></dt>
+<dd><p>Include only dipolar interactions between atoms of the same type.Default is False.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -859,23 +877,6 @@ soprano dipolar seedname.{magres|cif|POSCAR|etc}</p>
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-m">
 <span id="cmdoption-soprano-dipolar-merge"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--merge</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-m" title="Permalink to this definition">#</a></dt>
 <dd><p>If present, merge all files into a single output file.</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-dipolar-r">
-<span id="cmdoption-soprano-dipolar-reduce"></span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--reduce</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-r" title="Permalink to this definition">#</a></dt>
-<dd><p>Reduce the output by symmetry-equivalent sites. The merged equivalent sites are combined according to <code class="docutils literal notranslate"><span class="pre">--combine-rule</span></code>. To see the rules used for each column, set <code class="docutils literal notranslate"><span class="pre">--verbose</span></code>. If there are CIF-style labels present, then these override the symmetry-grouping in case of a clash. Note that this doesn’t take into account magnetic symmetry!</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-dipolar-combine-rule">
-<span class="sig-name descname"><span class="pre">--combine-rule</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;combine_rule&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-combine-rule" title="Permalink to this definition">#</a></dt>
-<dd><p>How to combine the data from equivalent sites. <code class="docutils literal notranslate"><span class="pre">mean</span></code> is the default, which averages the data. <code class="docutils literal notranslate"><span class="pre">first</span></code> Takes the first item from each group of equivalent sites. Special handling for labels, indices, tags and multiplicity. Set verbose to True to see what rules have been used.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Options</dt>
-<dd class="field-odd"><p>mean | first</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="std option">
@@ -946,9 +947,9 @@ present in the file for all the atoms.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-nmr-q">
-<span id="cmdoption-soprano-nmr-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-q" title="Permalink to this definition">#</a></dt>
-<dd><p>If present, log less information.</p>
+<dt class="sig sig-object std" id="cmdoption-soprano-nmr-v">
+<span id="cmdoption-soprano-nmr-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-v" title="Permalink to this definition">#</a></dt>
+<dd><p>Increase verbosity. Use -v for info, -vv for debug. Defaults to only showing warnings and errors.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -993,6 +994,12 @@ present in the file for all the atoms.</p>
 </dd></dl>
 
 <dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-nmr-reduce">
+<span id="cmdoption-soprano-nmr-no-reduce"></span><span class="sig-name descname"><span class="pre">--reduce</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-reduce</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-reduce" title="Permalink to this definition">#</a></dt>
+<dd><p>Reduce the output by symmetry-equivalent sites. If there are CIF-style labels present, then these override the symmetry-grouping in case of a clash (though there should never be a clash…). Note that this doesn’t take into account magnetic symmetry! Defaults to True, so use <code class="docutils literal notranslate"><span class="pre">--no-reduce</span></code> to turn off symmetry reduction.</p>
+</dd></dl>
+
+<dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-euler">
 <span class="sig-name descname"><span class="pre">--euler</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;euler_convention&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-euler" title="Permalink to this definition">#</a></dt>
 <dd><p>Convention for Euler angles. Defaults to <code class="docutils literal notranslate"><span class="pre">zyz</span></code>.</p>
@@ -1006,19 +1013,19 @@ present in the file for all the atoms.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-references">
 <span class="sig-name descname"><span class="pre">--references</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;references&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-references" title="Permalink to this definition">#</a></dt>
-<dd><p>Reference shielding for each element (in ppm). The format is <code class="docutils literal notranslate"><span class="pre">--references</span> <span class="pre">C:170,H:123</span></code>. If the value is a single float, that reference will be used for all sites (not recommended!).</p>
+<dd><p>Reference shielding for each element (in ppm). The format is <code class="docutils literal notranslate"><span class="pre">--references</span> <span class="pre">C:170,H:123</span></code>.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-gradients">
 <span class="sig-name descname"><span class="pre">--gradients</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;gradients&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-gradients" title="Permalink to this definition">#</a></dt>
-<dd><p>Reference shielding gradients for each element. Defaults to -1 for all elements. Set it like this: <code class="docutils literal notranslate"><span class="pre">--gradients</span> <span class="pre">H:-1,C:-0.97</span></code>. If the value is a single float, that gradient will be used for all sites (not recommended!).</p>
+<dd><p>Reference shielding gradients for each element. Defaults to -1 for all elements. Set it like this: <code class="docutils literal notranslate"><span class="pre">--gradients</span> <span class="pre">H:-1,C:-0.97</span></code>.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-s">
-<span id="cmdoption-soprano-nmr-select"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--select</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-s" title="Permalink to this definition">#</a></dt>
-<dd><p>Selection string of sites include. e.g.
+<span id="cmdoption-soprano-nmr-subset"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subset</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;subset&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-s" title="Permalink to this definition">#</a></dt>
+<dd><p>Selection string of subset of sites include. e.g.
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C</span></code> for only and all carbon atoms,
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C.1-3,H.1.2</span></code> for carbons 1,2,3 and hydrogens 1 and 2,
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C1,H1a,H1b</span></code> for any sites with the labels C1, H1a and H1b.</p>
@@ -1045,23 +1052,6 @@ present in the file for all the atoms.</p>
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-m">
 <span id="cmdoption-soprano-nmr-merge"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--merge</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-m" title="Permalink to this definition">#</a></dt>
 <dd><p>If present, merge all files into a single output file.</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-nmr-r">
-<span id="cmdoption-soprano-nmr-reduce"></span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--reduce</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-r" title="Permalink to this definition">#</a></dt>
-<dd><p>Reduce the output by symmetry-equivalent sites. The merged equivalent sites are combined according to <code class="docutils literal notranslate"><span class="pre">--combine-rule</span></code>. To see the rules used for each column, set <code class="docutils literal notranslate"><span class="pre">--verbose</span></code>. If there are CIF-style labels present, then these override the symmetry-grouping in case of a clash. Note that this doesn’t take into account magnetic symmetry!</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-nmr-combine-rule">
-<span class="sig-name descname"><span class="pre">--combine-rule</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;combine_rule&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-combine-rule" title="Permalink to this definition">#</a></dt>
-<dd><p>How to combine the data from equivalent sites. <code class="docutils literal notranslate"><span class="pre">mean</span></code> is the default, which averages the data. <code class="docutils literal notranslate"><span class="pre">first</span></code> Takes the first item from each group of equivalent sites. Special handling for labels, indices, tags and multiplicity. Set verbose to True to see what rules have been used.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Options</dt>
-<dd class="field-odd"><p>mean | first</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="std option">
@@ -1099,12 +1089,6 @@ present in the file for all the atoms.</p>
 <dd><p>Filter results based on query. The filter is specified as a pandas query. Note that you must enclose the query in quotes! Refer to the column names without the units.  For example <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100'</span></code>. You can combine queries with <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> etc. e.g. <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100</span> <span class="pre">and</span> <span class="pre">MS_shielding</span> <span class="pre">&lt;</span> <span class="pre">180'</span></code>. Defaults to no filter.</p>
 </dd></dl>
 
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-nmr-v">
-<span id="cmdoption-soprano-nmr-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;LVL&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-v" title="Permalink to this definition">#</a></dt>
-<dd><p>Either CRITICAL, ERROR, WARNING, INFO or DEBUG</p>
-</dd></dl>
-
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-arg-FILES">
@@ -1115,7 +1099,7 @@ present in the file for all the atoms.</p>
 </section>
 <section id="soprano-plotnmr">
 <h3>plotnmr<a class="headerlink" href="#soprano-plotnmr" title="Permalink to this headline">#</a></h3>
-<p>Plot the NMR spectrum from a csv file.</p>
+<p>Plot the NMR spectrum from a .magres file.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano plotnmr <span class="o">[</span>OPTIONS<span class="o">]</span> <span class="o">[</span>FILES<span class="o">]</span>...
 </pre></div>
 </div>
@@ -1132,9 +1116,9 @@ present in the file for all the atoms.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-q">
-<span id="cmdoption-soprano-plotnmr-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-q" title="Permalink to this definition">#</a></dt>
-<dd><p>If present, log less information.</p>
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-v">
+<span id="cmdoption-soprano-plotnmr-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-v" title="Permalink to this definition">#</a></dt>
+<dd><p>Increase verbosity. Use -v for info, -vv for debug. Defaults to only showing warnings and errors.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -1181,39 +1165,28 @@ present in the file for all the atoms.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-references">
 <span class="sig-name descname"><span class="pre">--references</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;references&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-references" title="Permalink to this definition">#</a></dt>
-<dd><p>Reference shielding for each element (in ppm). The format is <code class="docutils literal notranslate"><span class="pre">--references</span> <span class="pre">C:170,H:123</span></code>. If the value is a single float, that reference will be used for all sites (not recommended!).</p>
+<dd><p>Reference shielding for each element (in ppm). The format is <code class="docutils literal notranslate"><span class="pre">--references</span> <span class="pre">C:170,H:123</span></code>.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-gradients">
 <span class="sig-name descname"><span class="pre">--gradients</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;gradients&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-gradients" title="Permalink to this definition">#</a></dt>
-<dd><p>Reference shielding gradients for each element. Defaults to -1 for all elements. Set it like this: <code class="docutils literal notranslate"><span class="pre">--gradients</span> <span class="pre">H:-1,C:-0.97</span></code>. If the value is a single float, that gradient will be used for all sites (not recommended!).</p>
+<dd><p>Reference shielding gradients for each element. Defaults to -1 for all elements. Set it like this: <code class="docutils literal notranslate"><span class="pre">--gradients</span> <span class="pre">H:-1,C:-0.97</span></code>.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-s">
-<span id="cmdoption-soprano-plotnmr-select"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--select</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-s" title="Permalink to this definition">#</a></dt>
-<dd><p>Selection string of sites include. e.g.
+<span id="cmdoption-soprano-plotnmr-subset"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subset</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;subset&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-s" title="Permalink to this definition">#</a></dt>
+<dd><p>Selection string of subset of sites include. e.g.
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C</span></code> for only and all carbon atoms,
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C.1-3,H.1.2</span></code> for carbons 1,2,3 and hydrogens 1 and 2,
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C1,H1a,H1b</span></code> for any sites with the labels C1, H1a and H1b.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-r">
-<span id="cmdoption-soprano-plotnmr-reduce"></span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--reduce</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-r" title="Permalink to this definition">#</a></dt>
-<dd><p>Reduce the output by symmetry-equivalent sites. The merged equivalent sites are combined according to <code class="docutils literal notranslate"><span class="pre">--combine-rule</span></code>. To see the rules used for each column, set <code class="docutils literal notranslate"><span class="pre">--verbose</span></code>. If there are CIF-style labels present, then these override the symmetry-grouping in case of a clash. Note that this doesn’t take into account magnetic symmetry!</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-combine-rule">
-<span class="sig-name descname"><span class="pre">--combine-rule</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;combine_rule&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-combine-rule" title="Permalink to this definition">#</a></dt>
-<dd><p>How to combine the data from equivalent sites. <code class="docutils literal notranslate"><span class="pre">mean</span></code> is the default, which averages the data. <code class="docutils literal notranslate"><span class="pre">first</span></code> Takes the first item from each group of equivalent sites. Special handling for labels, indices, tags and multiplicity. Set verbose to True to see what rules have been used.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Options</dt>
-<dd class="field-odd"><p>mean | first</p>
-</dd>
-</dl>
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-reduce">
+<span id="cmdoption-soprano-plotnmr-no-reduce"></span><span class="sig-name descname"><span class="pre">--reduce</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-reduce</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-reduce" title="Permalink to this definition">#</a></dt>
+<dd><p>Reduce the output by symmetry-equivalent sites. If there are CIF-style labels present, then these override the symmetry-grouping in case of a clash (though there should never be a clash…). Note that this doesn’t take into account magnetic symmetry! Defaults to True, so use <code class="docutils literal notranslate"><span class="pre">--no-reduce</span></code> to turn off symmetry reduction.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -1283,7 +1256,7 @@ present in the file for all the atoms.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-ms">
 <span id="cmdoption-soprano-plotnmr-max-marker-size"></span><span class="sig-name descname"><span class="pre">-ms</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--max-marker-size</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_marker_size&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-ms" title="Permalink to this definition">#</a></dt>
-<dd><p>Maximum marker size. Default is 200.</p>
+<dd><p>Maximum marker size. Default is 50.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -1304,15 +1277,39 @@ present in the file for all the atoms.</p>
 </dd></dl>
 
 <dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-diag">
+<span id="cmdoption-soprano-plotnmr-no-diag"></span><span class="sig-name descname"><span class="pre">--diag</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-diag</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-diag" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot diagonal line if the x and y elements are the same. Defaults to True (i.e. showing the diagonal line).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-grid">
+<span id="cmdoption-soprano-plotnmr-no-grid"></span><span class="sig-name descname"><span class="pre">--grid</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-grid</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-grid" title="Permalink to this definition">#</a></dt>
+<dd><p>Show grid lines at the axis ticks. Defaults to True (i.e. showing the grid lines).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-connectors">
+<span id="cmdoption-soprano-plotnmr-no-connectors"></span><span class="sig-name descname"><span class="pre">--connectors</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-connectors</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-connectors" title="Permalink to this definition">#</a></dt>
+<dd><p>Show horizontal connectors between points in the case of a 2Q plot. Defaults to True (i.e. show connectors).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-ticklabels">
+<span id="cmdoption-soprano-plotnmr-no-ticklabels"></span><span class="sig-name descname"><span class="pre">--ticklabels</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-ticklabels</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-ticklabels" title="Permalink to this definition">#</a></dt>
+<dd><p>Show tick labels. Defaults to True (i.e. showing the tick labels).</p>
+</dd></dl>
+
+<dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-o">
 <span id="cmdoption-soprano-plotnmr-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;plot_filename&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-o" title="Permalink to this definition">#</a></dt>
 <dd><p>Name of the plot file. If not specified, the plot will be displayed in a window. The file extension determines the plot type (svg or pdf recommended).</p>
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-shift">
-<span id="cmdoption-soprano-plotnmr-shielding"></span><span class="sig-name descname"><span class="pre">--shift</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--shielding</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-shift" title="Permalink to this definition">#</a></dt>
-<dd><p>Plot shielding or shift. Defaults to shielding.</p>
+<dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-shielding">
+<span class="sig-name descname"><span class="pre">--shielding</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-shielding" title="Permalink to this definition">#</a></dt>
+<dd><p>Force plot shielding (even if references are present). Default is to plot shifts if references are given but shielding if no references given).</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
