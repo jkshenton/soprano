@@ -34,11 +34,61 @@ from contextlib import contextmanager
 import inspect
 import warnings
 import numpy as np
+from numpy import matlib as npm # optionl subpackage of numpy
 from scipy.special import factorial
 from ase.quaternions import Quaternion
+from ase import Atoms, Atom
+from typing import List
 
 from soprano.optional import requireNetworkX, requireScikitLearn, requireSpglib
 from soprano.rnd import Random
+
+def merge_mean(T):
+    """Merge a list of arrays by taking the mean"""
+    return np.mean(T, axis=0)
+def merge_first(T):
+    """Merge a list of arrays by taking the first"""
+    return T[0]
+def merge_concatenate(T):
+    """Merge a list of arrays by concatenating them"""
+    # if T is an array of strings, join them
+    if isinstance(T[0], str):
+        unique_labels = np.unique(T)
+        return ','.join(unique_labels)
+    else:
+        raise NotImplementedError("Concatenation of arrays of type {} not implemented".format(type(T[0])))
+def merge_sum(T):
+    """Merge a list of arrays by summing them"""
+    return np.sum(T, axis=0)
+DEFAULT_MERGING_STRATEGIES = {
+    'ms' : merge_mean,
+    'ms_isotropy': merge_mean,
+    'ms_shielding': merge_mean,
+    'ms_diagonal_evals': merge_first, ## since they might be in different order ?
+    'ms_diagonal_evals_hsort': merge_first, ## since they might be in different order ?
+    'ms_diagonal_evecs': merge_first, ## since they might be in different order ?
+    'efg': merge_mean,
+    'isc': merge_mean,
+    'isc_spin': merge_mean,
+    'isc_fc': merge_mean,
+    'isc_orbital_p': merge_mean,
+    'isc_orbital_d': merge_mean,
+    'isc_orbital_f': merge_mean,
+    'labels': merge_concatenate,
+    'positions': merge_mean,
+    'magmoms': merge_mean,
+    'tags': merge_first,
+    'indices': merge_first,
+    'numbers' : merge_first,
+    'momentum': merge_mean,
+    'masses': merge_first,
+    'charges': merge_first,
+    'multiplicity': merge_sum,
+    'order_tag': merge_first,
+    'cell_indices': merge_first, # goes with positions
+    'bonds': merge_first, # does not make sense to merge bonds
+}
+
 
 
 def seedname(path):
@@ -49,6 +99,20 @@ def seedname(path):
 def replace_folder(path, new_folder):
     """Replace the folder of the given path with a new one"""
     return os.path.join(new_folder, os.path.basename(path))
+
+def has_cif_labels(atoms):
+    """Check if the atoms object has CIF labels
+    Does this simply by comparing the labels with the element symbols.
+    If they're all the same, then so special labels are present.  
+    """
+    if not atoms.has('labels'):
+        return False
+    symbols = atoms.get_chemical_symbols()
+    labels = atoms.get_array('labels')
+    if not all(symbols == labels) and any(symbols == labels):
+        warnings.warn("A mix of cif and non-cif-stlye labels detected.")
+        
+    return not all(symbols == labels)
 
 
 def progbar(i, i_max, bar_len=20, spinner=True, spin_rate=3.0):
@@ -536,6 +600,32 @@ def swing_twist_decomp(quat, axis):
 
     return swing, twist
 
+def average_quaternions(quats: List[Quaternion]) -> Quaternion:
+    """
+    Average a list of quaternions.
+    Following: https://github.com/christophhagen/averaging-quaternions
+
+    Returns a normalized quaternion.
+    """
+    Q = np.array([q.q for q in quats])
+    # Number of quaternions to average
+    M = Q.shape[0]
+    assert M > 0, "No quaternions to average"
+    A = npm.zeros(shape=(4,4))
+
+    for i in range(0,M):
+        q = Q[i,:]
+        # multiply q with its transposed version q' and add A
+        A = np.outer(q,q) + A
+
+    # scale
+    A = (1.0/M)*A
+    # compute eigenvalues and -vectors
+    eigenValues, eigenVectors = np.linalg.eig(A)
+    # Sort by largest eigenvalue
+    eigenVectors = eigenVectors[:,eigenValues.argsort()[::-1]]
+    # return the real part of the largest eigenvector (has only real part)
+    return Quaternion(np.real(eigenVectors[:,0].A1))
 
 # ### Clebsch-Gordan and Wigner-3j symbols ###
 
@@ -1058,3 +1148,108 @@ def graph_specsort(L):
     fied *= -1 if np.sum(fied > 0) < n / 2.0 else 1
 
     return np.argsort(fied)
+
+def merge_sites(atoms: Atoms, indices, merging_strategies={}, keep_all=False):
+    """
+    Merge sites in a structure.
+
+    | Parameters:
+    |   atoms (ase.Atoms): structure to merge sites in
+    |   indices (list): list of lists of indices of sites to merge
+    |   merging_strategies (dict): dictionary of merging strategies for
+    |                             properties, e.g. {'positions': lambda x: x.mean(axis=0)}
+    |                             if not specified, the default strategies will be used
+    |                             (see DEFAULT_MERGING_STRATEGIES)
+    |   keep_all (bool): whether to keep all sites in the structure, default is False. If True, the
+    |                    merged sites will have the same properties (determined by merging_strategies)
+    |                    but will have a different index, so that they can be identified. If False, only one of the merged
+    |                    sites will be kept, and the others will be removed from the Atoms object.
+
+    | Returns:
+    |   atoms (ase.Atoms): structure with sites merged
+
+    """
+    atoms_orig = atoms.copy()
+    atoms_to_merge = atoms.copy()[indices]
+
+    # if we already have multiplicity 
+    # we must update it to reflect the merging
+    # otherwise we can just assume they all start with a multiplicity of 1
+    if atoms.has('multiplicity'):
+        multiplicity = atoms.get_array('multiplicity')
+    else:
+        multiplicity = np.ones(len(atoms), dtype=int)
+
+    # update multiplicity for merged sites depending on whether we keep all sites or not
+    if not keep_all:
+        multiplicity[indices] = np.sum(multiplicity[indices])
+
+    # let input merging strategies override the default ones
+    merging_strategies = {**DEFAULT_MERGING_STRATEGIES, **merging_strategies}
+    new_properties = {}
+    for key in atoms.arrays.keys():
+        if key not in merging_strategies.keys():
+            strategy = merge_first
+            warnings.warn(
+                'Merging strategy for {} not specified, using {}'.format(
+                    key, strategy
+                )
+            )
+        else:
+            strategy = merging_strategies[key]
+
+        if key == 'positions':
+            # apply strategy function
+            # TODO: do we need custom handling for periodic structures?
+            new_prop = strategy(atoms_to_merge.positions)
+        elif key == 'numbers':
+            new_prop = strategy(atoms_to_merge.numbers)
+        elif key == 'labels':
+            new_prop = strategy(atoms_to_merge.get_array('labels'))
+        else:
+            new_prop = strategy(atoms_to_merge.get_array(key))
+        new_properties[key] = new_prop
+
+    # if we are not keeping all sites, we need to delete the other ones
+    # we can delete all but the first of the old sites
+    # loop backwards to avoid index problems
+    if not keep_all:
+        for i in indices[1:][::-1]:
+            atoms.pop(i)
+            multiplicity = np.delete(multiplicity, i)
+        # update indices to reflect the fact that we have deleted all other sites
+        indices = [indices[0]]
+
+
+    # Now loop over (remaining) indices and set new properties:
+    for idx in indices:
+        atoms.positions[idx] = new_properties['positions']
+        atoms.numbers[idx] = new_properties['numbers']
+        # -- labels --#
+        if atoms.has('labels'):
+            labels = atoms.get_array('labels').astype('U25')
+            labels[idx] = new_properties['labels']
+            # first delete the old array 
+            # (this is needed to avoid a bug in ASE)
+            atoms.set_array('labels', None)
+            atoms.set_array('labels', labels, dtype='U25')
+            # also update the magresview_labels array if it exists
+            if atoms.has('magresview_labels'):
+                labels = atoms.get_array('magresview_labels').astype('U25')
+                labels[idx] = new_properties['labels']
+                # first delete the old array 
+                # (this is needed to avoid a bug in ASE)
+                atoms.set_array('magresview_labels', None)
+                atoms.set_array('magresview_labels', labels, dtype='U25')
+
+        # -- custom arrays -- #
+        for key in new_properties.keys():
+            if key not in ['positions', 'numbers', 'labels']:
+                arr = atoms.get_array(key)
+                arr[idx] = new_properties[key]
+                atoms.set_array(key, arr)
+    
+    # update multiplicity
+    atoms.set_array('multiplicity', multiplicity)
+
+    return atoms
