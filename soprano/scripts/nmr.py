@@ -55,11 +55,13 @@ from soprano.scripts.cli_utils import \
                                     find_XHn_groups,\
                                     sortdf,\
                                     viewimages, \
-                                    units_rename
+                                    units_rename, \
+                                    apply_df_filtering
 # logging
 logging.captureWarnings(True)
 logger = logging.getLogger('cli')
 click_log.basic_config(logger)
+
 HEADER = '''
 ##########################################
 #  Extracting NMR info from magres file  #
@@ -69,8 +71,6 @@ FOOTER = '''
 ##########################################
 '''
 
-
-@click_log.simple_verbosity_option(logger)
 
 
 @click.command()
@@ -84,27 +84,27 @@ FOOTER = '''
 
 def nmr(
         files,
-        selection,
-        output,
-        output_format,
-        merge,
-        isotopes,
-        references,
-        gradients,
-        reduce,
-        average_group,
-        combine_rule,
-        symprec,
-        properties,
-        precision,
-        euler_convention,
-        sortby,
-        sort_order,
-        include,
-        exclude,
-        query,
-        view,
-        quiet):
+        subset=None,
+        output=None,
+        output_format=None,
+        merge=False,
+        isotopes={},
+        references={},
+        gradients={},
+        reduce=True,
+        average_group=None,
+        combine_rule='mean',
+        symprec=1e-4,
+        properties=['efg', 'ms'],
+        precision = 3,
+        euler_convention='zyz',
+        sortby=None,
+        sort_order='ascending',
+        include=None,
+        exclude=None,
+        query=None,
+        view=False,
+        verbosity=0):
     """
     Extract and analyse NMR data from magres file(s).
     
@@ -117,24 +117,97 @@ def nmr(
     
     See the below arguments for how to extract specific information.
     """
-    if quiet:
+    if verbosity == 0:
         logging.basicConfig(level=logging.WARNING)
-        verbose = False
-    else:
-        verbose = True
+    elif verbosity == 1:
         logging.basicConfig(level=logging.INFO)
-    dfs, images = nmr_extract(files, selection, merge, isotopes, references, gradients, reduce, average_group, combine_rule, symprec, properties, precision, euler_convention, sortby, sort_order, include, exclude, query, view)
-    
-    # write to file(s)
-    print_results(dfs, output, output_format, precision, verbose)
+    else:
+        logging.basicConfig(level=logging.DEBUG)
 
-def nmr_extract(files, selection, merge, isotopes, references, gradients, reduce, average_group, combine_rule, symprec, properties, precision, euler_convention, sortby, sort_order, include, exclude, query, view):
+    dfs, images = nmr_extract(
+                    files,
+                    subset = subset,
+                    merge = merge,
+                    isotopes = isotopes,
+                    references = references,
+                    gradients = gradients,
+                    reduce = reduce,
+                    average_group = average_group,
+                    symprec = symprec,
+                    properties = properties,
+                    euler_convention = euler_convention,
+                    sortby = sortby,
+                    sort_order = sort_order,
+                    include = include,
+                    exclude = exclude,
+                    query = query,
+                    logger = logger,
+                    )
+    if view:
+        viewimages(images)
+        
+    # write to file(s)
+    print_results(dfs, output, output_format, precision, verbosity > 0)
+
+def nmr_extract(
+        files,
+        subset=None,
+        merge=False,
+        isotopes={},
+        references={},
+        gradients={},
+        reduce=True,
+        average_group=None,
+        merging_strategies= {
+            # for the positions, just take the first one 
+            'positions': lambda x: x[0],
+            # for the labels, just take the first one
+            'labels': lambda x: x[0],
+        },
+        symprec=1e-4,
+        properties=['efg', 'ms'],
+        euler_convention='zyz',
+        sortby=None,
+        sort_order='ascending',
+        include=None,
+        exclude=None,
+        query=None,
+        logger = None,
+        ):
     '''
+    Extract NMR data from magres file(s). See CLI help for more details on the arguments. (`soprano nmr --help`)
+
+    Args:
+        files (list): list of magres files to extract data from.
+        subset (str): subset of atoms to extract data from. e.g. "H1,H2,C" for all H1, H2 and C atoms.
+        merge (bool): whether to merge the pandas dataframes from more than one .magres file.
+        isotopes (dict): dictionary of isotope labels to use for each element. e.g. {"H": "1H", "C": "13C"}.
+        references (dict): dictionary of shielding reference values to use for each element. e.g. {"H": 30.0, "C": 100.0}.
+        gradients (dict): dictionary of gradient reference values to use for each element. e.g. {"H": -1.0, "C": -0.95}. 
+                          If not provided, the gradient is assumed to be -1 for all elements.
+        reduce (bool): whether to reduce to symmetry equivalent sites (using either the CIF labels or symmetry operations found using SPGLIB).
+        average_group (str): comma-separated list of functional groups to average over e.g. methyl groups. e.g. "CH3" averages over H atoms in methyl groups.
+        merging_strategies (dict): dictionary of merging strategies to use for each property. e.g. {"positions": lambda x: x[0]}.
+        symprec (float): tolerance for symmetry operations. Default is 1e-4.
+        properties (list): list of properties to extract. Options are 'efg', 'ms'.
+        euler_convention (str): convention to use for Euler angles. Options are 'zyz' or 'zxz'.
+        sortby (str): column to sort the dataframe by.
+        sort_order (str): order to sort the dataframe by. Options are 'ascending' or 'descending'.
+        include (str): comma-separated list of columns to include in the output.
+        exclude (str): comma-separated list of columns to exclude from the output.
+        query (str): query string to filter the dataframe.
+        logger (logging.Logger): logger to use for logging. If None, a new logger is created.
+
+
     
     Returns:
         dfs (list): list of pandas DataFrames containing the extracted data.
         images (list): list of ASE Atoms objects containing the crystal structures.
     '''
+
+    if logger is None:
+        logger = logging.getLogger(__name__)
+
     
     dfs = []
     images = []
@@ -147,6 +220,10 @@ def nmr_extract(files, selection, merge, isotopes, references, gradients, reduce
         # try to read in the file:
         try:
             atoms = io.read(fname)
+            # immediately try to reload as molecular crystal
+            atoms = reload_as_molecular_crystal(atoms)
+            # label atoms 
+            atoms = label_atoms(atoms)
         except IOError:
             logger.error(f"Could not read file {fname}, skipping.")
             continue
@@ -156,92 +233,87 @@ def nmr_extract(files, selection, merge, isotopes, references, gradients, reduce
             logger.error(f"File {fname} has no {' '.join(properties)} data to extract. Skipping.")
             continue
 
-        # Inform user of best practice RE CIF labels
-        if not has_cif_labels(atoms):
-            logger.info(NO_CIF_LABEL_WARNING)
-            # add magresview labels
-            magresview_labels = MagresViewLabels.get(atoms, store_array=True)
-            
 
         all_selections = AtomSelection.all(atoms)
+        # select subset of atoms based on selection string
+        if subset:
+            logger.info(f'\nSelecting atoms based on selection subset string: {subset}')
+            sel_selectionstring = AtomSelection.from_selection_string(atoms, subset)
+            all_selections *= sel_selectionstring
+            logger.debug(f'    Selected atoms: {all_selections.indices}')
+            ## apply selection string to atoms object
+            atoms = all_selections.subset(atoms)
+        
         # create new array for multiplicity
         multiplicity = np.ones(len(atoms))
         atoms.set_array('multiplicity', multiplicity)
 
         
-        if not has_cif_labels(atoms):
-            if atoms.has('magresview_labels'):
-                labels = atoms.get_array('magresview_labels')
-            else:
-                labels = MagresViewLabels.get(atoms, store_array=True)
-        else:
-            labels = atoms.get_array('labels')
-
-        # note we must change datatype to allow more space!
-        labels = np.array(labels, dtype='U25')
+        
         
         # reduce by symmetry?
         tags = np.arange(len(atoms))
+        labels = np.asarray(atoms.get_array('labels'), dtype='U25')
 
         if reduce:
             logger.info('\nTagging equivalent sites')
             # tag equivalent sites
             tags = UniqueSites.get(atoms, symprec=symprec)
+            
 
             # log the number of unique sites
             unique_sites, unique_site_idx = np.unique(tags, return_index=True)
-            logger.info(f'    This leaves {len(unique_sites)} unique sites')
-            logger.info(f'    The unique site labels are: {labels[unique_site_idx]}')
-                
+            logger.debug(f'    This leaves {len(unique_sites)} unique sites')
+            logger.debug(f'    The unique site labels are: {labels[unique_site_idx]}')
+
+            # check to make sure that all sites with the same tag have the same MSIsotropy
+            # if not, throw a warning, suggest to turn on debug logging and --no-reduce flag
+            # and then continue
+            if not check_equivalent_sites_ms(atoms, tags):
+                logger.warning('    Some sites with the same symmetry tag/CIF label have different MS isotropy values.')
+                logger.warning('    You can turn off symmetry reduction with the --no-reduce flag.')
+                logger.warning('    You can also turn on debug logging with the -vv flag.')
+                logger.warning('    If you find that the (symmetry) reduction algorithm is working incorrectly,')
+                logger.warning('    please report this to the developers.')
+
+        # set tags to atoms object
+        atoms.set_tags(tags)
 
         if average_group:
-            labels, tags = average_over_groups(average_group, atoms, labels, tags)
-        # update atoms object with new labels
-        # note we must change datatype to allow more space!
-        atoms.set_array('labels', None)
-        atoms.set_array('labels', labels, dtype='U25')
-        # update atoms tags
-        atoms.set_tags(tags)
+            atoms = tag_functional_groups(average_group, atoms, vdw_scale=1.0)
+        atoms = merge_tagged_sites(atoms, merging_strategies=merging_strategies)
         
-        # select subset of atoms based on selection string
-        if selection:
-            logger.info(f'\nSelecting atoms based on selection string: {selection}')
-            sel_selectionstring = AtomSelection.from_selection_string(atoms, selection)
-            all_selections *= sel_selectionstring
         
         if isotopes:
             logger.info(f'\nCustom isotopes for: {isotopes}')
-
         # build the dataframe
-        df = build_nmr_df(isotopes, references, gradients, reduce, average_group, combine_rule, properties, euler_convention, fname, atoms, all_selections, labels, tags)
-
+        df = build_nmr_df(
+                atoms,
+                fname,
+                isotopes = isotopes,
+                references = references,
+                gradients = gradients,
+                properties = properties,
+                euler_convention = euler_convention,
+                logger = logger,
+        )
+        
+        essential_columns = ['labels', 'species', 'multiplicity', 'tags', 'file']
         # apply filters
-        df = apply_df_filtering(df, include, exclude, query)
+        df = apply_df_filtering(
+            df,
+            include,
+            exclude,
+            query,
+            essential_columns=essential_columns,
+            logger=logger)
 
         # ----- atoms object manipulation -----
-        atoms = reload_as_molecular_crystal(atoms)
-
-        # now we need to apply the filters etc to the atoms object
-        # first we need to merge sites with the same tag
-        unique_tags, unique_counts = np.unique(tags,
-                                               return_counts=True)
-        # groups with more than one atom
-        multi_group_tags = unique_tags[unique_counts > 1]
-        for tag in multi_group_tags:
-            # where are these tags in the original tags?
-            tag_idx = np.where(atoms.get_tags() == tag)[0]
-            # merge the sites
-
-            atoms = merge_sites(
-                atoms,
-                tag_idx,
-                merging_strategies={
-                    'positions': lambda x: x[0],
-                    'labels': lambda x: x[0]
-                    })
         
-        # sort by tag
-        atoms = atoms[np.argsort(atoms.get_tags())]
+
+
+        # only keep the atoms that are in the dataframe (based on tag)
+        atoms = atoms[np.isin(atoms.get_tags(), df['tags'].values)]
 
         # if the df is not empty, append it to the list
         if len(df) > 0:
@@ -253,8 +325,6 @@ def nmr_extract(files, selection, merge, isotopes, references, gradients, reduce
             logger.warning(f"No results found for {fname}.\n "
                 "Try removing filters/checking the file contents.")
             
-    if view:
-        viewimages(images)
         
     if merge:
         # merge all dataframes into one
@@ -292,7 +362,7 @@ def reload_as_molecular_crystal(atoms):
             # connectivity:
             mols = Molecules.get(atoms)
             if len(mols) > 1:
-                print('Found {} molecules'.format(len(mols)))
+                logger.debug('Found {} molecules'.format(len(mols)))
                 temp = mols[0].subset(atoms, use_cell_indices=True)
                 for mol in mols[1:]:
                     temp.extend(mol.subset(atoms, use_cell_indices=True))
@@ -303,12 +373,35 @@ def reload_as_molecular_crystal(atoms):
                 atoms =temp
 
         return atoms
-def average_over_groups(
+
+def label_atoms(atoms: Atoms)->Atoms:
+    if has_cif_labels(atoms):
+        return atoms
+    
+    # Inform user of best practice RE CIF labels
+    logger.debug(NO_CIF_LABEL_WARNING)
+    
+    if atoms.has('magresview_labels'):
+        labels = atoms.get_array('magresview_labels')
+    else:
+        labels = MagresViewLabels.get(atoms, store_array=True)
+    
+    # note we must change datatype to allow more space!
+    labels = np.array(labels, dtype='U25')
+
+    # remove current labels:
+    if atoms.has('labels'):
+        atoms.set_array('labels', None)
+    # add labels to atoms object
+    atoms.set_array('labels', labels)
+    return atoms
+
+
+def tag_functional_groups(
         average_group:str,
         atoms:Atoms,
-        labels:Union[List, np.array],
-        tags:  Union[List, np.array]
-        )-> Tuple[np.array, np.array]:
+        vdw_scale:float=1.0,
+        )-> Atoms:
     '''
     Average over groups of atoms based on the average_group string.
     See find_XHn_groups for more details.
@@ -316,63 +409,114 @@ def average_over_groups(
     Args:
         average_group (str): string of comma-separated patterns to average over. e.g. 'CH3,CH2'
         atoms (Atoms): Atoms object
-        labels (np.array): labels array
-        tags (np.array): tags array
+        vdw_scale (float): scaling factor for the van der Waals radii. Default is 1.0.
 
     Returns:
-        labels (np.array): updated labels array
-        tags (np.array): updated tags array
+        Atoms
     '''
-    XHn_groups = find_XHn_groups(atoms, average_group, tags= tags, vdw_scale=1.0)
+    if atoms.has('tags'):
+        tags = atoms.get_tags()
+    else:
+        tags = np.arange(len(atoms))
+
+    labels = atoms.get_array('labels')
+    # make sure dtype of labels allows for enough characters
+    labels = labels.astype('U25')
+    XHn_groups = find_XHn_groups(atoms, average_group, tags= tags, vdw_scale=vdw_scale)
+    logger.info(f"\nAveraging over functional groups: {average_group}")
     for ipat, pattern in enumerate(XHn_groups):
         # check if we found any that matched this pattern
         if len(pattern) == 0:
             logging.warn(f"No XHn groups found for pattern {average_group.split(',')[ipat]}")
             continue
-                
-        logger.info(f"Found {len(pattern)} {average_group.split(',')[ipat]} groups")
+        logger.debug(f"Found {len(pattern)} {average_group.split(',')[ipat]} groups")
         # get the indices of the atoms that matched this pattern
         # update the tags and labels accordingly
         for ig, group in enumerate(pattern):
-            logger.info(f"    Group {ig} contains: {np.unique(labels[group])}")
+            logger.debug(f"    Group {ig} contains: {np.unique(labels[group])}")
             # fix labels here as aggregate of those in group
-            combined_label = '--'.join(np.unique(labels[group]))
+            combined_label = ','.join(np.unique(labels[group]))
             # labels[group] = f'{ig}'#combined_label
             labels[group] = combined_label
 
             tags[group] = -(ipat+1)*1e5-ig
-    return labels, tags
+    # update atoms object with new labels
+    # note we must change datatype to allow more space!
+    atoms.set_array('labels', None)
+    atoms.set_array('labels', labels, dtype='U25')
+    # update atoms tags
+    atoms.set_tags(tags)
+    return atoms
 
 
+def merge_tagged_sites(atoms_in:Atoms, merging_strategies:dict = {})->Atoms:
+    '''
+    Merge sites that are tagged with the same tag.
 
+    Args:
+        atoms (Atoms): Atoms object. Must have tags.
+        merging_strategies (dict): dictionary of merging strategies. See merge_sites for more details.
+    '''
+    atoms = atoms_in.copy()
+    # if there are no tags present, return the atoms object
+    if not atoms.has('tags'):
+        return atoms
+    
+    # now we need to apply the filters etc to the atoms object
+    # first we need to merge sites with the same tag
+    unique_tags, unique_counts = np.unique(atoms.get_tags(),
+                                            return_counts=True)
+    # groups with more than one atom
+    multi_group_tags = unique_tags[unique_counts > 1]
+    for tag in multi_group_tags:
+        # where are these tags in the current tags?
+        tag_idx = np.where(atoms.get_tags() == tag)[0]
+        # merge the sites
+        atoms = merge_sites(
+            atoms,
+            tag_idx,
+            merging_strategies=merging_strategies,
+            keep_all = False)
+    
+    # sort by tag
+    atoms = atoms[np.argsort(atoms.get_tags())]
 
-
-
+    return atoms
 
 
 def build_nmr_df(
-        isotopes,
-        references,
-        gradients,
-        reduce,
-        average_group,
-        combine_rule,
-        properties,
-        euler_convention,
-        fname,
-        atoms,
-        all_selections,
-        labels,
-        tags
+        atoms: Atoms,
+        fname: str,
+        isotopes: dict   = {},
+        references: dict = {},
+        gradients: dict  ={},
+        properties: List[str] = ['efg', 'ms'],
+        euler_convention: str ='zyz',
+        logger: logging.Logger = logging.getLogger('cli'),
         ):
     '''
     Build the dataframe containing the NMR properties.
+
+    Args:
+        atoms (ASE Atoms object): the atoms object to be reloaded.
+        fname (str): the filename of the file being processed.
+        all_selections (AtomSelection): the AtomSelection object containing all selections.
+        isotopes (dict): dictionary of isotopes to use for each element. e.g. {'H': 2, 'C': 13}
+        references (dict): dictionary of shielding references for each element. e.g. {'H': 20.0, 'C': 100.0}
+        gradients (dict): dictionary of gradients for each element. e.g. {'H': -1.0, 'C': -0.95} defaults to {} == -1 for all elements.
+        average_group (str): string of comma-separated patterns to average over. e.g. 'CH3,CH2'
+        properties (list): list of properties to extract. e.g. ['efg', 'ms']
+        euler_convention (str): the euler convention to use for the EFG tensor. Options are 'zyz' or 'zxz'
+
+    Returns:
+        df (pandas DataFrame): the dataframe containing the NMR properties.
     '''
     elements = atoms.get_chemical_symbols()
     isotopelist = _get_isotope_list(elements, isotopes=isotopes, use_q_isotopes=False)
     species = [f'{iso}{el}' for el, iso in zip(elements, isotopelist)]
-    
-    
+    labels = np.asarray(atoms.get_array('labels'), dtype='U25')
+    tags = atoms.get_tags()
+
     df = pd.DataFrame({
                 'indices': atoms.get_array('indices'),
                 'original_index': np.arange(len(atoms)),
@@ -382,20 +526,12 @@ def build_nmr_df(
                 'tags': tags,
                 })
 
-        # If there are no cif labels, generate and save MagresView-style labels
-    if not has_cif_labels(atoms):
-        # do we already have MagresView labels?
-        if atoms.has('magresview_labels'):
-            magresview_labels = atoms.get_array('magresview_labels')
-        else:
-            # generate MagresView-type Labels
-            magresview_labels = MagresViewLabels.get(atoms, save_asarray=True)
-        print('MagresView labels generated')
-        print(magresview_labels)
-        df.insert(2, 'MagresView_labels', magresview_labels)
+    # If there are MagresView-style labels, add them in
+    if atoms.has('magresview_labels'):
+        df.insert(2, 'MagresView_labels', atoms.get_array('magresview_labels'))
 
-        # Let's add a column for the file name -- useful to keep track of 
-        # which file the data came from if merging multiple files.
+    # Let's add a column for the file name -- useful to keep track of 
+    # which file the data came from if merging multiple files.
     df['file'] = fname
     if 'ms' in properties:
         try:
@@ -424,117 +560,19 @@ def build_nmr_df(
             logger.warning('Failed to load EFG data from .magres')
             raise
 
-    # Apply selections 
-    selection_indices = all_selections.indices
-    # sort
-    selection_indices.sort()
-    # extract from df
-    df = df.iloc[selection_indices]
-
-    # apply group averaging
-    if average_group or reduce:
-        # These are the rules for aggregating groups
-        # Default rule: take the mean
-        aggrules = get_aggrules(df, combine_rule)
-
-        logger.info('\nAveraging over sites with the same tag')
-        logger.info(f'   We apply the following rules to each column:\n {aggrules}')
-        # apply group averaging
-        grouped = df.groupby('tags')
-        df = grouped.agg(aggrules).reset_index()
-        # fix the labels print formatting            
-        df['labels'] = df['labels'].apply(lambda x: ','.join(x))
-        if 'MagresView_labels' in df.columns:
-            df['MagresView_labels'] = df['MagresView_labels'].apply(lambda x: ','.join(sorted(list(x))))
-            
         
     ## how many sites do we have now?
     total_explicit_sites = df['multiplicity'].sum()
-    logger.info(f'\nFound {total_explicit_sites} total sites.')
-    if average_group or reduce:
-        logger.info(f'    -> reduced to {len(df)} sites after averaging equivalent ones')
+    logger.info(f'\nFound {int(total_explicit_sites)} total sites.')
+    logger.info(f'Reduced to {len(df)} sites.')
 
 
     return df
 
-def get_aggrules(
-        df:pd.DataFrame,
-        combine_rule:str
-        )->dict:
-    '''
-    Returns a dictionary of aggregation rules for the dataframe
-    '''
-    aggrules = dict.fromkeys(df, combine_rule)
-    # note we could add more things here! e.g.
-    # aggrules = dict.fromkeys(df, ['mean', 'std'])
-    # for most of the columns that have objects, we just take the first one
-    aggrules.update(dict.fromkeys(df.columns[df.dtypes.eq(object)], 'first'))
-
-    # we no longer need these two columns
-    del aggrules['indices']
-    # use 'first' for the original indices
-    aggrules['original_index'] = 'first'
-    del aggrules['tags']
-
-    aggrules['labels'] = set
-    if 'MagresViewLabels' in df.columns:
-        aggrules['MagresView_labels'] = set
-    aggrules['multiplicity'] = 'count'
-    return aggrules
 
 
 
 
-def apply_df_filtering(
-                    df: pd.DataFrame,
-                    include: List,
-                    exclude: List,
-                    query: str) -> pd.DataFrame:
-    '''
-    Inlcude/exclude columns and filter the dataframe using a pandas query.
-
-    Args:
-        df (pd.DataFrame): the dataframe to filter
-        include (list): list of columns to include
-        exclude (list): list of columns to exclude
-        query (str): pandas query string to filter the dataframe
-
-    Returns:
-        pd.DataFrame: the filtered dataframe
-
-    '''
-
-    
-
-    if query:
-            # use pandas query to filter the dataframe
-        logger.info(f'\nFiltering dataframe using query: {query}')
-        df.query(query, inplace=True)
-        logger.info(f'-----> Filtered to {len(df)} sites.')
-
-
-        # what columns should we include/exclude?
-    essential_columns = ['labels', 'species', 'multiplicity', 'tags', 'file']
-    if include:
-            # what columns should we include/exclude?
-        essential_columns = ['labels', 'species', 'multiplicity', 'tags', 'file']
-        specified_columns = [c for c in include if c not in essential_columns]
-        logger.info(f'\nIncluding only columns containing: {specified_columns}')
-        columns_to_include =essential_columns + specified_columns
-        missing_columns = get_missing_cols(df, columns_to_include)
-        if len(missing_columns) > 0:
-            logger.warning(f'These columns specified {missing_columns}'
-                            f' do not match any in the dataframe ({df.columns})')
-        columns_to_include = get_matching_cols(df, columns_to_include)
-        df = df[columns_to_include].copy()
-    if exclude:
-        logger.info(f'\nExcluding columns: {exclude}')
-            # remove those that are already not in df
-        specified_columns = get_matching_cols(df, exclude)
-        df = df.drop(specified_columns, axis=1)
-    # drop any that have only NaN values
-    df = df.dropna(axis=1, how='all')
-    return df
         
 
 
@@ -652,6 +690,32 @@ def get_efg_summary(
 
 
     return efg_summary
+
+
+
+def check_equivalent_sites_ms(atoms, tags, tolerance=1e-3):
+    """
+    Check if the sites with the same tags have the same MS isotropy to within a tolerance.
+    
+    Args:
+        atoms (Atoms): the Atoms object
+        tags (list): the tags to check
+        tolerance (float, optional): the tolerance. Defaults to 1e-3.
+        
+    Returns:
+        bool: True if the sites are equivalent, False otherwise
+    
+    """
+    unique_sites, counts = np.unique(tags, return_counts=True)
+    ms = MSIsotropy.get(atoms)
+    # loop over unique sites that have more than equivalent site
+    for i in unique_sites[counts > 1]:
+        # get the indices of the equivalent sites
+        idx = np.where(tags == i)[0]
+        # check if the ms isotropy is the same to within the tolerance
+        if not np.allclose(ms[idx], ms[idx[0]], atol=tolerance):
+            return False
+    return True
 
 
 
