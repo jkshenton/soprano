@@ -103,7 +103,7 @@ def replace_folder(path, new_folder):
 def has_cif_labels(atoms):
     """Check if the atoms object has CIF labels
     Does this simply by comparing the labels with the element symbols.
-    If they're all the same, then so special labels are present.  
+    If they're all the same, then so special labels are present.
     """
     if not atoms.has('labels'):
         return False
@@ -111,7 +111,7 @@ def has_cif_labels(atoms):
     labels = atoms.get_array('labels')
     if not all(symbols == labels) and any(symbols == labels):
         warnings.warn("A mix of cif and non-cif-stlye labels detected.")
-        
+
     return not all(symbols == labels)
 
 
@@ -279,24 +279,24 @@ def minimum_supcell(max_r, latt_cart=None, r_matrix=None, pbc=[True, True, True]
     Generate the bounds for a supercell containing a sphere
     of given radius, knowing the unit cell.
 
-    | Args:
-    |   max_r (float): radius of the sphere contained in the supercell
-    |   latt_cart (np.ndarray): unit cell in cartesian form
-    |   r_matrix (np.ndarray): matrix for the quadratic form returning
-    |                          r^2 for this supercell.
-    |                          Alternative to latt_cart, for a direct
-    |                          space cell would be equal to
-    |                          np.dot(latt_cart, latt_cart.T)
-    |   pbc ([bool, bool, bool]): periodic boundary conditions - if
-    |                             a boundary is not periodic the
-    |                             range returned will always be zero
-    |                             in that dimension
+    Args:
+      max_r (float): radius of the sphere contained in the supercell
+      latt_cart (np.ndarray): unit cell in cartesian form
+      r_matrix (np.ndarray): matrix for the quadratic form returning
+                             r^2 for this supercell.
+                             Alternative to latt_cart, for a direct
+                             space cell would be equal to
+                             np.dot(latt_cart, latt_cart.T)
+      pbc ([bool, bool, bool]): periodic boundary conditions - if
+                                a boundary is not periodic the
+                                range returned will always be zero
+                                in that dimension
 
-    | Returns:
-    |   shape (tuple[int]):  shape of the supercell to be built.
+    Returns:
+      shape (tuple[int]):  shape of the supercell to be built.
 
-    | Raises:
-    |   ValueError: if some of the arguments are invalid
+    Raises:
+      ValueError: if some of the arguments are invalid
 
     """
 
@@ -1172,7 +1172,7 @@ def merge_sites(atoms: Atoms, indices, merging_strategies={}, keep_all=False):
     atoms_orig = atoms.copy()
     atoms_to_merge = atoms.copy()[indices]
 
-    # if we already have multiplicity 
+    # if we already have multiplicity
     # we must update it to reflect the merging
     # otherwise we can just assume they all start with a multiplicity of 1
     if atoms.has('multiplicity'):
@@ -1229,7 +1229,7 @@ def merge_sites(atoms: Atoms, indices, merging_strategies={}, keep_all=False):
         if atoms.has('labels'):
             labels = atoms.get_array('labels').astype('U25')
             labels[idx] = new_properties['labels']
-            # first delete the old array 
+            # first delete the old array
             # (this is needed to avoid a bug in ASE)
             atoms.set_array('labels', None)
             atoms.set_array('labels', labels, dtype='U25')
@@ -1237,7 +1237,7 @@ def merge_sites(atoms: Atoms, indices, merging_strategies={}, keep_all=False):
             if atoms.has('magresview_labels'):
                 labels = atoms.get_array('magresview_labels').astype('U25')
                 labels[idx] = new_properties['labels']
-                # first delete the old array 
+                # first delete the old array
                 # (this is needed to avoid a bug in ASE)
                 atoms.set_array('magresview_labels', None)
                 atoms.set_array('magresview_labels', labels, dtype='U25')
@@ -1248,7 +1248,7 @@ def merge_sites(atoms: Atoms, indices, merging_strategies={}, keep_all=False):
                 arr = atoms.get_array(key)
                 arr[idx] = new_properties[key]
                 atoms.set_array(key, arr)
-    
+
     # update multiplicity
     atoms.set_array('multiplicity', multiplicity)
 
