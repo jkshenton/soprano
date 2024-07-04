@@ -1,4 +1,4 @@
-soprano.properties.nmr.dipolar
+﻿soprano.properties.nmr.dipolar
 ==============================
 
 .. automodule:: soprano.properties.nmr.dipolar
@@ -19,6 +19,7 @@ soprano.properties.nmr.dipolar
    
       DipolarCoupling
       DipolarDiagonal
+      DipolarEuler
       DipolarRSS
       DipolarTensor
    

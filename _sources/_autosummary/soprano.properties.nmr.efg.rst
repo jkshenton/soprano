@@ -1,4 +1,4 @@
-soprano.properties.nmr.efg
+﻿soprano.properties.nmr.efg
 ==========================
 
 .. automodule:: soprano.properties.nmr.efg
@@ -20,6 +20,7 @@ soprano.properties.nmr.efg
       EFGAnisotropy
       EFGAsymmetry
       EFGDiagonal
+      EFGEuler
       EFGNQR
       EFGQuadrupolarConstant
       EFGQuadrupolarProduct
@@ -27,6 +28,7 @@ soprano.properties.nmr.efg
       EFGReducedAnisotropy
       EFGSkew
       EFGSpan
+      EFGTensor
       EFGVzz
    
    

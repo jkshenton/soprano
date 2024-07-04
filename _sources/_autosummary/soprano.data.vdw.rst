@@ -1,4 +1,4 @@
-soprano.data.vdw
+﻿soprano.data.vdw
 ================
 
 .. automodule:: soprano.data.vdw
@@ -13,6 +13,7 @@ soprano.data.vdw
 
    .. autosummary::
    
+      build_custom_vdw
       vdw_radius
    
    

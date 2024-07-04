@@ -1,4 +1,4 @@
-soprano.properties.nmr.ms
+﻿soprano.properties.nmr.ms
 =========================
 
 .. automodule:: soprano.properties.nmr.ms
@@ -20,6 +20,7 @@ soprano.properties.nmr.ms
       MSAnisotropy
       MSAsymmetry
       MSDiagonal
+      MSEuler
       MSIsotropy
       MSQuaternion
       MSReducedAnisotropy
@@ -27,6 +28,7 @@ soprano.properties.nmr.ms
       MSShift
       MSSkew
       MSSpan
+      MSTensor
    
    
 

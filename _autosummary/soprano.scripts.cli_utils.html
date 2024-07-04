@@ -1,113 +1,179 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>soprano.scripts.cli_utils &#8212; Soprano</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=5eb1bb1e"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
-    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/soprano.scripts.cli_utils';</script>
+    <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="soprano.scripts.dipolar" href="soprano.scripts.dipolar.html" />
     <link rel="prev" title="soprano.scripts.cli" href="soprano.scripts.cli.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/soprano_logo.svg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Soprano</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/soprano_logo.svg" class="logo__image only-light" alt="Soprano - Home"/>
+    <script>document.write(`<img src="../_static/soprano_logo.svg" class="logo__image only-dark" alt="Soprano - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -117,573 +183,321 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../installation.html">
-   Installation
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../cli.html">
-   Command Line Interface
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../cli-cookbook.html">
-     CLI Cookbook
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../tutorials.html">
-   Tutorials
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/01-basic_concepts.html">
-     Tutorial 1 - Basic concepts: using AtomsCollection objects
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/02-generators_properties_calculators.html">
-     Tutorial 2 - Generators, Properties and Calculators
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/03-atomselection_transforms.html">
-     Tutorial 3 - AtomSelection and transforms
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/04-clustering.html">
-     Tutorial 4 - Clustering analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/05-nmr.html">
-     Tutorial 5 - NMR Properties: using Soprano for working with .magres files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/06-defect_calculations.html">
-     Tutorial 6 - Soprano for defect calculations
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../tutorials/07-soprano-cli.html">
-     Tutorial 7 - Command-line interface
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../submitter.html">
-   Job Submitter
-  </a>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../api.html">
-   API reference
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2 current active has-children">
-    <a class="reference internal" href="soprano.html">
-     soprano
-    </a>
-    <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-    <label for="toctree-checkbox-4">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul class="current">
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="soprano.analyse.html">
-       soprano.analyse
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-      <label for="toctree-checkbox-5">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.analyse.phylogen.html">
-         soprano.analyse.phylogen
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="soprano.calculate.html">
-       soprano.calculate
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-      <label for="toctree-checkbox-6">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.calculate.gulp.html">
-         soprano.calculate.gulp
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.calculate.nmr.html">
-         soprano.calculate.nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.calculate.powder.html">
-         soprano.calculate.powder
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.calculate.xrd.html">
-         soprano.calculate.xrd
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="soprano.collection.html">
-       soprano.collection
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-      <label for="toctree-checkbox-7">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.collection.collection.html">
-         soprano.collection.collection
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.collection.generate.html">
-         soprano.collection.generate
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="soprano.data.html">
-       soprano.data
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-      <label for="toctree-checkbox-8">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.data.nmr.html">
-         soprano.data.nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.data.vdw.html">
-         soprano.data.vdw
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="soprano.hpc.html">
-       soprano.hpc
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-      <label for="toctree-checkbox-9">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.hpc.submitter.html">
-         soprano.hpc.submitter
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="soprano.measure.html">
-       soprano.measure
-      </a>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="soprano.nmr.html">
-       soprano.nmr
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-      <label for="toctree-checkbox-10">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.nmr.tensor.html">
-         soprano.nmr.tensor
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.nmr.utils.html">
-         soprano.nmr.utils
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="soprano.optional.html">
-       soprano.optional
-      </a>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="soprano.properties.html">
-       soprano.properties
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-      <label for="toctree-checkbox-11">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.properties.atomsproperty.html">
-         soprano.properties.atomsproperty
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.properties.basic.html">
-         soprano.properties.basic
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.properties.castep.html">
-         soprano.properties.castep
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.properties.labeling.html">
-         soprano.properties.labeling
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.properties.linkage.html">
-         soprano.properties.linkage
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.properties.map.html">
-         soprano.properties.map
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.properties.nmr.html">
-         soprano.properties.nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.properties.order.html">
-         soprano.properties.order
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.properties.symmetry.html">
-         soprano.properties.symmetry
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.properties.transform.html">
-         soprano.properties.transform
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="soprano.rnd.html">
-       soprano.rnd
-      </a>
-     </li>
-     <li class="toctree-l3 current active has-children">
-      <a class="reference internal" href="soprano.scripts.html">
-       soprano.scripts
-      </a>
-      <input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-      <label for="toctree-checkbox-12">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul class="current">
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.scripts.cli.html">
-         soprano.scripts.cli
-        </a>
-       </li>
-       <li class="toctree-l4 current active">
-        <a class="current reference internal" href="#">
-         soprano.scripts.cli_utils
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.scripts.dipolar.html">
-         soprano.scripts.dipolar
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.scripts.extract_nmr.html">
-         soprano.scripts.extract_nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.scripts.msaverage.html">
-         soprano.scripts.msaverage
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.scripts.nmr.html">
-         soprano.scripts.nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.scripts.nmr_plot.html">
-         soprano.scripts.nmr_plot
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.scripts.phylogen.html">
-         soprano.scripts.phylogen
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="soprano.scripts.vasp2cell.html">
-         soprano.scripts.vasp2cell
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="soprano.selection.html">
-       soprano.selection
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="soprano.utils.html">
-       soprano.utils
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../citing.html">
-   Citing Soprano
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../cli.html">Command Line Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cli-cookbook.html">CLI Cookbook</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/01-basic_concepts.html">Tutorial 1 - Basic concepts: using AtomsCollection objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/02-generators_properties_calculators.html">Tutorial 2 - Generators, Properties and Calculators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/03-atomselection_transforms.html">Tutorial 3 - AtomSelection and transforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/04-clustering.html">Tutorial 4 - Clustering analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/05-nmr.html">Tutorial 5 - NMR Properties: using Soprano for working with .magres files</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/06-defect_calculations.html">Tutorial 6 - Soprano for defect calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/07-soprano-cli.html">Tutorial 7 - Command-line interface</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../submitter.html">Job Submitter</a></li>
+
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="soprano.html">soprano</a><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="soprano.analyse.html">soprano.analyse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="soprano.analyse.phylogen.html">soprano.analyse.phylogen</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="soprano.calculate.html">soprano.calculate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="soprano.calculate.gulp.html">soprano.calculate.gulp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.calculate.nmr.html">soprano.calculate.nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.calculate.powder.html">soprano.calculate.powder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.calculate.xrd.html">soprano.calculate.xrd</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="soprano.collection.html">soprano.collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="soprano.collection.collection.html">soprano.collection.collection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.collection.generate.html">soprano.collection.generate</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="soprano.data.html">soprano.data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="soprano.data.nmr.html">soprano.data.nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.data.vdw.html">soprano.data.vdw</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="soprano.hpc.html">soprano.hpc</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="soprano.hpc.submitter.html">soprano.hpc.submitter</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="soprano.measure.html">soprano.measure</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="soprano.nmr.html">soprano.nmr</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="soprano.nmr.tensor.html">soprano.nmr.tensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.nmr.utils.html">soprano.nmr.utils</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="soprano.optional.html">soprano.optional</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="soprano.properties.html">soprano.properties</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="soprano.properties.atomsproperty.html">soprano.properties.atomsproperty</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.properties.basic.html">soprano.properties.basic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.properties.castep.html">soprano.properties.castep</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.properties.labeling.html">soprano.properties.labeling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.properties.linkage.html">soprano.properties.linkage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.properties.map.html">soprano.properties.map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.properties.nmr.html">soprano.properties.nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.properties.order.html">soprano.properties.order</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.properties.symmetry.html">soprano.properties.symmetry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.properties.transform.html">soprano.properties.transform</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="soprano.rnd.html">soprano.rnd</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="soprano.scripts.html">soprano.scripts</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="soprano.scripts.cli.html">soprano.scripts.cli</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">soprano.scripts.cli_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.scripts.dipolar.html">soprano.scripts.dipolar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.scripts.extract_nmr.html">soprano.scripts.extract_nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.scripts.molecules.html">soprano.scripts.molecules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.scripts.msaverage.html">soprano.scripts.msaverage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.scripts.nmr.html">soprano.scripts.nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.scripts.nmr_plot.html">soprano.scripts.nmr_plot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.scripts.phylogen.html">soprano.scripts.phylogen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.scripts.vasp2cell.html">soprano.scripts.vasp2cell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="soprano.scripts.view.html">soprano.scripts.view</a></li>
+</ul><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="soprano.selection.html">soprano.selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soprano.utils.html">soprano.utils</a></li>
+</ul><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+</ul><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../citing.html">Citing Soprano</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            A Python library to crack crystals
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/CCP-NC/soprano" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2F_autosummary/soprano.scripts.cli_utils.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
 
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
 
 
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/_autosummary/soprano.scripts.cli_utils.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
   </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/CCP-NC/soprano"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
 
-      </li>
-      
-      <li>
-        <a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2F_autosummary/soprano.scripts.cli_utils.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/_autosummary/soprano.scripts.cli_utils.rst"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.rst</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </button>
-
-      </li>
+</div></div>
       
-    </ul>
-  </div>
-</div>
-
     </div>
+  
 </div>
+</div>
+              
+              
 
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-</div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>soprano.scripts.cli_utils</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>soprano.scripts.cli_utils</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.apply_df_filtering"><code class="docutils literal notranslate"><span class="pre">apply_df_filtering()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.average_quaternions_by_tags"><code class="docutils literal notranslate"><span class="pre">average_quaternions_by_tags()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.find_XHn_groups"><code class="docutils literal notranslate"><span class="pre">find_XHn_groups()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.get_column_list"><code class="docutils literal notranslate"><span class="pre">get_column_list()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.get_duplicates"><code class="docutils literal notranslate"><span class="pre">get_duplicates()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.get_matching_cols"><code class="docutils literal notranslate"><span class="pre">get_matching_cols()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.get_missing_cols"><code class="docutils literal notranslate"><span class="pre">get_missing_cols()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.has_CH_bonds"><code class="docutils literal notranslate"><span class="pre">has_CH_bonds()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.isotope_selection"><code class="docutils literal notranslate"><span class="pre">isotope_selection()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.keyvalue_parser"><code class="docutils literal notranslate"><span class="pre">keyvalue_parser()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.reload_as_molecular_crystal"><code class="docutils literal notranslate"><span class="pre">reload_as_molecular_crystal()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.sortdf"><code class="docutils literal notranslate"><span class="pre">sortdf()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.viewimages"><code class="docutils literal notranslate"><span class="pre">viewimages()</span></code></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section id="module-soprano.scripts.cli_utils">
-<span id="soprano-scripts-cli-utils"></span><h1>soprano.scripts.cli_utils<a class="headerlink" href="#module-soprano.scripts.cli_utils" title="Permalink to this headline">#</a></h1>
+<span id="soprano-scripts-cli-utils"></span><h1>soprano.scripts.cli_utils<a class="headerlink" href="#module-soprano.scripts.cli_utils" title="Link to this heading">#</a></h1>
 <p>A collection of functions and options for the command line interface for soprano.</p>
 <p class="rubric">Functions</p>
-<table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_options</span></code>(options)</p></td>
 <td><p></p></td>
@@ -697,20 +511,26 @@ title="Print to PDF"
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">configure</span></code>(ctx, param, filename)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.find_XHn_groups" title="soprano.scripts.cli_utils.find_XHn_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_XHn_groups</span></code></a>(atoms, pattern_string[, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_aliases</span></code>(input_list, alias_dict)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.find_XHn_groups" title="soprano.scripts.cli_utils.find_XHn_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_XHn_groups</span></code></a>(atoms, pattern_string[, ...])</p></td>
 <td><p>Find groups of atoms based on a functional group pattern.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_column_list" title="soprano.scripts.cli_utils.get_column_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_column_list</span></code></a>(ctx, parameter, value)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_column_list" title="soprano.scripts.cli_utils.get_column_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_column_list</span></code></a>(ctx, parameter, value)</p></td>
 <td><p>Parse the column names string. TODO: Document this a bit better. :param ctx: click context :param parameter: click parameter :param value: The column names, comma-separated. Some shortcuts defined for MS_angles and EFG_angles. :type value: str.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_duplicates" title="soprano.scripts.cli_utils.get_duplicates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_duplicates</span></code></a>(seq)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_duplicates" title="soprano.scripts.cli_utils.get_duplicates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_duplicates</span></code></a>(seq)</p></td>
 <td><p>Returns dict {duplicate_value: [indices]} for duplicates in a list</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_matching_cols" title="soprano.scripts.cli_utils.get_matching_cols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_matching_cols</span></code></a>(df, lst)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_matching_cols" title="soprano.scripts.cli_utils.get_matching_cols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_matching_cols</span></code></a>(df, lst)</p></td>
 <td><p>Get the columns of a dataframe that roughly match a list of strings.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_missing_cols" title="soprano.scripts.cli_utils.get_missing_cols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_missing_cols</span></code></a>(df, lst)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.get_missing_cols" title="soprano.scripts.cli_utils.get_missing_cols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_missing_cols</span></code></a>(df, lst)</p></td>
 <td><p>Get the items in list that don't match any of the columns of a dataframe</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.has_CH_bonds" title="soprano.scripts.cli_utils.has_CH_bonds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_CH_bonds</span></code></a>(atoms[, rcut])</p></td>
+<td><p>Check if the atoms object has bonds with CH atoms Does this simply by comparing the labels with the element symbols.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.isotope_selection" title="soprano.scripts.cli_utils.isotope_selection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isotope_selection</span></code></a>(ctx, parameter, isotope_string)</p></td>
 <td><p>Parse the isotope string.</p></td>
@@ -721,23 +541,27 @@ title="Print to PDF"
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_results</span></code>(dfs[, output, output_format, ...])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.sortdf" title="soprano.scripts.cli_utils.sortdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sortdf</span></code></a>(df, sortby, sort_order)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.reload_as_molecular_crystal" title="soprano.scripts.cli_utils.reload_as_molecular_crystal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reload_as_molecular_crystal</span></code></a>(atoms[, force])</p></td>
+<td><p>If the atoms object is a molecular crystal, reload it with the correct connectivity.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.sortdf" title="soprano.scripts.cli_utils.sortdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sortdf</span></code></a>(df, sortby, sort_order)</p></td>
 <td><p>sort df by column, return new df</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">units_rename</span></code>(colname[, units_dict])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">units_rename</span></code>(colname[, units_dict])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.viewimages" title="soprano.scripts.cli_utils.viewimages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewimages</span></code></a>(images)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#soprano.scripts.cli_utils.viewimages" title="soprano.scripts.cli_utils.viewimages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewimages</span></code></a>(images[, reload_as_molecular])</p></td>
 <td><p>Use ASE GUI to view the images.</p></td>
 </tr>
 </tbody>
 </table>
+</div>
 <dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.cli_utils.apply_df_filtering">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">apply_df_filtering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">essential_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">logging.Logger</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#apply_df_filtering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.apply_df_filtering" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">apply_df_filtering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">essential_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#apply_df_filtering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.apply_df_filtering" title="Link to this definition">#</a></dt>
 <dd><p>Inlcude/exclude columns and filter the dataframe using a pandas query.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – the dataframe to filter</p></li>
 <li><p><strong>include</strong> (<em>list</em>) – list of columns to include</p></li>
@@ -747,10 +571,10 @@ title="Print to PDF"
 <li><p><strong>logger</strong> (<em>logging.Logger</em>) – logger to use</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the filtered dataframe</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
@@ -758,14 +582,14 @@ title="Print to PDF"
 
 <dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.cli_utils.average_quaternions_by_tags">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">average_quaternions_by_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quaternions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#average_quaternions_by_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.average_quaternions_by_tags" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">average_quaternions_by_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quaternions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#average_quaternions_by_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.average_quaternions_by_tags" title="Link to this definition">#</a></dt>
 <dd><p>For repeated tags, average the quaternions.
 Return the modified list of quaternions.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.cli_utils.find_XHn_groups">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">find_XHn_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern_string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vdw_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#find_XHn_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.find_XHn_groups" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">find_XHn_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern_string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vdw_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#find_XHn_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.find_XHn_groups" title="Link to this definition">#</a></dt>
 <dd><p>Find groups of atoms based on a functional group pattern.
 The pattern is a string such as CH3 or CH2.
 It must contain an element symbol, H and the number of H atoms</p>
@@ -787,7 +611,7 @@ It must contain an element symbol, H and the number of H atoms</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.cli_utils.get_column_list">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">get_column_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#get_column_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.get_column_list" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">get_column_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#get_column_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.get_column_list" title="Link to this definition">#</a></dt>
 <dd><p>Parse the column names string.
 TODO: Document this a bit better.
 :param ctx: click context
@@ -797,10 +621,10 @@ TODO: Document this a bit better.
 <div><p>Some shortcuts defined for MS_angles and EFG_angles.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The column names specified.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list</p>
 </dd>
 </dl>
@@ -808,39 +632,47 @@ TODO: Document this a bit better.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.cli_utils.get_duplicates">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">get_duplicates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#get_duplicates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.get_duplicates" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">get_duplicates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#get_duplicates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.get_duplicates" title="Link to this definition">#</a></dt>
 <dd><p>Returns dict {duplicate_value: [indices]} for duplicates in a list</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.cli_utils.get_matching_cols">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">get_matching_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#get_matching_cols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.get_matching_cols" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">get_matching_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#get_matching_cols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.get_matching_cols" title="Link to this definition">#</a></dt>
 <dd><p>Get the columns of a dataframe that roughly match a list of strings.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.cli_utils.get_missing_cols">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">get_missing_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#get_missing_cols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.get_missing_cols" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">get_missing_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#get_missing_cols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.get_missing_cols" title="Link to this definition">#</a></dt>
 <dd><p>Get the items in list that don’t match any of the columns of a dataframe</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="soprano.scripts.cli_utils.has_CH_bonds">
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">has_CH_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcut</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#has_CH_bonds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.has_CH_bonds" title="Link to this definition">#</a></dt>
+<dd><p>Check if the atoms object has bonds with CH atoms
+Does this simply by comparing the labels with the element symbols.
+If they’re all the same, then so special labels are present.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.cli_utils.isotope_selection">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">isotope_selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotope_string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#isotope_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.isotope_selection" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">isotope_selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotope_string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#isotope_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.isotope_selection" title="Link to this definition">#</a></dt>
 <dd><p>Parse the isotope string.
 :param ctx: click context
 :param parameter: click parameter
 :param isotope_string: The isotopes specification, in the form <code class="docutils literal notranslate"><span class="pre">&quot;2H,15N&quot;</span> <span class="pre">for</span> <span class="pre">deuterium</span> <span class="pre">and</span> <span class="pre">15N</span></code>.
 :type isotope_string: str</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><dl class="simple">
 <dt>The isotope for each element specified. Formatted as::</dt><dd><p>{Element: Isotope}.</p>
 </dd>
 </dl>
 </p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>
@@ -848,14 +680,14 @@ TODO: Document this a bit better.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.cli_utils.keyvalue_parser">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">keyvalue_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#keyvalue_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.keyvalue_parser" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">keyvalue_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#keyvalue_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.keyvalue_parser" title="Link to this definition">#</a></dt>
 <dd><dl class="simple">
 <dt>Parse strings in the form ‘C:1,H:2’ into a dictionary.</dt><dd><p>Also accept = as the separator between key and value.
 e.g. the MS shift reference and gradient strings.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ctx</strong> – click context</p></li>
 <li><p><strong>parameter</strong> – click parameter</p></li>
@@ -863,32 +695,63 @@ e.g. the MS shift reference and gradient strings.</p>
 If value is a single float, that will returned instead of a dict.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
 <dt>The values for each key specified. Formatted as::</dt><dd><p>{key: value}.</p>
 </dd>
 </dl>
 </p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="soprano.scripts.cli_utils.reload_as_molecular_crystal">
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">reload_as_molecular_crystal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Atoms</span></span></span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#reload_as_molecular_crystal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.reload_as_molecular_crystal" title="Link to this definition">#</a></dt>
+<dd><p>If the atoms object is a molecular crystal, reload it with the correct
+connectivity.</p>
+<p>We check if there are any C-H bonds, and if so, we assume it’s a molecular
+crystal and reload it as such. If there are no C-H bonds, we assume it’s
+not and return the original atoms object, unless force=True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>atoms</strong> (<em>ASE Atoms object</em>) – the atoms object to be reloaded.</p></li>
+<li><p><strong>force</strong> (<em>bool</em>) – if True, force the reload even if there are no C-H bonds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the atoms object with the correct connectivity.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>atoms (ASE Atoms object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.cli_utils.sortdf">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">sortdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sortby</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_order</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#sortdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.sortdf" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">sortdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sortby</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_order</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#sortdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.sortdf" title="Link to this definition">#</a></dt>
 <dd><p>sort df by column, return new df</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="soprano.scripts.cli_utils.viewimages">
-<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">viewimages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#viewimages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.viewimages" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">soprano.scripts.cli_utils.</span></span><span class="sig-name descname"><span class="pre">viewimages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reload_as_molecular</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/soprano/scripts/cli_utils.html#viewimages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#soprano.scripts.cli_utils.viewimages" title="Link to this definition">#</a></dt>
 <dd><p>Use ASE GUI to view the images.</p>
 <p>If they contain C and H, we’ll assume it’s a molecular
 crystal and reload it as such.</p>
-<p>We must be careful to keep the same order of atoms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>images</strong> (<em>list</em>) – list of ASE Atoms objects to view</p></li>
+<li><p><strong>reload_as_molecular</strong> (<em>bool</em>) – whether to reload as a molecular crystal. Default is None. This will be set to True if the images contain a C-H.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -905,7 +768,7 @@ crystal and reload it as such.</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./_autosummary"
         },
         predefinedOutput: true
@@ -913,50 +776,115 @@ crystal and reload it as such.</p>
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="soprano.scripts.cli.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">soprano.scripts.cli</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="soprano.scripts.cli.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">soprano.scripts.cli</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="soprano.scripts.dipolar.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="soprano.scripts.dipolar.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">soprano.scripts.dipolar</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.apply_df_filtering"><code class="docutils literal notranslate"><span class="pre">apply_df_filtering()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.average_quaternions_by_tags"><code class="docutils literal notranslate"><span class="pre">average_quaternions_by_tags()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.find_XHn_groups"><code class="docutils literal notranslate"><span class="pre">find_XHn_groups()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.get_column_list"><code class="docutils literal notranslate"><span class="pre">get_column_list()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.get_duplicates"><code class="docutils literal notranslate"><span class="pre">get_duplicates()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.get_matching_cols"><code class="docutils literal notranslate"><span class="pre">get_matching_cols()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.get_missing_cols"><code class="docutils literal notranslate"><span class="pre">get_missing_cols()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.has_CH_bonds"><code class="docutils literal notranslate"><span class="pre">has_CH_bonds()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.isotope_selection"><code class="docutils literal notranslate"><span class="pre">isotope_selection()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.keyvalue_parser"><code class="docutils literal notranslate"><span class="pre">keyvalue_parser()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.reload_as_molecular_crystal"><code class="docutils literal notranslate"><span class="pre">reload_as_molecular_crystal()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.sortdf"><code class="docutils literal notranslate"><span class="pre">sortdf()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano.scripts.cli_utils.viewimages"><code class="docutils literal notranslate"><span class="pre">viewimages()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By CCP-NC<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By CCP-NC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

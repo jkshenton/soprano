@@ -1,113 +1,179 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Tutorial 7 - Command-line interface &#8212; Soprano</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=5eb1bb1e"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
-    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/07-soprano-cli';</script>
+    <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Job Submitter" href="../submitter.html" />
     <link rel="prev" title="Tutorial 6 - Soprano for defect calculations" href="06-defect_calculations.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/soprano_logo.svg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Soprano</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/soprano_logo.svg" class="logo__image only-light" alt="Soprano - Home"/>
+    <script>document.write(`<img src="../_static/soprano_logo.svg" class="logo__image only-dark" alt="Soprano - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -117,686 +183,313 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../installation.html">
-   Installation
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../cli.html">
-   Command Line Interface
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../cli-cookbook.html">
-     CLI Cookbook
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../tutorials.html">
-   Tutorials
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="01-basic_concepts.html">
-     Tutorial 1 - Basic concepts: using AtomsCollection objects
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02-generators_properties_calculators.html">
-     Tutorial 2 - Generators, Properties and Calculators
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="03-atomselection_transforms.html">
-     Tutorial 3 - AtomSelection and transforms
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="04-clustering.html">
-     Tutorial 4 - Clustering analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="05-nmr.html">
-     Tutorial 5 - NMR Properties: using Soprano for working with .magres files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="06-defect_calculations.html">
-     Tutorial 6 - Soprano for defect calculations
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Tutorial 7 - Command-line interface
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../submitter.html">
-   Job Submitter
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../api.html">
-   API reference
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../_autosummary/soprano.html">
-     soprano
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-    <label for="toctree-checkbox-4">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../_autosummary/soprano.analyse.html">
-       soprano.analyse
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-      <label for="toctree-checkbox-5">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.analyse.phylogen.html">
-         soprano.analyse.phylogen
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../_autosummary/soprano.calculate.html">
-       soprano.calculate
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-      <label for="toctree-checkbox-6">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.calculate.gulp.html">
-         soprano.calculate.gulp
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.calculate.nmr.html">
-         soprano.calculate.nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.calculate.powder.html">
-         soprano.calculate.powder
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.calculate.xrd.html">
-         soprano.calculate.xrd
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../_autosummary/soprano.collection.html">
-       soprano.collection
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-      <label for="toctree-checkbox-7">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.collection.collection.html">
-         soprano.collection.collection
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.collection.generate.html">
-         soprano.collection.generate
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../_autosummary/soprano.data.html">
-       soprano.data
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-      <label for="toctree-checkbox-8">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.data.nmr.html">
-         soprano.data.nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.data.vdw.html">
-         soprano.data.vdw
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../_autosummary/soprano.hpc.html">
-       soprano.hpc
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-      <label for="toctree-checkbox-9">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.hpc.submitter.html">
-         soprano.hpc.submitter
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../_autosummary/soprano.measure.html">
-       soprano.measure
-      </a>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../_autosummary/soprano.nmr.html">
-       soprano.nmr
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-      <label for="toctree-checkbox-10">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.nmr.tensor.html">
-         soprano.nmr.tensor
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.nmr.utils.html">
-         soprano.nmr.utils
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../_autosummary/soprano.optional.html">
-       soprano.optional
-      </a>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../_autosummary/soprano.properties.html">
-       soprano.properties
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-      <label for="toctree-checkbox-11">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.properties.atomsproperty.html">
-         soprano.properties.atomsproperty
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.properties.basic.html">
-         soprano.properties.basic
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.properties.castep.html">
-         soprano.properties.castep
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.properties.labeling.html">
-         soprano.properties.labeling
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.properties.linkage.html">
-         soprano.properties.linkage
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.properties.map.html">
-         soprano.properties.map
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.properties.nmr.html">
-         soprano.properties.nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.properties.order.html">
-         soprano.properties.order
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.properties.symmetry.html">
-         soprano.properties.symmetry
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.properties.transform.html">
-         soprano.properties.transform
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../_autosummary/soprano.rnd.html">
-       soprano.rnd
-      </a>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../_autosummary/soprano.scripts.html">
-       soprano.scripts
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-      <label for="toctree-checkbox-12">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.scripts.cli.html">
-         soprano.scripts.cli
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.scripts.cli_utils.html">
-         soprano.scripts.cli_utils
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.scripts.dipolar.html">
-         soprano.scripts.dipolar
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.scripts.extract_nmr.html">
-         soprano.scripts.extract_nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.scripts.msaverage.html">
-         soprano.scripts.msaverage
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.scripts.nmr.html">
-         soprano.scripts.nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.scripts.nmr_plot.html">
-         soprano.scripts.nmr_plot
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.scripts.phylogen.html">
-         soprano.scripts.phylogen
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../_autosummary/soprano.scripts.vasp2cell.html">
-         soprano.scripts.vasp2cell
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../_autosummary/soprano.selection.html">
-       soprano.selection
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../_autosummary/soprano.utils.html">
-       soprano.utils
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../citing.html">
-   Citing Soprano
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../cli.html">Command Line Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cli-cookbook.html">CLI Cookbook</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01-basic_concepts.html">Tutorial 1 - Basic concepts: using AtomsCollection objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-generators_properties_calculators.html">Tutorial 2 - Generators, Properties and Calculators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03-atomselection_transforms.html">Tutorial 3 - AtomSelection and transforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04-clustering.html">Tutorial 4 - Clustering analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-nmr.html">Tutorial 5 - NMR Properties: using Soprano for working with .magres files</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06-defect_calculations.html">Tutorial 6 - Soprano for defect calculations</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Tutorial 7 - Command-line interface</a></li>
+</ul><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../submitter.html">Job Submitter</a></li>
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api.html">API reference</a><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../_autosummary/soprano.html">soprano</a><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_autosummary/soprano.analyse.html">soprano.analyse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.analyse.phylogen.html">soprano.analyse.phylogen</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_autosummary/soprano.calculate.html">soprano.calculate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.calculate.gulp.html">soprano.calculate.gulp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.calculate.nmr.html">soprano.calculate.nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.calculate.powder.html">soprano.calculate.powder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.calculate.xrd.html">soprano.calculate.xrd</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_autosummary/soprano.collection.html">soprano.collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.collection.collection.html">soprano.collection.collection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.collection.generate.html">soprano.collection.generate</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_autosummary/soprano.data.html">soprano.data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.data.nmr.html">soprano.data.nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.data.vdw.html">soprano.data.vdw</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_autosummary/soprano.hpc.html">soprano.hpc</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.hpc.submitter.html">soprano.hpc.submitter</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/soprano.measure.html">soprano.measure</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_autosummary/soprano.nmr.html">soprano.nmr</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.nmr.tensor.html">soprano.nmr.tensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.nmr.utils.html">soprano.nmr.utils</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/soprano.optional.html">soprano.optional</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_autosummary/soprano.properties.html">soprano.properties</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.properties.atomsproperty.html">soprano.properties.atomsproperty</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.properties.basic.html">soprano.properties.basic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.properties.castep.html">soprano.properties.castep</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.properties.labeling.html">soprano.properties.labeling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.properties.linkage.html">soprano.properties.linkage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.properties.map.html">soprano.properties.map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.properties.nmr.html">soprano.properties.nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.properties.order.html">soprano.properties.order</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.properties.symmetry.html">soprano.properties.symmetry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.properties.transform.html">soprano.properties.transform</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/soprano.rnd.html">soprano.rnd</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../_autosummary/soprano.scripts.html">soprano.scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.scripts.cli.html">soprano.scripts.cli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.scripts.cli_utils.html">soprano.scripts.cli_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.scripts.dipolar.html">soprano.scripts.dipolar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.scripts.extract_nmr.html">soprano.scripts.extract_nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.scripts.molecules.html">soprano.scripts.molecules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.scripts.msaverage.html">soprano.scripts.msaverage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.scripts.nmr.html">soprano.scripts.nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.scripts.nmr_plot.html">soprano.scripts.nmr_plot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.scripts.phylogen.html">soprano.scripts.phylogen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.scripts.vasp2cell.html">soprano.scripts.vasp2cell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_autosummary/soprano.scripts.view.html">soprano.scripts.view</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/soprano.selection.html">soprano.selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../_autosummary/soprano.utils.html">soprano.utils</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../citing.html">Citing Soprano</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            A Python library to crack crystals
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/CCP-NC/soprano/master?urlpath=tree/docs/tutorials/07-soprano-cli.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/CCP-NC/soprano" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2Ftutorials/07-soprano-cli.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/07-soprano-cli.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
 
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/CCP-NC/soprano"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
 
-      </li>
-      
-      <li>
-        <a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2Ftutorials/07-soprano-cli.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/tutorials/07-soprano-cli.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </button>
-
-      </li>
+</div></div>
       
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
+    </div>
   
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
-    </div>
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extracting-nmr-data-from-a-magres-file">
-   1. Extracting NMR data from a .magres file
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#filtering-and-selecting-atoms">
-     Filtering and selecting atoms
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#averaging-over-functional-groups">
-     Averaging over functional groups
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#other-options">
-     Other options
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plotting-simulated-spectra-from-magres-file">
-   2. Plotting simulated spectra from .magres file
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dipolar-coupling-calculations">
-   Dipolar coupling calculations
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Tutorial 7 - Command-line interface</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extracting-nmr-data-from-a-magres-file">
-   1. Extracting NMR data from a .magres file
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#filtering-and-selecting-atoms">
-     Filtering and selecting atoms
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#averaging-over-functional-groups">
-     Averaging over functional groups
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#other-options">
-     Other options
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plotting-simulated-spectra-from-magres-file">
-   2. Plotting simulated spectra from .magres file
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dipolar-coupling-calculations">
-   Dipolar coupling calculations
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tutorial 7 - Command-line interface</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-nmr-data-from-a-magres-file">1. Extracting NMR data from a .magres file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-and-selecting-atoms">Filtering and selecting atoms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#averaging-over-functional-groups">Averaging over functional groups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-options">Other options</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-simulated-spectra-from-magres-file">2. Plotting simulated spectra from .magres file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dipolar-coupling-calculations">Dipolar coupling calculations</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="tutorial-7-command-line-interface">
-<h1>Tutorial 7 - Command-line interface<a class="headerlink" href="#tutorial-7-command-line-interface" title="Permalink to this headline">#</a></h1>
+<h1>Tutorial 7 - Command-line interface<a class="headerlink" href="#tutorial-7-command-line-interface" title="Link to this heading">#</a></h1>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="n">_</span>
     <span class="o">/|</span><span class="n">_</span><span class="o">|</span>\   
    <span class="o">/</span> <span class="o">/</span> \ \  
@@ -824,7 +517,7 @@ title="Print to PDF"
 <p>The CLI is still under development and more commands will be added in the future. If you have any suggestions, please get in touch with us!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>soprano --help
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>soprano<span class="w"> </span>--help
 </pre></div>
 </div>
 </div>
@@ -839,9 +532,11 @@ Options:
   --help               Show this message and exit.
 
 Commands:
-  dipolar  Extract and summarise dipolar couplings from structure files.
-  nmr      Extract and analyse NMR data from magres file(s).
-  plotnmr  Plot the NMR spectrum from a .magres file.
+  dipolar    Extract and summarise dipolar couplings from structure files.
+  nmr        Extract and analyse NMR data from magres file(s).
+  plotnmr    Plot the NMR spectrum from a .magres file.
+  splitmols  Extract all molecules in a molecular crystal (in any...
+  view       Visualise the structure(s) in the given file(s) using the...
 
       Author: J. Kane Shenton (kane.shenton@stfc.ac.uk)
 
@@ -851,9 +546,9 @@ Commands:
 </div>
 </div>
 <section id="extracting-nmr-data-from-a-magres-file">
-<h2>1. Extracting NMR data from a .magres file<a class="headerlink" href="#extracting-nmr-data-from-a-magres-file" title="Permalink to this headline">#</a></h2>
+<h2>1. Extracting NMR data from a .magres file<a class="headerlink" href="#extracting-nmr-data-from-a-magres-file" title="Link to this heading">#</a></h2>
 <p>The Soprano <code class="docutils literal notranslate"><span class="pre">nmr</span></code> command allows to extract NMR data from a .magres file. The command is very simple to use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano nmr &lt;magres_file &gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>nmr<span class="w"> </span>&lt;magres_file<span class="w"> </span>&gt;
 </pre></div>
 </div>
 <p>By default this will output a summary table with all of the magnetic shielding and electric field gradient information in the file.</p>
@@ -880,40 +575,40 @@ Commands:
 <p>By default, we reduce to the unique sites in the system. This is done either by looking at the CIF labels (if present) or by symmetry analysis. You can disable this behaviour using the <code class="docutils literal notranslate"><span class="pre">--no-reduce</span></code> option.</p>
 <p>If sites have been combined, the output will also include the <code class="docutils literal notranslate"><span class="pre">multiplicity</span></code> column, which indicates how many ‘duplicates’ of the site are present in the system.</p>
 <section id="filtering-and-selecting-atoms">
-<h3>Filtering and selecting atoms<a class="headerlink" href="#filtering-and-selecting-atoms" title="Permalink to this headline">#</a></h3>
+<h3>Filtering and selecting atoms<a class="headerlink" href="#filtering-and-selecting-atoms" title="Link to this heading">#</a></h3>
 <p>One of the useful features of the CLI is to quickly filter and summarise the information you’re interested in. You can do this across multiple .magres files at the same time, if you wish.</p>
 <p>For example, we can use the <code class="docutils literal notranslate"><span class="pre">-s</span></code> option to filter the output by site label or species:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano nmr &lt;magres_file &gt; -s C
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>nmr<span class="w"> </span>&lt;magres_file<span class="w"> </span>&gt;<span class="w"> </span>-s<span class="w"> </span>C
 </pre></div>
 </div>
 <p>will only output the NMR data for the carbon atoms.</p>
 <p>If you have CIF-style labels in your .magres file, you can specify these using the same <code class="docutils literal notranslate"><span class="pre">-s</span></code> option:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano nmr &lt;magres_file &gt; -s C1,H1a,H1b
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>nmr<span class="w"> </span>&lt;magres_file<span class="w"> </span>&gt;<span class="w"> </span>-s<span class="w"> </span>C1,H1a,H1b
 </pre></div>
 </div>
 <p>Notice that we also combined multiple selections, separated by commas.</p>
 <p>If you don’t have CIF-style labels, you can add a <code class="docutils literal notranslate"><span class="pre">.</span></code> to the label and give an index (e.g. <code class="docutils literal notranslate"><span class="pre">C.1</span></code> to get the first C atom in the file). You can also use a range to get multiple atoms at the same time (e.g. <code class="docutils literal notranslate"><span class="pre">C.1-3</span></code> to get the first three C atoms in the file).</p>
 <p><strong>Querying properties</strong>:</p>
 <p>You can also use the pandas query syntax to filter the output. For example, to get all the C atoms with a chemical shielding larger than 120 ppm:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano nmr &lt;magres_file &gt; -s C --query <span class="s1">&#39;MS_shielding &gt; 120&#39;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>nmr<span class="w"> </span>&lt;magres_file<span class="w"> </span>&gt;<span class="w"> </span>-s<span class="w"> </span>C<span class="w"> </span>--query<span class="w"> </span><span class="s1">&#39;MS_shielding &gt; 120&#39;</span>
 </pre></div>
 </div>
 <p>You can build up quite complex queries in this way. For example, to search through all the .magres files in the current directory and get all the C atoms with a chemical shielding between 100 and 200 ppm and an asymmetry greater than 0.5:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano nmr *.magres -s C --query <span class="s2">&quot;100 &lt; MS_shielding &lt; 200 and MS_asymmetry &gt; 0.5&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>nmr<span class="w"> </span>*.magres<span class="w"> </span>-s<span class="w"> </span>C<span class="w"> </span>--query<span class="w"> </span><span class="s2">&quot;100 &lt; MS_shielding &lt; 200 and MS_asymmetry &gt; 0.5&quot;</span>
 </pre></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>!soprano nmr \
-    ../tests/test_data/*.magres \
-    -s C \
-    --query &quot;100 &lt; MS_shielding &lt; 200 and MS_asymmetry &gt; 0.5&quot; \
-    --include MS_shielding,MS_asymmetry \
-    --merge \
-    -o ./query_results.csv
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>soprano<span class="w"> </span>nmr<span class="w"> </span><span class="err">\</span>
+    <span class="o">../</span><span class="n">tests</span><span class="o">/</span><span class="n">test_data</span><span class="o">/*.</span><span class="n">magres</span> \
+    <span class="o">-</span><span class="n">s</span> <span class="n">C</span> \
+    <span class="o">--</span><span class="n">query</span> <span class="s2">&quot;100 &lt; MS_shielding &lt; 200 and MS_asymmetry &gt; 0.5&quot;</span> \
+    <span class="o">--</span><span class="n">include</span> <span class="n">MS_shielding</span><span class="p">,</span><span class="n">MS_asymmetry</span> \
+    <span class="o">--</span><span class="n">merge</span> \
+    <span class="o">-</span><span class="n">o</span> <span class="o">./</span><span class="n">_temp_output</span><span class="o">/</span><span class="n">query_results</span><span class="o">.</span><span class="n">csv</span>
 
-df = pd.read_csv(&#39;query_results.csv&#39;)
-df.iloc[:,1:]
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;_temp_output/query_results.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:]</span>
 </pre></div>
 </div>
 </div>
@@ -951,7 +646,7 @@ df.iloc[:,1:]
       <td>C4</td>
       <td>13C</td>
       <td>4.0</td>
-      <td>5</td>
+      <td>22</td>
       <td>../tests/test_data/EDIZUM.magres</td>
       <td>179.428756</td>
       <td>0.872576</td>
@@ -961,7 +656,7 @@ df.iloc[:,1:]
       <td>C7</td>
       <td>13C</td>
       <td>4.0</td>
-      <td>8</td>
+      <td>25</td>
       <td>../tests/test_data/EDIZUM.magres</td>
       <td>130.068841</td>
       <td>0.515770</td>
@@ -971,7 +666,7 @@ df.iloc[:,1:]
       <td>C9</td>
       <td>13C</td>
       <td>4.0</td>
-      <td>10</td>
+      <td>27</td>
       <td>../tests/test_data/EDIZUM.magres</td>
       <td>184.179198</td>
       <td>0.976923</td>
@@ -981,7 +676,7 @@ df.iloc[:,1:]
       <td>C_1</td>
       <td>13C</td>
       <td>1.0</td>
-      <td>0</td>
+      <td>6</td>
       <td>../tests/test_data/ethanol.magres</td>
       <td>156.467218</td>
       <td>0.704557</td>
@@ -992,30 +687,30 @@ df.iloc[:,1:]
 </div>
 </section>
 <section id="averaging-over-functional-groups">
-<h3>Averaging over functional groups<a class="headerlink" href="#averaging-over-functional-groups" title="Permalink to this headline">#</a></h3>
+<h3>Averaging over functional groups<a class="headerlink" href="#averaging-over-functional-groups" title="Link to this heading">#</a></h3>
 <p>In organic systems, we often have functional groups that we want to average over. For example, we might want to average over all the methyl groups in a molecule. The CLI allows to do this using the <code class="docutils literal notranslate"><span class="pre">-g</span></code> option:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano nmr &lt;magres_file &gt; -g CH3
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>nmr<span class="w"> </span>&lt;magres_file<span class="w"> </span>&gt;<span class="w"> </span>-g<span class="w"> </span>CH3
 </pre></div>
 </div>
 <p>You can also comma-separate multiple groups:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano nmr &lt;magres_file &gt; -g CH3,NH3
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>nmr<span class="w"> </span>&lt;magres_file<span class="w"> </span>&gt;<span class="w"> </span>-g<span class="w"> </span>CH3,NH3
 </pre></div>
 </div>
 <p>The output will contain the average NMR data for each group. For example, for ethanol, we get:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>!soprano nmr ./tutorial_data/ethanol.magres \
-    -g CH3 \
-    --include MS_shielding,MS_asymmetry,MS_reduced_anisotropy \
-    -o ./ethanol_CH3.csv
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>soprano<span class="w"> </span>nmr<span class="w"> </span>./tutorial_data/ethanol.magres<span class="w"> </span><span class="err">\</span>
+    <span class="o">-</span><span class="n">g</span> <span class="n">CH3</span> \
+    <span class="o">--</span><span class="n">include</span> <span class="n">MS_shielding</span><span class="p">,</span><span class="n">MS_asymmetry</span><span class="p">,</span><span class="n">MS_reduced_anisotropy</span> \
+    <span class="o">-</span><span class="n">o</span> <span class="o">./</span><span class="n">_temp_output</span><span class="o">/</span><span class="n">ethanol_CH3</span><span class="o">.</span><span class="n">csv</span>
 
-# Show the results:
-df = pd.read_csv(&#39;ethanol_CH3.csv&#39;)
-# drop the column called &#39;file&#39;
-df = df.drop(&#39;file&#39;, axis=1)
-# drop unnamed columns
-df = df.loc[:, ~df.columns.str.contains(&#39;^Unnamed&#39;)]
-df
+<span class="c1"># Show the results:</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;_temp_output/ethanol_CH3.csv&#39;</span><span class="p">)</span>
+<span class="c1"># drop the column called &#39;file&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># drop unnamed columns</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;^Unnamed&#39;</span><span class="p">)]</span>
+<span class="n">df</span>
 </pre></div>
 </div>
 </div>
@@ -1124,7 +819,7 @@ df
 </div>
 </section>
 <section id="other-options">
-<h3>Other options<a class="headerlink" href="#other-options" title="Permalink to this headline">#</a></h3>
+<h3>Other options<a class="headerlink" href="#other-options" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Viewing the (filtered) structure (<code class="docutils literal notranslate"><span class="pre">--view</span></code>) using the ASE GUI</p></li>
 <li><p>Saving the output to a file (<code class="docutils literal notranslate"><span class="pre">-o</span></code>) (txt, CSV, JSON, YAML, etc.)</p></li>
@@ -1138,68 +833,68 @@ df
 </section>
 </section>
 <section id="plotting-simulated-spectra-from-magres-file">
-<h2>2. Plotting simulated spectra from .magres file<a class="headerlink" href="#plotting-simulated-spectra-from-magres-file" title="Permalink to this headline">#</a></h2>
+<h2>2. Plotting simulated spectra from .magres file<a class="headerlink" href="#plotting-simulated-spectra-from-magres-file" title="Link to this heading">#</a></h2>
 <p>Soprano can also be used to simulate NMR spectra from a .magres file. The <code class="docutils literal notranslate"><span class="pre">plotnmr</span></code> command can be used to do this:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano plotnmr &lt;magres_file &gt; -x C
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>plotnmr<span class="w"> </span>&lt;magres_file<span class="w"> </span>&gt;<span class="w"> </span>-x<span class="w"> </span>C
 </pre></div>
 </div>
 <p>By default this command will produce a 2D NMR plot of the carbon atoms in the file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>!soprano plotnmr \
-    ../tests/test_data/EDIZUM.magres \
-    -x C \
-    -y H \
-    --references C:100,H:30 \
-    --scale-marker-by dipolar \
-    --rcut 2.5 \
-    --no-legend \
-    -o ./plot_results.png
-Image(filename=&#39;plot_results.png&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>soprano<span class="w"> </span>plotnmr<span class="w"> </span><span class="err">\</span>
+    <span class="o">../</span><span class="n">tests</span><span class="o">/</span><span class="n">test_data</span><span class="o">/</span><span class="n">EDIZUM</span><span class="o">.</span><span class="n">magres</span> \
+    <span class="o">-</span><span class="n">x</span> <span class="n">C</span> \
+    <span class="o">-</span><span class="n">y</span> <span class="n">H</span> \
+    <span class="o">--</span><span class="n">references</span> <span class="n">C</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="n">H</span><span class="p">:</span><span class="mi">30</span> \
+    <span class="o">--</span><span class="n">scale</span><span class="o">-</span><span class="n">marker</span><span class="o">-</span><span class="n">by</span> <span class="n">dipolar</span> \
+    <span class="o">--</span><span class="n">rcut</span> <span class="mf">2.5</span> \
+    <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">legend</span> \
+    <span class="o">-</span><span class="n">o</span> <span class="o">./</span><span class="n">_temp_output</span><span class="o">/</span><span class="n">plot_results</span><span class="o">.</span><span class="n">png</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;_temp_output/plot_results.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/07-soprano-cli_18_0.png" src="../_images/07-soprano-cli_18_0.png" />
+<img alt="../_images/851f6e3a590d8cad7fbfde71cf77006548714d6b1f19ee904aa9b27d2065c66e.png" src="../_images/851f6e3a590d8cad7fbfde71cf77006548714d6b1f19ee904aa9b27d2065c66e.png" />
 </div>
 </div>
 </section>
 <section id="dipolar-coupling-calculations">
-<h2>Dipolar coupling calculations<a class="headerlink" href="#dipolar-coupling-calculations" title="Permalink to this headline">#</a></h2>
+<h2>Dipolar coupling calculations<a class="headerlink" href="#dipolar-coupling-calculations" title="Link to this heading">#</a></h2>
 <p>We can use the dipolar subcommand to extract dipolar couplings from any structure file (i.e. it need not be a .magres file).</p>
 <p>Some example commands are:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano dipolar &lt;structure file&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>dipolar<span class="w"> </span>&lt;structure<span class="w"> </span>file&gt;
 </pre></div>
 </div>
 <p>which calculates the dipolar couplings between all pairs of atoms in the structure.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano dipolar &lt;structure file&gt; -i C -j C
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>dipolar<span class="w"> </span>&lt;structure<span class="w"> </span>file&gt;<span class="w"> </span>-i<span class="w"> </span>C<span class="w"> </span>-j<span class="w"> </span>C
 </pre></div>
 </div>
 <p>which calculates the dipolar couplings between all pairs of carbon atoms in the structure.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano dipolar &lt;structure file&gt; -i C1 -j H1
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>dipolar<span class="w"> </span>&lt;structure<span class="w"> </span>file&gt;<span class="w"> </span>-i<span class="w"> </span>C1<span class="w"> </span>-j<span class="w"> </span>H1
 </pre></div>
 </div>
 <p>which calculates the dipolar couplings between pairs of sites labelled C1 and H1.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano dipolar &lt;structure file&gt; --rss --cutoff <span class="m">5</span>.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>dipolar<span class="w"> </span>&lt;structure<span class="w"> </span>file&gt;<span class="w"> </span>--rss<span class="w"> </span>--cutoff<span class="w"> </span><span class="m">5</span>.0
 </pre></div>
 </div>
 <p>which calculates the Root Sum Square dipolar constant for each atom in the system up to 5.0 Å away (including periodicity).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># find all C-H couplings with |D| &gt; 10 Hz
-!soprano dipolar ./tutorial_data/ethanol.magres \
-    -i C -j H \
-    --query &quot;abs(D) &gt; 10&quot; \
-    -o ./ethanol_dipolar.csv
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># find all C-H couplings with |D| &gt; 10 Hz</span>
+<span class="o">!</span>soprano<span class="w"> </span>dipolar<span class="w"> </span>./tutorial_data/ethanol.magres<span class="w"> </span><span class="err">\</span>
+    <span class="o">-</span><span class="n">i</span> <span class="n">C</span> <span class="o">-</span><span class="n">j</span> <span class="n">H</span> \
+    <span class="o">--</span><span class="n">query</span> <span class="s2">&quot;abs(D) &gt; 10&quot;</span> \
+    <span class="o">-</span><span class="n">o</span> <span class="o">./</span><span class="n">_temp_output</span><span class="o">/</span><span class="n">ethanol_dipolar</span><span class="o">.</span><span class="n">csv</span>
 
-# Show the results:
-df = pd.read_csv(&#39;ethanol_dipolar.csv&#39;)
-df.iloc[:,1:]
+<span class="c1"># Show the results:</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;_temp_output/ethanol_dipolar.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Writing output to ./ethanol_dipolar.csv
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Writing output to ./_temp_output/ethanol_dipolar.csv
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -1225,10 +920,9 @@ df.iloc[:,1:]
       <th>label_j</th>
       <th>isotope_i</th>
       <th>isotope_j</th>
-      <th>D</th>
-      <th>v</th>
-      <th>alpha</th>
-      <th>beta</th>
+      <th>D/kHz</th>
+      <th>alpha/deg</th>
+      <th>beta/deg</th>
       <th>file</th>
     </tr>
   </thead>
@@ -1241,7 +935,6 @@ df.iloc[:,1:]
       <td>1H</td>
       <td>13C</td>
       <td>-23.050578</td>
-      <td>[0.792 0.157 0.59 ]</td>
       <td>-168.752350</td>
       <td>126.182020</td>
       <td>./tutorial_data/ethanol.magres</td>
@@ -1254,7 +947,6 @@ df.iloc[:,1:]
       <td>1H</td>
       <td>13C</td>
       <td>-23.004866</td>
-      <td>[-0.17   0.84  -0.515]</td>
       <td>-78.545627</td>
       <td>59.023572</td>
       <td>./tutorial_data/ethanol.magres</td>
@@ -1267,7 +959,6 @@ df.iloc[:,1:]
       <td>1H</td>
       <td>13C</td>
       <td>-23.188447</td>
-      <td>[-0.799 -0.185  0.573]</td>
       <td>13.017396</td>
       <td>124.957193</td>
       <td>./tutorial_data/ethanol.magres</td>
@@ -1280,7 +971,6 @@ df.iloc[:,1:]
       <td>1H</td>
       <td>13C</td>
       <td>-22.733525</td>
-      <td>[ 0.803  0.172 -0.571]</td>
       <td>-167.901289</td>
       <td>55.204961</td>
       <td>./tutorial_data/ethanol.magres</td>
@@ -1293,7 +983,6 @@ df.iloc[:,1:]
       <td>1H</td>
       <td>13C</td>
       <td>-23.179595</td>
-      <td>[ 0.175 -0.838  0.518]</td>
       <td>101.784109</td>
       <td>121.180234</td>
       <td>./tutorial_data/ethanol.magres</td>
@@ -1304,22 +993,22 @@ df.iloc[:,1:]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>soprano dipolar ./tutorial_data/ethanol.magres --rss --cutoff <span class="m">10</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>soprano<span class="w"> </span>dipolar<span class="w"> </span>./tutorial_data/ethanol.magres<span class="w"> </span>--rss<span class="w"> </span>--cutoff<span class="w"> </span><span class="m">10</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracted data from: ./tutorial_data/ethanol.magres
-   index label isotope  D_RSS
-0      0     H      1H  40221
-1      1     H      1H  40496
-2      2     H      1H  40030
-3      3     H      1H  35389
-4      4     H      1H  35029
-5      5     H      1H  24082
-6      6     C     13C  40313
-7      7     C     13C  33251
-8      8     O     17O  18061
+   index label isotope  D_RSS/kHz
+0      0     H      1H      40221
+1      1     H      1H      40496
+2      2     H      1H      40030
+3      3     H      1H      35389
+4      4     H      1H      35029
+5      5     H      1H      24082
+6      6     C     13C      40313
+7      7     C     13C      33251
+8      8     O     17O      18061
 </pre></div>
 </div>
 </div>
@@ -1339,7 +1028,7 @@ df.iloc[:,1:]
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./tutorials"
         },
         predefinedOutput: true
@@ -1347,50 +1036,110 @@ df.iloc[:,1:]
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="06-defect_calculations.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Tutorial 6 - Soprano for defect calculations</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="06-defect_calculations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Tutorial 6 - Soprano for defect calculations</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="../submitter.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="../submitter.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Job Submitter</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-nmr-data-from-a-magres-file">1. Extracting NMR data from a .magres file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-and-selecting-atoms">Filtering and selecting atoms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#averaging-over-functional-groups">Averaging over functional groups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-options">Other options</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-simulated-spectra-from-magres-file">2. Plotting simulated spectra from .magres file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dipolar-coupling-calculations">Dipolar coupling calculations</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By CCP-NC<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By CCP-NC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

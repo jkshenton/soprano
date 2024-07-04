@@ -1,113 +1,179 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="./" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Command Line Interface &#8212; Soprano</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=5eb1bb1e"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
-    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cli';</script>
+    <link rel="icon" href="_static/favicon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="CLI Cookbook" href="cli-cookbook.html" />
     <link rel="prev" title="Installation" href="installation.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/soprano_logo.svg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Soprano</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/soprano_logo.svg" class="logo__image only-light" alt="Soprano - Home"/>
+    <script>document.write(`<img src="_static/soprano_logo.svg" class="logo__image only-dark" alt="Soprano - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -117,668 +183,344 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="installation.html">
-   Installation
-  </a>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
-   Command Line Interface
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="cli-cookbook.html">
-     CLI Cookbook
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="tutorials.html">
-   Tutorials
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/01-basic_concepts.html">
-     Tutorial 1 - Basic concepts: using AtomsCollection objects
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/02-generators_properties_calculators.html">
-     Tutorial 2 - Generators, Properties and Calculators
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/03-atomselection_transforms.html">
-     Tutorial 3 - AtomSelection and transforms
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/04-clustering.html">
-     Tutorial 4 - Clustering analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/05-nmr.html">
-     Tutorial 5 - NMR Properties: using Soprano for working with .magres files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/06-defect_calculations.html">
-     Tutorial 6 - Soprano for defect calculations
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/07-soprano-cli.html">
-     Tutorial 7 - Command-line interface
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="submitter.html">
-   Job Submitter
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="api.html">
-   API reference
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="_autosummary/soprano.html">
-     soprano
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-    <label for="toctree-checkbox-4">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="_autosummary/soprano.analyse.html">
-       soprano.analyse
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-      <label for="toctree-checkbox-5">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.analyse.phylogen.html">
-         soprano.analyse.phylogen
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="_autosummary/soprano.calculate.html">
-       soprano.calculate
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-      <label for="toctree-checkbox-6">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.calculate.gulp.html">
-         soprano.calculate.gulp
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.calculate.nmr.html">
-         soprano.calculate.nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.calculate.powder.html">
-         soprano.calculate.powder
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.calculate.xrd.html">
-         soprano.calculate.xrd
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="_autosummary/soprano.collection.html">
-       soprano.collection
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-      <label for="toctree-checkbox-7">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.collection.collection.html">
-         soprano.collection.collection
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.collection.generate.html">
-         soprano.collection.generate
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="_autosummary/soprano.data.html">
-       soprano.data
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-      <label for="toctree-checkbox-8">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.data.nmr.html">
-         soprano.data.nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.data.vdw.html">
-         soprano.data.vdw
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="_autosummary/soprano.hpc.html">
-       soprano.hpc
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-      <label for="toctree-checkbox-9">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.hpc.submitter.html">
-         soprano.hpc.submitter
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="_autosummary/soprano.measure.html">
-       soprano.measure
-      </a>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="_autosummary/soprano.nmr.html">
-       soprano.nmr
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-      <label for="toctree-checkbox-10">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.nmr.tensor.html">
-         soprano.nmr.tensor
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.nmr.utils.html">
-         soprano.nmr.utils
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="_autosummary/soprano.optional.html">
-       soprano.optional
-      </a>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="_autosummary/soprano.properties.html">
-       soprano.properties
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-      <label for="toctree-checkbox-11">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.properties.atomsproperty.html">
-         soprano.properties.atomsproperty
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.properties.basic.html">
-         soprano.properties.basic
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.properties.castep.html">
-         soprano.properties.castep
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.properties.labeling.html">
-         soprano.properties.labeling
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.properties.linkage.html">
-         soprano.properties.linkage
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.properties.map.html">
-         soprano.properties.map
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.properties.nmr.html">
-         soprano.properties.nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.properties.order.html">
-         soprano.properties.order
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.properties.symmetry.html">
-         soprano.properties.symmetry
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.properties.transform.html">
-         soprano.properties.transform
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="_autosummary/soprano.rnd.html">
-       soprano.rnd
-      </a>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="_autosummary/soprano.scripts.html">
-       soprano.scripts
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-      <label for="toctree-checkbox-12">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.scripts.cli.html">
-         soprano.scripts.cli
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.scripts.cli_utils.html">
-         soprano.scripts.cli_utils
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.scripts.dipolar.html">
-         soprano.scripts.dipolar
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.scripts.extract_nmr.html">
-         soprano.scripts.extract_nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.scripts.msaverage.html">
-         soprano.scripts.msaverage
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.scripts.nmr.html">
-         soprano.scripts.nmr
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.scripts.nmr_plot.html">
-         soprano.scripts.nmr_plot
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.scripts.phylogen.html">
-         soprano.scripts.phylogen
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="_autosummary/soprano.scripts.vasp2cell.html">
-         soprano.scripts.vasp2cell
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="_autosummary/soprano.selection.html">
-       soprano.selection
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="_autosummary/soprano.utils.html">
-       soprano.utils
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="citing.html">
-   Citing Soprano
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Command Line Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli-cookbook.html">CLI Cookbook</a></li>
+</ul><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/01-basic_concepts.html">Tutorial 1 - Basic concepts: using AtomsCollection objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/02-generators_properties_calculators.html">Tutorial 2 - Generators, Properties and Calculators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/03-atomselection_transforms.html">Tutorial 3 - AtomSelection and transforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/04-clustering.html">Tutorial 4 - Clustering analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/05-nmr.html">Tutorial 5 - NMR Properties: using Soprano for working with .magres files</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="tutorials/06-defect_calculations.html">Tutorial 6 - Soprano for defect calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/07-soprano-cli.html">Tutorial 7 - Command-line interface</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="submitter.html">Job Submitter</a></li>
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API reference</a><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="_autosummary/soprano.html">soprano</a><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_autosummary/soprano.analyse.html">soprano.analyse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.analyse.phylogen.html">soprano.analyse.phylogen</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_autosummary/soprano.calculate.html">soprano.calculate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.calculate.gulp.html">soprano.calculate.gulp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.calculate.nmr.html">soprano.calculate.nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.calculate.powder.html">soprano.calculate.powder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.calculate.xrd.html">soprano.calculate.xrd</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_autosummary/soprano.collection.html">soprano.collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.collection.collection.html">soprano.collection.collection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.collection.generate.html">soprano.collection.generate</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_autosummary/soprano.data.html">soprano.data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.data.nmr.html">soprano.data.nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.data.vdw.html">soprano.data.vdw</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_autosummary/soprano.hpc.html">soprano.hpc</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.hpc.submitter.html">soprano.hpc.submitter</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/soprano.measure.html">soprano.measure</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_autosummary/soprano.nmr.html">soprano.nmr</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.nmr.tensor.html">soprano.nmr.tensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.nmr.utils.html">soprano.nmr.utils</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/soprano.optional.html">soprano.optional</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_autosummary/soprano.properties.html">soprano.properties</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.properties.atomsproperty.html">soprano.properties.atomsproperty</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.properties.basic.html">soprano.properties.basic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.properties.castep.html">soprano.properties.castep</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.properties.labeling.html">soprano.properties.labeling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.properties.linkage.html">soprano.properties.linkage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.properties.map.html">soprano.properties.map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.properties.nmr.html">soprano.properties.nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.properties.order.html">soprano.properties.order</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.properties.symmetry.html">soprano.properties.symmetry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.properties.transform.html">soprano.properties.transform</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/soprano.rnd.html">soprano.rnd</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_autosummary/soprano.scripts.html">soprano.scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.scripts.cli.html">soprano.scripts.cli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.scripts.cli_utils.html">soprano.scripts.cli_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.scripts.dipolar.html">soprano.scripts.dipolar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.scripts.extract_nmr.html">soprano.scripts.extract_nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.scripts.molecules.html">soprano.scripts.molecules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.scripts.msaverage.html">soprano.scripts.msaverage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.scripts.nmr.html">soprano.scripts.nmr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.scripts.nmr_plot.html">soprano.scripts.nmr_plot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.scripts.phylogen.html">soprano.scripts.phylogen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.scripts.vasp2cell.html">soprano.scripts.vasp2cell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/soprano.scripts.view.html">soprano.scripts.view</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/soprano.selection.html">soprano.selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/soprano.utils.html">soprano.utils</a></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+</ul><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing Soprano</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            A Python library to crack crystals
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/CCP-NC/soprano" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2Fcli.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
 
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
 
 
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/cli.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
   </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/CCP-NC/soprano"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
 
-      </li>
-      
-      <li>
-        <a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2Fcli.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/cli.rst"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.rst</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </button>
-
-      </li>
+</div></div>
       
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
+    </div>
   
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
-    </div>
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#soprano">
-   soprano
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#soprano-dipolar">
-     dipolar
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#soprano-nmr">
-     nmr
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#soprano-plotnmr">
-     plotnmr
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Command Line Interface</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#soprano">
-   soprano
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#soprano-dipolar">
-     dipolar
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#soprano-nmr">
-     nmr
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#soprano-plotnmr">
-     plotnmr
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Command Line Interface</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano">soprano</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano-dipolar">dipolar</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano-nmr">nmr</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano-plotnmr">plotnmr</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano-splitmols">splitmols</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano-view">view</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section id="command-line-interface">
-<h1>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">#</a></h1>
+<h1>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Link to this heading">#</a></h1>
 <section id="soprano">
-<h2>soprano<a class="headerlink" href="#soprano" title="Permalink to this headline">#</a></h2>
+<h2>soprano<a class="headerlink" href="#soprano" title="Link to this heading">#</a></h2>
 <p>A CLI tool to streamline common soprano tasks. It has various
 subcommands, each of which has its own set of options and help.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
 </pre></div>
 </div>
 <p class="rubric">Options</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-v">
-<span id="cmdoption-soprano-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;LVL&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-v" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;LVL&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-v" title="Link to this definition">#</a></dt>
 <dd><p>Either CRITICAL, ERROR, WARNING, INFO or DEBUG</p>
 </dd></dl>
 
 <p>Author: J. Kane Shenton (<a class="reference external" href="mailto:kane&#46;shenton&#37;&#52;&#48;stfc&#46;ac&#46;uk">kane<span>&#46;</span>shenton<span>&#64;</span>stfc<span>&#46;</span>ac<span>&#46;</span>uk</a>)</p>
 <p>Last updated: June 21, 2023</p>
 <section id="soprano-dipolar">
-<h3>dipolar<a class="headerlink" href="#soprano-dipolar" title="Permalink to this headline">#</a></h3>
+<h3>dipolar<a class="headerlink" href="#soprano-dipolar" title="Link to this heading">#</a></h3>
 <p>Extract and summarise dipolar couplings from structure files.</p>
 <p>Usage:
 soprano dipolar seedname.{magres|cif|POSCAR|etc}</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano dipolar <span class="o">[</span>OPTIONS<span class="o">]</span> FILES...
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>dipolar<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>FILES...
 </pre></div>
 </div>
 <p class="rubric">Options</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-c">
-<span id="cmdoption-soprano-dipolar-config"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--config</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;config&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-c" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-dipolar-config"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--config</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;config&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-c" title="Link to this definition">#</a></dt>
 <dd><p>Read option defaults from the specified INI fileIf not set, first checks environment variable: <code class="docutils literal notranslate"><span class="pre">SOPRANO_CONFIG</span></code> and then <code class="docutils literal notranslate"><span class="pre">~/.soprano/config.ini</span></code></p>
 <dl class="field-list simple">
-<dt class="field-odd">Default</dt>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">/home/jks/.soprano/config.ini</span></code></p>
 </dd>
 </dl>
@@ -786,43 +528,43 @@ soprano dipolar seedname.{magres|cif|POSCAR|etc}</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-v">
-<span id="cmdoption-soprano-dipolar-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-v" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-dipolar-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-v" title="Link to this definition">#</a></dt>
 <dd><p>Increase verbosity. Use -v for info, -vv for debug. Defaults to only showing warnings and errors.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-view">
-<span class="sig-name descname"><span class="pre">--view</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-view" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--view</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-view" title="Link to this definition">#</a></dt>
 <dd><p>If present, view the structure(s) with the ASE GUI.Note that the ASE GUI can color the sites according to their tags. This can be used to see what sites were tagged as equivalent.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-symprec">
-<span class="sig-name descname"><span class="pre">--symprec</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;symprec&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-symprec" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--symprec</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;symprec&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-symprec" title="Link to this definition">#</a></dt>
 <dd><p>Symmetry precision for symmetry reduction. Defaults to 1e-4.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-precision">
-<span class="sig-name descname"><span class="pre">--precision</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;precision&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-precision" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--precision</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;precision&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-precision" title="Link to this definition">#</a></dt>
 <dd><p>Precision of the output (number of decimal places). Defaults to 3.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-i">
-<span id="cmdoption-soprano-dipolar-isotopes"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--isotopes</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ISOTOPES&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-i" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-dipolar-isotopes"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--isotopes</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ISOTOPES&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-i" title="Link to this definition">#</a></dt>
 <dd><p>Isotopes specification (e.g. <code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">13C</span></code> for carbon 13 <code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">2H,15N</span></code> for deuterium and 15N). When nothing is specified it defaults to the most common NMR active isotope.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-g">
-<span id="cmdoption-soprano-dipolar-average-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--average-group</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;average_group&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-g" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-dipolar-average-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--average-group</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;average_group&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-g" title="Link to this definition">#</a></dt>
 <dd><p>Group pattern for averaging. Currently only works for XHn groups such as CH3, CH2, NH2 etc. You can specify several, comma separated as in <code class="docutils literal notranslate"><span class="pre">-g</span> <span class="pre">CH3,CH2,NH2</span></code>. If not specified, no averaging is performed.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-0">
-<span id="cmdoption-soprano-dipolar-select_i"></span><span id="cmdoption-soprano-dipolar-select-i"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--select_i</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection_i&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-0" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-dipolar-select_i"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--select_i</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection_i&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-0" title="Link to this definition">#</a></dt>
 <dd><p>Selection string of subset of sites include. e.g.
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C</span></code> for only and all carbon atoms,
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C.1-3,H.1.2</span></code> for carbons 1,2,3 and hydrogens 1 and 2,
@@ -831,7 +573,7 @@ soprano dipolar seedname.{magres|cif|POSCAR|etc}</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-j">
-<span id="cmdoption-soprano-dipolar-select_j"></span><span id="cmdoption-soprano-dipolar-select-j"></span><span class="sig-name descname"><span class="pre">-j</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--select_j</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection_j&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-j" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-dipolar-select_j"></span><span class="sig-name descname"><span class="pre">-j</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--select_j</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection_j&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-j" title="Link to this definition">#</a></dt>
 <dd><p>Selection string of subset of sites include. e.g.
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C</span></code> for only and all carbon atoms,
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C.1-3,H.1.2</span></code> for carbons 1,2,3 and hydrogens 1 and 2,
@@ -840,34 +582,34 @@ soprano dipolar seedname.{magres|cif|POSCAR|etc}</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-rss">
-<span class="sig-name descname"><span class="pre">--rss</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-rss" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--rss</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-rss" title="Link to this definition">#</a></dt>
 <dd><p>Calculate the dipolar constant Root Sum Square for each atom in a system (includes periodicity).(As opposed to the dipolar couplings between pairs of atoms).Default is False.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-cutoff">
-<span class="sig-name descname"><span class="pre">--cutoff</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rss_cutoff&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-cutoff" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--cutoff</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rss_cutoff&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-cutoff" title="Link to this definition">#</a></dt>
 <dd><p>Cutoff for Dipolar constant Root Sum Square for each atom in a system (includes periodicity). Units are Angstroms. Default is 5.0 Angstroms.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-isonuclear">
-<span class="sig-name descname"><span class="pre">--isonuclear</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-isonuclear" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--isonuclear</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-isonuclear" title="Link to this definition">#</a></dt>
 <dd><p>Include only dipolar interactions between atoms of the same type.Default is False.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-o">
-<span id="cmdoption-soprano-dipolar-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-o" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-dipolar-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-o" title="Link to this definition">#</a></dt>
 <dd><p>Output file name. If not specified, output is printed to stdout.If the output file name has a recognised extension (see <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> for allowed values), the format is guessed from that.The format can be overridden with the <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> option.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-f">
-<span id="cmdoption-soprano-dipolar-output-format"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_format&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-f" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-dipolar-output-format"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_format&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-f" title="Link to this definition">#</a></dt>
 <dd><p>Output file format. If not specified, the format is guessed from output filename extension.The <code class="docutils literal notranslate"><span class="pre">txt</span></code>, <code class="docutils literal notranslate"><span class="pre">tsv</span></code> and <code class="docutils literal notranslate"><span class="pre">dat</span></code> formats all produce tab separated files.The <code class="docutils literal notranslate"><span class="pre">md</span></code> format produces a markdown table and requires an optional dependency on the tabulate package.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Options</dt>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
 <dd class="field-odd"><p>csv | json | html | md | tex | txt | tsv | dat</p>
 </dd>
 </dl>
@@ -875,22 +617,22 @@ soprano dipolar seedname.{magres|cif|POSCAR|etc}</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-m">
-<span id="cmdoption-soprano-dipolar-merge"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--merge</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-m" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-dipolar-merge"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--merge</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-m" title="Link to this definition">#</a></dt>
 <dd><p>If present, merge all files into a single output file.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-sortby">
-<span class="sig-name descname"><span class="pre">--sortby</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sortby&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-sortby" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--sortby</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sortby&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-sortby" title="Link to this definition">#</a></dt>
 <dd><p>Sort by column. Defaults to sorting by site number. It can be any column in the output. For example <code class="docutils literal notranslate"><span class="pre">--sortby</span> <span class="pre">EFG_Vzz</span></code></p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-sort-order">
-<span class="sig-name descname"><span class="pre">--sort-order</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sort_order&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-sort-order" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--sort-order</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sort_order&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-sort-order" title="Link to this definition">#</a></dt>
 <dd><p>Sort order. Defaults to ascending.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Options</dt>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ascending | descending</p>
 </dd>
 </dl>
@@ -898,32 +640,32 @@ soprano dipolar seedname.{magres|cif|POSCAR|etc}</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-include">
-<span class="sig-name descname"><span class="pre">--include</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;include&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-include" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--include</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;include&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-include" title="Link to this definition">#</a></dt>
 <dd><p>Include only certain columns. The columns are specified as a comma-separated list. For example <code class="docutils literal notranslate"><span class="pre">--include</span> <span class="pre">MS_shielding,EFG_Vzz</span></code>. Defaults to all columns.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-exclude">
-<span class="sig-name descname"><span class="pre">--exclude</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;exclude&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-exclude" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--exclude</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;exclude&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-exclude" title="Link to this definition">#</a></dt>
 <dd><p>Exclude certain columns. The columns are specified as a comma-separated list. For example <code class="docutils literal notranslate"><span class="pre">--exclude</span> <span class="pre">MS_alpha,MS_beta,MS_gamma</span></code>. Defaults to None.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-query">
-<span class="sig-name descname"><span class="pre">--query</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;query&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-query" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--query</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;query&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-dipolar-query" title="Link to this definition">#</a></dt>
 <dd><p>Filter results based on query. The filter is specified as a pandas query. Note that you must enclose the query in quotes! Refer to the column names without the units.  For example <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100'</span></code>. You can combine queries with <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> etc. e.g. <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100</span> <span class="pre">and</span> <span class="pre">MS_shielding</span> <span class="pre">&lt;</span> <span class="pre">180'</span></code>. Defaults to no filter.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-dipolar-arg-FILES">
-<span id="cmdoption-soprano-dipolar-arg-files"></span><span class="sig-name descname"><span class="pre">FILES</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-arg-FILES" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">FILES</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-dipolar-arg-FILES" title="Link to this definition">#</a></dt>
 <dd><p>Required argument(s)</p>
 </dd></dl>
 
 </section>
 <section id="soprano-nmr">
-<h3>nmr<a class="headerlink" href="#soprano-nmr" title="Permalink to this headline">#</a></h3>
+<h3>nmr<a class="headerlink" href="#soprano-nmr" title="Link to this heading">#</a></h3>
 <p>Extract and analyse NMR data from magres file(s).</p>
 <p>Usage:
 soprano nmr seedname.magres</p>
@@ -931,16 +673,16 @@ soprano nmr seedname.magres</p>
 and prints a summary. It defaults to printing all NMR properties
 present in the file for all the atoms.</p>
 <p>See the below arguments for how to extract specific information.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano nmr <span class="o">[</span>OPTIONS<span class="o">]</span> FILES...
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>nmr<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>FILES...
 </pre></div>
 </div>
 <p class="rubric">Options</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-c">
-<span id="cmdoption-soprano-nmr-config"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--config</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;config&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-c" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-nmr-config"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--config</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;config&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-c" title="Link to this definition">#</a></dt>
 <dd><p>Read option defaults from the specified INI fileIf not set, first checks environment variable: <code class="docutils literal notranslate"><span class="pre">SOPRANO_CONFIG</span></code> and then <code class="docutils literal notranslate"><span class="pre">~/.soprano/config.ini</span></code></p>
 <dl class="field-list simple">
-<dt class="field-odd">Default</dt>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">/home/jks/.soprano/config.ini</span></code></p>
 </dd>
 </dl>
@@ -948,34 +690,34 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-v">
-<span id="cmdoption-soprano-nmr-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-v" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-nmr-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-v" title="Link to this definition">#</a></dt>
 <dd><p>Increase verbosity. Use -v for info, -vv for debug. Defaults to only showing warnings and errors.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-view">
-<span class="sig-name descname"><span class="pre">--view</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-view" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--view</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-view" title="Link to this definition">#</a></dt>
 <dd><p>If present, view the structure(s) with the ASE GUI.Note that the ASE GUI can color the sites according to their tags. This can be used to see what sites were tagged as equivalent.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-symprec">
-<span class="sig-name descname"><span class="pre">--symprec</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;symprec&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-symprec" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--symprec</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;symprec&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-symprec" title="Link to this definition">#</a></dt>
 <dd><p>Symmetry precision for symmetry reduction. Defaults to 1e-4.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-precision">
-<span class="sig-name descname"><span class="pre">--precision</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;precision&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-precision" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--precision</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;precision&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-precision" title="Link to this definition">#</a></dt>
 <dd><p>Precision of the output (number of decimal places). Defaults to 3.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-p">
-<span id="cmdoption-soprano-nmr-properties"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--properties</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;properties&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-p" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-nmr-properties"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--properties</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;properties&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-p" title="Link to this definition">#</a></dt>
 <dd><p>Properties for which to extract and summarise e.g. <code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">ms.</span></code> They can be combined by using the flag multiple times: <code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">ms</span> <span class="pre">-p</span> <span class="pre">efg.</span></code> Defaults to both ms and efg.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Options</dt>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
 <dd class="field-odd"><p>efg | ms</p>
 </dd>
 </dl>
@@ -983,28 +725,28 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-i">
-<span id="cmdoption-soprano-nmr-isotopes"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--isotopes</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ISOTOPES&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-i" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-nmr-isotopes"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--isotopes</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ISOTOPES&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-i" title="Link to this definition">#</a></dt>
 <dd><p>Isotopes specification (e.g. <code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">13C</span></code> for carbon 13 <code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">2H,15N</span></code> for deuterium and 15N). When nothing is specified it defaults to the most common NMR active isotope.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-g">
-<span id="cmdoption-soprano-nmr-average-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--average-group</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;average_group&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-g" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-nmr-average-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--average-group</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;average_group&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-g" title="Link to this definition">#</a></dt>
 <dd><p>Group pattern for averaging. Currently only works for XHn groups such as CH3, CH2, NH2 etc. You can specify several, comma separated as in <code class="docutils literal notranslate"><span class="pre">-g</span> <span class="pre">CH3,CH2,NH2</span></code>. If not specified, no averaging is performed.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-reduce">
-<span id="cmdoption-soprano-nmr-no-reduce"></span><span class="sig-name descname"><span class="pre">--reduce</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-reduce</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-reduce" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-nmr-no-reduce"></span><span class="sig-name descname"><span class="pre">--reduce</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-reduce</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-reduce" title="Link to this definition">#</a></dt>
 <dd><p>Reduce the output by symmetry-equivalent sites. If there are CIF-style labels present, then these override the symmetry-grouping in case of a clash (though there should never be a clash…). Note that this doesn’t take into account magnetic symmetry! Defaults to True, so use <code class="docutils literal notranslate"><span class="pre">--no-reduce</span></code> to turn off symmetry reduction.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-euler">
-<span class="sig-name descname"><span class="pre">--euler</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;euler_convention&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-euler" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--euler</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;euler_convention&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-euler" title="Link to this definition">#</a></dt>
 <dd><p>Convention for Euler angles. Defaults to <code class="docutils literal notranslate"><span class="pre">zyz</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Options</dt>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
 <dd class="field-odd"><p>zyz | zxz</p>
 </dd>
 </dl>
@@ -1012,19 +754,19 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-references">
-<span class="sig-name descname"><span class="pre">--references</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;references&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-references" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--references</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;references&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-references" title="Link to this definition">#</a></dt>
 <dd><p>Reference shielding for each element (in ppm). The format is <code class="docutils literal notranslate"><span class="pre">--references</span> <span class="pre">C:170,H:123</span></code>.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-gradients">
-<span class="sig-name descname"><span class="pre">--gradients</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;gradients&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-gradients" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--gradients</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;gradients&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-gradients" title="Link to this definition">#</a></dt>
 <dd><p>Reference shielding gradients for each element. Defaults to -1 for all elements. Set it like this: <code class="docutils literal notranslate"><span class="pre">--gradients</span> <span class="pre">H:-1,C:-0.97</span></code>.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-s">
-<span id="cmdoption-soprano-nmr-subset"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subset</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;subset&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-s" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-nmr-subset"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subset</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;subset&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-s" title="Link to this definition">#</a></dt>
 <dd><p>Selection string of subset of sites include. e.g.
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C</span></code> for only and all carbon atoms,
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C.1-3,H.1.2</span></code> for carbons 1,2,3 and hydrogens 1 and 2,
@@ -1033,16 +775,16 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-o">
-<span id="cmdoption-soprano-nmr-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-o" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-nmr-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-o" title="Link to this definition">#</a></dt>
 <dd><p>Output file name. If not specified, output is printed to stdout.If the output file name has a recognised extension (see <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> for allowed values), the format is guessed from that.The format can be overridden with the <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> option.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-f">
-<span id="cmdoption-soprano-nmr-output-format"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_format&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-f" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-nmr-output-format"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output-format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_format&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-f" title="Link to this definition">#</a></dt>
 <dd><p>Output file format. If not specified, the format is guessed from output filename extension.The <code class="docutils literal notranslate"><span class="pre">txt</span></code>, <code class="docutils literal notranslate"><span class="pre">tsv</span></code> and <code class="docutils literal notranslate"><span class="pre">dat</span></code> formats all produce tab separated files.The <code class="docutils literal notranslate"><span class="pre">md</span></code> format produces a markdown table and requires an optional dependency on the tabulate package.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Options</dt>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
 <dd class="field-odd"><p>csv | json | html | md | tex | txt | tsv | dat</p>
 </dd>
 </dl>
@@ -1050,22 +792,22 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-m">
-<span id="cmdoption-soprano-nmr-merge"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--merge</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-m" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-nmr-merge"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--merge</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-m" title="Link to this definition">#</a></dt>
 <dd><p>If present, merge all files into a single output file.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-sortby">
-<span class="sig-name descname"><span class="pre">--sortby</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sortby&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-sortby" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--sortby</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sortby&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-sortby" title="Link to this definition">#</a></dt>
 <dd><p>Sort by column. Defaults to sorting by site number. It can be any column in the output. For example <code class="docutils literal notranslate"><span class="pre">--sortby</span> <span class="pre">EFG_Vzz</span></code></p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-sort-order">
-<span class="sig-name descname"><span class="pre">--sort-order</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sort_order&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-sort-order" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--sort-order</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sort_order&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-sort-order" title="Link to this definition">#</a></dt>
 <dd><p>Sort order. Defaults to ascending.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Options</dt>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ascending | descending</p>
 </dd>
 </dl>
@@ -1073,43 +815,43 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-include">
-<span class="sig-name descname"><span class="pre">--include</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;include&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-include" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--include</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;include&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-include" title="Link to this definition">#</a></dt>
 <dd><p>Include only certain columns. The columns are specified as a comma-separated list. For example <code class="docutils literal notranslate"><span class="pre">--include</span> <span class="pre">MS_shielding,EFG_Vzz</span></code>. Defaults to all columns.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-exclude">
-<span class="sig-name descname"><span class="pre">--exclude</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;exclude&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-exclude" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--exclude</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;exclude&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-exclude" title="Link to this definition">#</a></dt>
 <dd><p>Exclude certain columns. The columns are specified as a comma-separated list. For example <code class="docutils literal notranslate"><span class="pre">--exclude</span> <span class="pre">MS_alpha,MS_beta,MS_gamma</span></code>. Defaults to None.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-query">
-<span class="sig-name descname"><span class="pre">--query</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;query&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-query" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--query</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;query&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-nmr-query" title="Link to this definition">#</a></dt>
 <dd><p>Filter results based on query. The filter is specified as a pandas query. Note that you must enclose the query in quotes! Refer to the column names without the units.  For example <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100'</span></code>. You can combine queries with <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> etc. e.g. <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100</span> <span class="pre">and</span> <span class="pre">MS_shielding</span> <span class="pre">&lt;</span> <span class="pre">180'</span></code>. Defaults to no filter.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-nmr-arg-FILES">
-<span id="cmdoption-soprano-nmr-arg-files"></span><span class="sig-name descname"><span class="pre">FILES</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-arg-FILES" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">FILES</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-nmr-arg-FILES" title="Link to this definition">#</a></dt>
 <dd><p>Required argument(s)</p>
 </dd></dl>
 
 </section>
 <section id="soprano-plotnmr">
-<h3>plotnmr<a class="headerlink" href="#soprano-plotnmr" title="Permalink to this headline">#</a></h3>
+<h3>plotnmr<a class="headerlink" href="#soprano-plotnmr" title="Link to this heading">#</a></h3>
 <p>Plot the NMR spectrum from a .magres file.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano plotnmr <span class="o">[</span>OPTIONS<span class="o">]</span> <span class="o">[</span>FILES<span class="o">]</span>...
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>plotnmr<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>FILES<span class="o">]</span>...
 </pre></div>
 </div>
 <p class="rubric">Options</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-c">
-<span id="cmdoption-soprano-plotnmr-config"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--config</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;config&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-c" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-config"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--config</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;config&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-c" title="Link to this definition">#</a></dt>
 <dd><p>Read option defaults from the specified INI fileIf not set, first checks environment variable: <code class="docutils literal notranslate"><span class="pre">SOPRANO_CONFIG</span></code> and then <code class="docutils literal notranslate"><span class="pre">~/.soprano/config.ini</span></code></p>
 <dl class="field-list simple">
-<dt class="field-odd">Default</dt>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">/home/jks/.soprano/config.ini</span></code></p>
 </dd>
 </dl>
@@ -1117,46 +859,46 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-v">
-<span id="cmdoption-soprano-plotnmr-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-v" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-v" title="Link to this definition">#</a></dt>
 <dd><p>Increase verbosity. Use -v for info, -vv for debug. Defaults to only showing warnings and errors.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-view">
-<span class="sig-name descname"><span class="pre">--view</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-view" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--view</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-view" title="Link to this definition">#</a></dt>
 <dd><p>If present, view the structure(s) with the ASE GUI.Note that the ASE GUI can color the sites according to their tags. This can be used to see what sites were tagged as equivalent.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-symprec">
-<span class="sig-name descname"><span class="pre">--symprec</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;symprec&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-symprec" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--symprec</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;symprec&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-symprec" title="Link to this definition">#</a></dt>
 <dd><p>Symmetry precision for symmetry reduction. Defaults to 1e-4.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-precision">
-<span class="sig-name descname"><span class="pre">--precision</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;precision&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-precision" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--precision</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;precision&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-precision" title="Link to this definition">#</a></dt>
 <dd><p>Precision of the output (number of decimal places). Defaults to 3.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-i">
-<span id="cmdoption-soprano-plotnmr-isotopes"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--isotopes</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ISOTOPES&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-i" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-isotopes"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--isotopes</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ISOTOPES&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-i" title="Link to this definition">#</a></dt>
 <dd><p>Isotopes specification (e.g. <code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">13C</span></code> for carbon 13 <code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">2H,15N</span></code> for deuterium and 15N). When nothing is specified it defaults to the most common NMR active isotope.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-g">
-<span id="cmdoption-soprano-plotnmr-average-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--average-group</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;average_group&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-g" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-average-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--average-group</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;average_group&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-g" title="Link to this definition">#</a></dt>
 <dd><p>Group pattern for averaging. Currently only works for XHn groups such as CH3, CH2, NH2 etc. You can specify several, comma separated as in <code class="docutils literal notranslate"><span class="pre">-g</span> <span class="pre">CH3,CH2,NH2</span></code>. If not specified, no averaging is performed.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-euler">
-<span class="sig-name descname"><span class="pre">--euler</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;euler_convention&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-euler" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--euler</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;euler_convention&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-euler" title="Link to this definition">#</a></dt>
 <dd><p>Convention for Euler angles. Defaults to <code class="docutils literal notranslate"><span class="pre">zyz</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Options</dt>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
 <dd class="field-odd"><p>zyz | zxz</p>
 </dd>
 </dl>
@@ -1164,19 +906,19 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-references">
-<span class="sig-name descname"><span class="pre">--references</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;references&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-references" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--references</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;references&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-references" title="Link to this definition">#</a></dt>
 <dd><p>Reference shielding for each element (in ppm). The format is <code class="docutils literal notranslate"><span class="pre">--references</span> <span class="pre">C:170,H:123</span></code>.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-gradients">
-<span class="sig-name descname"><span class="pre">--gradients</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;gradients&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-gradients" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--gradients</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;gradients&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-gradients" title="Link to this definition">#</a></dt>
 <dd><p>Reference shielding gradients for each element. Defaults to -1 for all elements. Set it like this: <code class="docutils literal notranslate"><span class="pre">--gradients</span> <span class="pre">H:-1,C:-0.97</span></code>.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-s">
-<span id="cmdoption-soprano-plotnmr-subset"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subset</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;subset&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-s" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-subset"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subset</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;subset&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-s" title="Link to this definition">#</a></dt>
 <dd><p>Selection string of subset of sites include. e.g.
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C</span></code> for only and all carbon atoms,
 <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C.1-3,H.1.2</span></code> for carbons 1,2,3 and hydrogens 1 and 2,
@@ -1185,22 +927,22 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-reduce">
-<span id="cmdoption-soprano-plotnmr-no-reduce"></span><span class="sig-name descname"><span class="pre">--reduce</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-reduce</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-reduce" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-no-reduce"></span><span class="sig-name descname"><span class="pre">--reduce</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-reduce</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-reduce" title="Link to this definition">#</a></dt>
 <dd><p>Reduce the output by symmetry-equivalent sites. If there are CIF-style labels present, then these override the symmetry-grouping in case of a clash (though there should never be a clash…). Note that this doesn’t take into account magnetic symmetry! Defaults to True, so use <code class="docutils literal notranslate"><span class="pre">--no-reduce</span></code> to turn off symmetry reduction.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-query">
-<span class="sig-name descname"><span class="pre">--query</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;query&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-query" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--query</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;query&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-query" title="Link to this definition">#</a></dt>
 <dd><p>Filter results based on query. The filter is specified as a pandas query. Note that you must enclose the query in quotes! Refer to the column names without the units.  For example <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100'</span></code>. You can combine queries with <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> etc. e.g. <code class="docutils literal notranslate"><span class="pre">--query</span> <span class="pre">'MS_shielding</span> <span class="pre">&gt;</span> <span class="pre">100</span> <span class="pre">and</span> <span class="pre">MS_shielding</span> <span class="pre">&lt;</span> <span class="pre">180'</span></code>. Defaults to no filter.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-p">
-<span id="cmdoption-soprano-plotnmr-plot_type"></span><span id="cmdoption-soprano-plotnmr-plot-type"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--plot_type</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;plot_type&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-p" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-plot_type"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--plot_type</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;plot_type&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-p" title="Link to this definition">#</a></dt>
 <dd><p>Plot type</p>
 <dl class="field-list simple">
-<dt class="field-odd">Options</dt>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
 <dd class="field-odd"><p>2D | 1D</p>
 </dd>
 </dl>
@@ -1208,28 +950,28 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-x">
-<span id="cmdoption-soprano-plotnmr-xelement"></span><span class="sig-name descname"><span class="pre">-x</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--xelement</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;x_element&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-x" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-xelement"></span><span class="sig-name descname"><span class="pre">-x</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--xelement</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;x_element&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-x" title="Link to this definition">#</a></dt>
 <dd><p><strong>Required</strong></p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-y">
-<span id="cmdoption-soprano-plotnmr-yelement"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yelement</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;y_element&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-y" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-yelement"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yelement</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;y_element&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-y" title="Link to this definition">#</a></dt>
 <dd><p>Element to plot on the y-axis. If not specified, but a 2D plot is requested, the x-element is used.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-rcut">
-<span class="sig-name descname"><span class="pre">--rcut</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rcut&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-rcut" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--rcut</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rcut&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-rcut" title="Link to this definition">#</a></dt>
 <dd><p>Cutoff distance for plotting. Defaults to 10 Angstrom.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-yaxis-order">
-<span class="sig-name descname"><span class="pre">--yaxis-order</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;yaxis_order&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-yaxis-order" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--yaxis-order</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;yaxis_order&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-yaxis-order" title="Link to this definition">#</a></dt>
 <dd><p>Single (1Q) or double (2Q) quantum order for the y-axis. Defaults to 1Q.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Options</dt>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
 <dd class="field-odd"><p>1Q | 2Q</p>
 </dd>
 </dl>
@@ -1237,34 +979,34 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-xlim">
-<span class="sig-name descname"><span class="pre">--xlim</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;xlim&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-xlim" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--xlim</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;xlim&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-xlim" title="Link to this definition">#</a></dt>
 <dd><p>X-axis range. For example <code class="docutils literal notranslate"><span class="pre">--xlim</span> <span class="pre">20</span> <span class="pre">100</span></code></p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-ylim">
-<span class="sig-name descname"><span class="pre">--ylim</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ylim&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-ylim" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--ylim</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ylim&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-ylim" title="Link to this definition">#</a></dt>
 <dd><p>Y-axis range. For example <code class="docutils literal notranslate"><span class="pre">--ylim</span> <span class="pre">20</span> <span class="pre">100</span></code></p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-marker">
-<span class="sig-name descname"><span class="pre">--marker</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;marker&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-marker" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--marker</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;marker&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-marker" title="Link to this definition">#</a></dt>
 <dd><p>Marker type. For example <code class="docutils literal notranslate"><span class="pre">--marker</span> <span class="pre">o</span></code>. Accepts any matplotlib marker type.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-ms">
-<span id="cmdoption-soprano-plotnmr-max-marker-size"></span><span class="sig-name descname"><span class="pre">-ms</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--max-marker-size</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_marker_size&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-ms" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-max-marker-size"></span><span class="sig-name descname"><span class="pre">-ms</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--max-marker-size</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_marker_size&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-ms" title="Link to this definition">#</a></dt>
 <dd><p>Maximum marker size. Default is 50.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-scale-marker-by">
-<span class="sig-name descname"><span class="pre">--scale-marker-by</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;scale_marker_by&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-scale-marker-by" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--scale-marker-by</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;scale_marker_by&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-scale-marker-by" title="Link to this definition">#</a></dt>
 <dd><p>Scale marker size by chosen property. <code class="docutils literal notranslate"><span class="pre">fixed</span></code> means that all the markers will have the same size. <code class="docutils literal notranslate"><span class="pre">distance</span></code> means that the marker size will be proportional to the distance between the sites. <code class="docutils literal notranslate"><span class="pre">inversedistance</span></code> means that the marker size will be proportional to the inverse of the distance between the sites. <code class="docutils literal notranslate"><span class="pre">dipolar</span></code> means that the marker size will be proportional to the dipolar coupling between the sites. Default is <code class="docutils literal notranslate"><span class="pre">fixed</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Options</dt>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
 <dd class="field-odd"><p>fixed | distance | inversedistance | dipolar</p>
 </dd>
 </dl>
@@ -1272,51 +1014,216 @@ present in the file for all the atoms.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-legend">
-<span id="cmdoption-soprano-plotnmr-no-legend"></span><span class="sig-name descname"><span class="pre">--legend</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-legend</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-legend" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-no-legend"></span><span class="sig-name descname"><span class="pre">--legend</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-legend</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-legend" title="Link to this definition">#</a></dt>
 <dd><p>Show marker legend? Default is True.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-diag">
-<span id="cmdoption-soprano-plotnmr-no-diag"></span><span class="sig-name descname"><span class="pre">--diag</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-diag</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-diag" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-no-diag"></span><span class="sig-name descname"><span class="pre">--diag</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-diag</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-diag" title="Link to this definition">#</a></dt>
 <dd><p>Plot diagonal line if the x and y elements are the same. Defaults to True (i.e. showing the diagonal line).</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-grid">
-<span id="cmdoption-soprano-plotnmr-no-grid"></span><span class="sig-name descname"><span class="pre">--grid</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-grid</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-grid" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-no-grid"></span><span class="sig-name descname"><span class="pre">--grid</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-grid</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-grid" title="Link to this definition">#</a></dt>
 <dd><p>Show grid lines at the axis ticks. Defaults to True (i.e. showing the grid lines).</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-connectors">
-<span id="cmdoption-soprano-plotnmr-no-connectors"></span><span class="sig-name descname"><span class="pre">--connectors</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-connectors</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-connectors" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-no-connectors"></span><span class="sig-name descname"><span class="pre">--connectors</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-connectors</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-connectors" title="Link to this definition">#</a></dt>
 <dd><p>Show horizontal connectors between points in the case of a 2Q plot. Defaults to True (i.e. show connectors).</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-ticklabels">
-<span id="cmdoption-soprano-plotnmr-no-ticklabels"></span><span class="sig-name descname"><span class="pre">--ticklabels</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-ticklabels</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-ticklabels" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-no-ticklabels"></span><span class="sig-name descname"><span class="pre">--ticklabels</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-ticklabels</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-ticklabels" title="Link to this definition">#</a></dt>
 <dd><p>Show tick labels. Defaults to True (i.e. showing the tick labels).</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-o">
-<span id="cmdoption-soprano-plotnmr-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;plot_filename&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-o" title="Permalink to this definition">#</a></dt>
+<span id="cmdoption-soprano-plotnmr-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;plot_filename&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-o" title="Link to this definition">#</a></dt>
 <dd><p>Name of the plot file. If not specified, the plot will be displayed in a window. The file extension determines the plot type (svg or pdf recommended).</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-shielding">
-<span class="sig-name descname"><span class="pre">--shielding</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-shielding" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">--shielding</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-shielding" title="Link to this definition">#</a></dt>
 <dd><p>Force plot shielding (even if references are present). Default is to plot shifts if references are given but shielding if no references given).</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-soprano-plotnmr-arg-FILES">
-<span id="cmdoption-soprano-plotnmr-arg-files"></span><span class="sig-name descname"><span class="pre">FILES</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-arg-FILES" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">FILES</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-plotnmr-arg-FILES" title="Link to this definition">#</a></dt>
 <dd><p>Optional argument(s)</p>
+</dd></dl>
+
+</section>
+<section id="soprano-splitmols">
+<h3>splitmols<a class="headerlink" href="#soprano-splitmols" title="Link to this heading">#</a></h3>
+<p>Extract all molecules in a molecular crystal (in any ASE-readable format) and output the in individual structure files.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>splitmols<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>FILENAME
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-s">
+<span id="cmdoption-soprano-splitmols-seedname"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--seedname</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;seedname&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-splitmols-s" title="Link to this definition">#</a></dt>
+<dd><p>Seedname for the output files. Defaults to the input filename without its extension.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-o">
+<span id="cmdoption-soprano-splitmols-output-dir"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output-dir</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output_dir&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-splitmols-o" title="Link to this definition">#</a></dt>
+<dd><p>Output directory for the extracted molecules.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-f">
+<span id="cmdoption-soprano-splitmols-format"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;format&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-splitmols-f" title="Link to this definition">#</a></dt>
+<dd><p>Output file format for the extracted molecules. This can be any format supported by ASE.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-no-write">
+<span class="sig-name descname"><span class="pre">--no-write</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-splitmols-no-write" title="Link to this definition">#</a></dt>
+<dd><p>Disable output of the extracted molecules to files.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-cell">
+<span class="sig-name descname"><span class="pre">--cell</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;cell&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-splitmols-cell" title="Link to this definition">#</a></dt>
+<dd><p>Redefined unit cell for the extracted molecules.This should be provided as nine numbers, corresponding to the unit cell matrix.For example, for a cubic cell of length 10.0 Angstroms, this would be:10.0 0.0 0.0 0.0 10.0 0.0 0.0 0.0 10.0</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-c">
+<span id="cmdoption-soprano-splitmols-center"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--center</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-splitmols-c" title="Link to this definition">#</a></dt>
+<dd><p>Center the extracted molecules in the unit cell.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-vacuum">
+<span id="cmdoption-soprano-splitmols-vac"></span><span class="sig-name descname"><span class="pre">--vacuum</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--vac</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;vacuum&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-splitmols-vacuum" title="Link to this definition">#</a></dt>
+<dd><p>Enforce a minimum vacuum between the extracted molecules and the cell boundaries. Applied in all directions.Only applies if the <cite>–center</cite> flag is set.See the ASE Atoms.center() documentation for how this works.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-cell-indices">
+<span id="cmdoption-soprano-splitmols-no-cell-indices"></span><span class="sig-name descname"><span class="pre">--cell-indices</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-cell-indices</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-splitmols-cell-indices" title="Link to this definition">#</a></dt>
+<dd><p>Use cell indices when outputting the individual structures. This is useful for molecules that are split across periodic boundaries.default is to use the cell-indices.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-vdw-set">
+<span class="sig-name descname"><span class="pre">--vdw-set</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;vdw_set&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-splitmols-vdw-set" title="Link to this definition">#</a></dt>
+<dd><p>Set of Van der Waals radii to use. Default is csd [S. Alvarez, 2013].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ase | jmol | csd</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-vdw-scale">
+<span class="sig-name descname"><span class="pre">--vdw-scale</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;vdw_scale&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-splitmols-vdw-scale" title="Link to this definition">#</a></dt>
+<dd><p>Scaling factor to apply to the base Van der Waals radii values. Values bigger than one make for more tolerant molecules.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-default-vdw">
+<span class="sig-name descname"><span class="pre">--default-vdw</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;default_vdw&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-splitmols-default-vdw" title="Link to this definition">#</a></dt>
+<dd><p>Default Van der Waals radius for species for whom no data is available. Default is 2.0 Angstroms.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-vdw-custom">
+<span class="sig-name descname"><span class="pre">--vdw-custom</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;vdw_custom&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-splitmols-vdw-custom" title="Link to this definition">#</a></dt>
+<dd><p>A comma-separated list of custom Van der Waals radii to use, overriding the existing ones, expressed as: H:1,C:2 etc. Units are in Angstroms.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-v">
+<span id="cmdoption-soprano-splitmols-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-splitmols-v" title="Link to this definition">#</a></dt>
+<dd><p>Increase verbosity. Use -v for info, -vv for debug. Defaults to only showing warnings and errors.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-view">
+<span class="sig-name descname"><span class="pre">--view</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-splitmols-view" title="Link to this definition">#</a></dt>
+<dd><p>If present, view the structure(s) with the ASE GUI.Note that the ASE GUI can color the sites according to their tags. This can be used to see what sites were tagged as equivalent.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-splitmols-arg-FILENAME">
+<span class="sig-name descname"><span class="pre">FILENAME</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-splitmols-arg-FILENAME" title="Link to this definition">#</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="soprano-view">
+<h3>view<a class="headerlink" href="#soprano-view" title="Link to this heading">#</a></h3>
+<p>Visualise the structure(s) in the given file(s) using the ASE GUI.</p>
+<p>The user can select atoms to be tagged/hidden using the Soprano
+selection syntax.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>soprano<span class="w"> </span>view<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>FILES...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-view-v">
+<span id="cmdoption-soprano-view-verbosity"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-view-v" title="Link to this definition">#</a></dt>
+<dd><p>Increase verbosity. Use -v for info, -vv for debug. Defaults to only showing warnings and errors.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-view-c">
+<span id="cmdoption-soprano-view-config"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--config</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;config&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-view-c" title="Link to this definition">#</a></dt>
+<dd><p>Read option defaults from the specified INI fileIf not set, first checks environment variable: <code class="docutils literal notranslate"><span class="pre">SOPRANO_CONFIG</span></code> and then <code class="docutils literal notranslate"><span class="pre">~/.soprano/config.ini</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">/home/jks/.soprano/config.ini</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-view-g">
+<span id="cmdoption-soprano-view-average-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--average-group</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;average_group&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-view-g" title="Link to this definition">#</a></dt>
+<dd><p>Group pattern for averaging. Currently only works for XHn groups such as CH3, CH2, NH2 etc. You can specify several, comma separated as in <code class="docutils literal notranslate"><span class="pre">-g</span> <span class="pre">CH3,CH2,NH2</span></code>. If not specified, no averaging is performed.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-view-s">
+<span id="cmdoption-soprano-view-subset"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subset</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;subset&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-view-s" title="Link to this definition">#</a></dt>
+<dd><p>Selection string of subset of sites include. e.g.
+<code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C</span></code> for only and all carbon atoms,
+<code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C.1-3,H.1.2</span></code> for carbons 1,2,3 and hydrogens 1 and 2,
+<code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">C1,H1a,H1b</span></code> for any sites with the labels C1, H1a and H1b.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-view-reduce">
+<span id="cmdoption-soprano-view-no-reduce"></span><span class="sig-name descname"><span class="pre">--reduce</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-reduce</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-view-reduce" title="Link to this definition">#</a></dt>
+<dd><p>Reduce the output by symmetry-equivalent sites. If there are CIF-style labels present, then these override the symmetry-grouping in case of a clash (though there should never be a clash…). Note that this doesn’t take into account magnetic symmetry! Defaults to True, so use <code class="docutils literal notranslate"><span class="pre">--no-reduce</span></code> to turn off symmetry reduction.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-view-symprec">
+<span class="sig-name descname"><span class="pre">--symprec</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;symprec&gt;</span></span><a class="headerlink" href="#cmdoption-soprano-view-symprec" title="Link to this definition">#</a></dt>
+<dd><p>Symmetry precision for symmetry reduction. Defaults to 1e-4.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-soprano-view-arg-FILES">
+<span class="sig-name descname"><span class="pre">FILES</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-soprano-view-arg-FILES" title="Link to this definition">#</a></dt>
+<dd><p>Required argument(s)</p>
 </dd></dl>
 
 </section>
@@ -1337,7 +1244,7 @@ present in the file for all the atoms.</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1345,50 +1252,110 @@ present in the file for all the atoms.</p>
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="installation.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Installation</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="installation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Installation</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="cli-cookbook.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="cli-cookbook.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">CLI Cookbook</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano">soprano</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano-dipolar">dipolar</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano-nmr">nmr</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano-plotnmr">plotnmr</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano-splitmols">splitmols</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soprano-view">view</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By CCP-NC<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By CCP-NC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

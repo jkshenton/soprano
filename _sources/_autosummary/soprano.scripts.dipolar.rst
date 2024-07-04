@@ -1,4 +1,4 @@
-﻿soprano.scripts.dipolar
+soprano.scripts.dipolar
 =======================
 
 .. automodule:: soprano.scripts.dipolar

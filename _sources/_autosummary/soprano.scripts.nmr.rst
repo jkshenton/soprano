@@ -1,4 +1,4 @@
-﻿soprano.scripts.nmr
+soprano.scripts.nmr
 ===================
 
 .. automodule:: soprano.scripts.nmr
@@ -19,8 +19,8 @@
       get_ms_summary
       label_atoms
       merge_tagged_sites
-      nmr_extract
-      reload_as_molecular_crystal
+      nmr_extract_atoms
+      nmr_extract_multi
       tag_functional_groups
    
    

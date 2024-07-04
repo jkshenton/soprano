@@ -1,4 +1,4 @@
-soprano.properties.linkage.linkage
+﻿soprano.properties.linkage.linkage
 ==================================
 
 .. automodule:: soprano.properties.linkage.linkage
@@ -21,6 +21,7 @@ soprano.properties.linkage.linkage
       Bonds
       CoordinationHistogram
       DihedralAngleList
+      ElementPairs
       HydrogenBonds
       HydrogenBondsNumber
       LinkageList
