@@ -729,12 +729,10 @@ document.write(`
             <span class="n">attach_v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rndv</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">attach_v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">rep_alg</span><span class="p">(</span><span class="n">bset</span><span class="p">)</span>
-    <span class="c1"># attach_v = np.array(attach_v)</span>
 
     <span class="n">addconfs</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">to_addition</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">ac</span> <span class="ow">in</span> <span class="n">addconfs</span><span class="p">:</span>
-        <span class="c1"># addpos = itertools.product(*attach_v[list(ac)])</span>
         <span class="n">addpos</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">attach_v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">ac</span><span class="p">)])</span>
         <span class="k">for</span> <span class="n">ap</span> <span class="ow">in</span> <span class="n">addpos</span><span class="p">:</span>
             <span class="n">astruct</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>

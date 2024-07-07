@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -320,6 +320,55 @@
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/jkshenton/soprano/master?urlpath=tree/tutorials/04-clustering.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/jkshenton/soprano/blob/master/tutorials/04-clustering.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -328,7 +377,7 @@
       
       
       
-      <li><a href="https://github.com/CCP-NC/soprano" target="_blank"
+      <li><a href="https://github.com/jkshenton/soprano" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -345,7 +394,7 @@
       
       
       
-      <li><a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2Ftutorials/04-clustering.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/jkshenton/soprano/issues/new?title=Issue%20on%20page%20%2Ftutorials/04-clustering.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -655,7 +704,7 @@ clusters than that anyway (i.e. some clusters are in fact left empty).</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>---- k-means clusters obtained with different genomes ----
 
 ABC only:	 [2 2 1 1 2 2 2 1 1 2]
-Linkage only:	 [2 2 1 1 2 2 2 1 1 2]
+Linkage only:	 [1 1 2 2 1 1 1 2 2 1]
 Both:		 [1 1 2 2 1 1 1 2 2 1]
 
 
@@ -679,7 +728,7 @@ t = 1.0:		 [2 2 1 1 2 2 2 1 1 2]
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optionally, it is possible to also get clusters with the scikit-learn library (if present)</span>
-<span class="c1"># All potential algortithms are foundnotebook at: http://scikit-learn.org/stable/modules/clustering.html</span>
+<span class="c1"># All potential algortithms are found at: http://scikit-learn.org/stable/modules/clustering.html</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="n">clust3_sk_inds</span><span class="p">,</span> <span class="n">clust3_sk_slices</span> <span class="o">=</span> <span class="n">phClust3</span><span class="o">.</span><span class="n">get_sklearn_clusters</span><span class="p">(</span><span class="s1">&#39;AgglomerativeClustering&#39;</span><span class="p">)</span>
@@ -718,17 +767,33 @@ algorithms to do this; Soprano implements some of the most common ones. For more
 
 <span class="c1"># By this scatter plot we can see that the points are indeed all distinctly split into two groups, corresponding</span>
 <span class="c1"># to their clustering (here marked by colour)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mapx</span><span class="p">,</span> <span class="n">mapy</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;red&#39;</span> <span class="k">if</span> <span class="n">c</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;blue&#39;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clust3_inds</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span><span class="n">notebook</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mapx</span><span class="p">,</span> <span class="n">mapy</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;red&#39;</span> <span class="k">if</span> <span class="n">c</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;blue&#39;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clust3_inds</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">12</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mapx</span><span class="p">,</span> <span class="n">mapy</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;red&#39;</span> <span class="k">if</span> <span class="n">c</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;blue&#39;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clust3_inds</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span><span class="n">notebook</span>
-                                                                                                <span class="o">^</span>
-<span class="ne">SyntaxError</span>: invalid syntax
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on method create_mapping in module soprano.analyse.phylogen.phylogenclust:
+
+create_mapping(method=&#39;total-principal&#39;) method of soprano.analyse.phylogen.phylogenclust.PhylogenCluster instance
+    Return an array of 2-dimensional points representing a reduced
+    dimensionality mapping of the given genes using the algorithm of
+    choice. All algorithms are described in [W. Siedlecki et al., Patt.
+    Recog. vol. 21, num. 5, pp. 411 429 (1988)].
+    
+    | Args:
+    |   method (str): can be one of the following algorithms:
+    |                     - total_principal (default)
+    |                     - clafic
+    |                     - fukunaga-koontz
+    |                     - optimal-discriminant
+
+None
 </pre></div>
 </div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x734c01aedc70&gt;
+</pre></div>
+</div>
+<img alt="../_images/bebea874dc1fd280e795faa615be31faf9fc92c20dff532632002f0917c3207e.png" src="../_images/bebea874dc1fd280e795faa615be31faf9fc92c20dff532632002f0917c3207e.png" />
 </div>
 </div>
 </section>

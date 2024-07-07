@@ -322,6 +322,55 @@
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/jkshenton/soprano/master?urlpath=tree/tutorials/05-nmr.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/jkshenton/soprano/blob/master/tutorials/05-nmr.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -330,7 +379,7 @@
       
       
       
-      <li><a href="https://github.com/CCP-NC/soprano" target="_blank"
+      <li><a href="https://github.com/jkshenton/soprano" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -347,7 +396,7 @@
       
       
       
-      <li><a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2Ftutorials/05-nmr.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/jkshenton/soprano/issues/new?title=Issue%20on%20page%20%2Ftutorials/05-nmr.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -613,6 +662,32 @@ The C2 atom is positioned at x = -0.247915, y = 1.164107, z = 0.937396 Ang
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The labels are H_1, H_2, H_3, H_4, H_5, H_6, C_1, C_2, O_1
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you had labels in your CASTEP <code class="docutils literal notranslate"><span class="pre">.cell</span></code> file (e.g. via <code class="docutils literal notranslate"><span class="pre">cif2cell</span></code> from a CIF file), then your magres file should already have labels in them. In that case, they get loaded as an array automatically by the ASE parser.</p>
+<p>For example, the <code class="docutils literal notranslate"><span class="pre">EDIZUM.magres</span></code> file has CIF-style labels with four copies of each label corresponding to the four molecules in the unit cell.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edizum</span> <span class="o">=</span> <span class="n">ase_io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;../tests/test_data/EDIZUM.magres&quot;</span><span class="p">)</span>
+<span class="c1"># You can access the labels array like this:</span>
+<span class="n">edizum_labels</span> <span class="o">=</span> <span class="n">edizum</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s2">&quot;labels&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">edizum_labels</span><span class="p">)</span><span class="si">}</span><span class="s2"> labels - one for each site.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;but there are only </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">edizum_labels</span><span class="p">))</span><span class="si">}</span><span class="s2"> unique labels since there are four molecules per cell.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">The unique labels are: </span><span class="se">\n</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">edizum_labels</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 148 labels - one for each site.
+but there are only 37 unique labels since there are four molecules per cell.
+
+The unique labels are: 
+[&#39;C1&#39; &#39;C10&#39; &#39;C11&#39; &#39;C12&#39; &#39;C13&#39; &#39;C14&#39; &#39;C15&#39; &#39;C2&#39; &#39;C3&#39; &#39;C4&#39; &#39;C5&#39; &#39;C6&#39; &#39;C7&#39;
+ &#39;C8&#39; &#39;C9&#39; &#39;H1&#39; &#39;H10&#39; &#39;H11&#39; &#39;H12&#39; &#39;H13&#39; &#39;H14&#39; &#39;H15&#39; &#39;H16&#39; &#39;H17&#39; &#39;H18&#39;
+ &#39;H19&#39; &#39;H2&#39; &#39;H3&#39; &#39;H4&#39; &#39;H5&#39; &#39;H6&#39; &#39;H7&#39; &#39;H8&#39; &#39;H9&#39; &#39;N1&#39; &#39;O1&#39; &#39;O2&#39;]
 </pre></div>
 </div>
 </div>
@@ -967,7 +1042,7 @@ Powder orientations: 545
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x77065559d220&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7d08e35ab430&gt;
 </pre></div>
 </div>
 <img alt="../_images/0b275c3e2ebe8015f13c0f71c599bf50353d6b6760bea8c791cbc563af219460.png" src="../_images/0b275c3e2ebe8015f13c0f71c599bf50353d6b6760bea8c791cbc563af219460.png" />
@@ -996,7 +1071,7 @@ Powder orientations: 545
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x77065557a730&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7d08e34ed100&gt;
 </pre></div>
 </div>
 <img alt="../_images/2a9b72560c6da64c05f0a158111e6fdf64dacfd507e56f4cc3e8a7dc73fe1c74.png" src="../_images/2a9b72560c6da64c05f0a158111e6fdf64dacfd507e56f4cc3e8a7dc73fe1c74.png" />
@@ -1077,7 +1152,7 @@ MAS
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> <span class=" -Color -Color-Bold"> WARNING: </span> Elements {&#39;C&#39;, &#39;O&#39;} are not in the references dictionary and their reference will be set to zero. (/home/jks/coding/jks_soprano/soprano/properties/nmr/ms.py, line: 217)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> <span class=" -Color -Color-Bold"> WARNING: </span> Elements {&#39;O&#39;, &#39;C&#39;} are not in the references dictionary and their reference will be set to zero. (/home/jks/coding/jks_soprano/soprano/properties/nmr/ms.py, line: 217)
 </pre></div>
 </div>
 <img alt="../_images/3519a96442146b1fec691aa2533183caae3ddc3b20f6e9daa87e7367fed32dcd.png" src="../_images/3519a96442146b1fec691aa2533183caae3ddc3b20f6e9daa87e7367fed32dcd.png" />
