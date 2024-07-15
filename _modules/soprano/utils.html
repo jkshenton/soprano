@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -327,7 +327,7 @@
       
       
       
-      <li><a href="https://github.com/CCP-NC/soprano" target="_blank"
+      <li><a href="https://github.com/jkshenton/soprano" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -344,7 +344,7 @@
       
       
       
-      <li><a href="https://github.com/CCP-NC/soprano/issues/new?title=Issue%20on%20page%20%2F_modules/soprano/utils.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/jkshenton/soprano/issues/new?title=Issue%20on%20page%20%2F_modules/soprano/utils.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -567,6 +567,11 @@ document.write(`
     <span class="n">labels</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s2">&quot;labels&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">symbols</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">symbols</span> <span class="o">==</span> <span class="n">labels</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;A mix of cif and non-cif-stlye labels detected.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># If MagresView type labels, then return false</span>
+    <span class="c1"># if all labels have an underscore, then they are MagresView labels</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">label</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">return</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">symbols</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span></div>
 

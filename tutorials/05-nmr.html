@@ -754,31 +754,28 @@ O_1	 68.22 ppm	  0.01
 </div>
 </div>
 </div>
+<p>Magnetic shielding Euler angles are discussed in more detail below, but as a quick example, you can extract the MS Euler angles like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Quaternion (orientation of the tensor with respect to the Cartesian axes)</span>
-<span class="c1"># from which we extract the Euler angles</span>
-
-<span class="n">quat</span> <span class="o">=</span> <span class="n">MSQuaternion</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">C2H6O</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Label</span><span class="se">\t</span><span class="s1"> alpha/deg</span><span class="se">\t</span><span class="s1">beta/deg</span><span class="se">\t</span><span class="s1">gamma/deg&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">jl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">jmol_labels</span><span class="p">):</span>
-    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">quat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">euler_angles</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;zyz&#39;</span><span class="p">)</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="c1"># rad to degrees</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="se">\t</span><span class="si">{1:8.2f}</span><span class="se">\t</span><span class="si">{2:8.2f}</span><span class="se">\t</span><span class="si">{3:8.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jl</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">soprano.properties.nmr</span> <span class="kn">import</span> <span class="n">MSEuler</span> 
+<span class="c1"># This defaults to Haeberlen convention, ZYZ, active rotation. To learn more about these conventions, see the Euler angle section below.</span>
+<span class="n">all_eulers</span><span class="o">=</span>  <span class="n">MSEuler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">C2H6O</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MS Euler angles in degrees:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">all_eulers</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Label	 alpha/deg	beta/deg	gamma/deg
-H_1	  -27.96	  134.66	   26.84
-H_2	  -92.66	   77.37	   86.77
-H_3	  177.96	  144.86	  166.46
-H_4	  177.34	   96.81	  115.15
-H_5	  -11.98	   50.93	  234.53
-H_6	   60.93	  137.71	 -154.65
-C_1	  -93.10	  132.57	 -207.03
-C_2	   -9.26	  125.07	   41.37
-O_1	   -3.05	   59.55	  234.05
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MS Euler angles in degrees:
+[[ 27.96235601  45.33901509  26.83660999]
+ [272.66415652  77.36879495  93.22520173]
+ [182.04368043  35.14497966 166.45558554]
+ [182.66142427  83.1949885  115.14989736]
+ [191.97626819  50.93125971 125.47393484]
+ [299.07186816  42.28810672  25.35033859]
+ [ 93.10412193  47.43018725 152.96615397]
+ [  9.25627104  54.93258925  41.36551806]
+ [183.04713505  59.54692522 125.9519578 ]]
 </pre></div>
 </div>
 </div>
@@ -1042,7 +1039,7 @@ Powder orientations: 545
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7d08e35ab430&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x74d74e08e550&gt;
 </pre></div>
 </div>
 <img alt="../_images/0b275c3e2ebe8015f13c0f71c599bf50353d6b6760bea8c791cbc563af219460.png" src="../_images/0b275c3e2ebe8015f13c0f71c599bf50353d6b6760bea8c791cbc563af219460.png" />
@@ -1071,7 +1068,7 @@ Powder orientations: 545
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7d08e34ed100&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x74d74e043100&gt;
 </pre></div>
 </div>
 <img alt="../_images/2a9b72560c6da64c05f0a158111e6fdf64dacfd507e56f4cc3e8a7dc73fe1c74.png" src="../_images/2a9b72560c6da64c05f0a158111e6fdf64dacfd507e56f4cc3e8a7dc73fe1c74.png" />
