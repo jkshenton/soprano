@@ -116,11 +116,24 @@ format-check = "black --check soprano tests"
 pre-commit-install = "pre-commit install"
 pre-commit-run = "pre-commit run --all-files"
 
-# Testing environment - specifically for CI/CD with git ASE
+# Testing environment - specifically for CI/CD with stable ASE
 [tool.hatch.envs.test]
-description = "Testing environment with development ASE for CI/CD"
-features = ["dev"]
-dependencies = ["ase @ git+https://gitlab.com/ase/ase.git@master"]
+description = "Testing environment"
+dependencies = [
+    "ase>=3.26",
+    "adjustText",
+    "bottleneck>=1.3.6",
+    "click",
+    "click_log",
+    "matplotlib",
+    "numpy",
+    "pandas>=2.0",
+    "scipy",
+    "spglib>=2.4",
+    "pydantic>=2.0",
+    "coverage[toml]>=6.5",
+    "pytest"
+]
 
 [tool.hatch.envs.test.scripts]
 test = "pytest {args}"
@@ -183,27 +196,84 @@ python = ["3.10", "3.11", "3.12", "3.13"]
 test = "pytest {args}"
 test-verbose = "pytest -v {args}"
 
-# Compatibility testing matrix for numpy versions
-# Use with: hatch run compat:test
-[tool.hatch.envs.compat]
-description = "Compatibility testing across numpy versions"
-features = ["dev"]
-template = "compat"
+# Compatibility testing for different numpy versions
+# Use with: hatch run compat-1x:test, hatch run compat-2x:test, etc.
 
-# Matrix testing for different numpy versions
-[[tool.hatch.envs.compat.matrix]]
-numpy = ["1x", "2x", "latest"]
-
-[tool.hatch.envs.compat.overrides]
-matrix.numpy.dependencies = [
-    { value = "numpy>=1.20,<2.0", if = ["1x"] },
-    { value = "numpy~=2.0", if = ["2x"] },
-    { value = "numpy", if = ["latest"] },
-    # Use git ASE for all compatibility testing variants
-    { value = "ase @ git+https://gitlab.com/ase/ase.git@master", if = ["1x", "2x", "latest"] }
+[tool.hatch.envs.compat-1x]
+description = "Compatibility testing with numpy 1.x"
+detached = true
+dependencies = [
+    "adjustText",
+    "bottleneck>=1.3.6",
+    "click",
+    "click_log",
+    "matplotlib",
+    "numpy>=1.20,<2.0",
+    "pandas>=2.0",
+    "scipy",
+    "spglib>=2.4",
+    "pydantic>=2.0",
+    "ase>=3.26",
+    # Dev dependencies
+    "black",
+    "flake8",
+    "pytest",
+    "pytest-cov"
 ]
 
-[tool.hatch.envs.compat.scripts]
+[tool.hatch.envs.compat-1x.scripts]
+test = "pytest {args}"
+test-verbose = "pytest -v {args}"
+
+[tool.hatch.envs.compat-2x]
+description = "Compatibility testing with numpy 2.x"
+detached = true
+dependencies = [
+    "adjustText",
+    "bottleneck>=1.3.6",
+    "click",
+    "click_log",
+    "matplotlib",
+    "numpy>=2.0,<3.0",
+    "pandas>=2.0",
+    "scipy",
+    "spglib>=2.4",
+    "pydantic>=2.0",
+    "ase>=3.26",
+    # Dev dependencies
+    "black",
+    "flake8",
+    "pytest",
+    "pytest-cov"
+]
+
+[tool.hatch.envs.compat-2x.scripts]
+test = "pytest {args}"
+test-verbose = "pytest -v {args}"
+
+[tool.hatch.envs.compat-latest]
+description = "Compatibility testing with latest package versions"
+detached = true
+dependencies = [
+    "adjustText",
+    "bottleneck>=1.3.6",
+    "click",
+    "click_log",
+    "matplotlib",
+    "numpy",
+    "pandas>=2.0",
+    "scipy",
+    "spglib>=2.4",
+    "pydantic>=2.0",
+    "ase>=3.26",
+    # Dev dependencies
+    "black",
+    "flake8",
+    "pytest",
+    "pytest-cov"
+]
+
+[tool.hatch.envs.compat-latest.scripts]
 test = "pytest {args}"
 test-verbose = "pytest -v {args}"
 

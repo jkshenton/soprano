@@ -159,7 +159,7 @@ jobs:
         if [ "${{ matrix.numpy-version }}" == "legacy" ]; then
           ENV_NAME="legacy"
         else
-          ENV_NAME="compat.${{ matrix.numpy-version }}"
+          ENV_NAME="compat-${{ matrix.numpy-version }}"
         fi
         echo "Running tests with environment: $ENV_NAME (NumPy ${{ matrix.numpy-version }})"
         
