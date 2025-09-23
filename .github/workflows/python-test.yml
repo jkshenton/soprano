@@ -70,7 +70,13 @@ jobs:
       run: |
         # Install hatch with Click version constraint to avoid 8.3.0 bug
         uv tool install hatch --with 'click<8.3'
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        
+        # Add uv tools to PATH - handle cross-platform differences
+        if [[ "${{ runner.os }}" == "Windows" ]]; then
+          echo "$APPDATA/uv/tools" >> $GITHUB_PATH
+        else
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+        fi
 
     - name: Create environment and run tests
       shell: bash
@@ -150,10 +156,17 @@ jobs:
           ${{ runner.os }}-uv-comp-${{ matrix.python-version }}-
         
     - name: Install Hatch
-      if: ${{ runner.os == 'Windows' }}
+      shell: bash
       run: |
         # Install hatch with Click version constraint to avoid 8.3.0 bug
         uv tool install hatch --with 'click<8.3'
+        
+        # Add uv tools to PATH - handle cross-platform differences
+        if [[ "${{ runner.os }}" == "Windows" ]]; then
+          echo "$APPDATA/uv/tools" >> $GITHUB_PATH
+        else
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+        fi
         
     - name: Test with specific numpy
       shell: bash
