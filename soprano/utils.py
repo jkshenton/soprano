@@ -634,7 +634,7 @@ def average_quaternions(quats: List[Quaternion]) -> Quaternion:
     # Sort by largest eigenvalue
     eigenVectors = eigenVectors[:, eigenValues.argsort()[::-1]]
     # return the real part of the largest eigenvector (has only real part)
-    return Quaternion(np.real(eigenVectors[:, 0].A1))
+    return Quaternion(np.real(eigenVectors[:, 0]))
 
 
 # ### Clebsch-Gordan and Wigner-3j symbols ###

@@ -80,6 +80,70 @@ class TestOthers(unittest.TestCase):
         self.assertTrue((ssort == [0, 1, 4, 2, 3, 5]).all())
 
 
+
+    def test_average_quaternions(self):
+        """Test the average_quaternions function and numpy compatibility"""
+        from ase.quaternions import Quaternion
+        from soprano.utils import average_quaternions
+        
+        # Test with identity quaternions
+        q_identity = Quaternion([1, 0, 0, 0])
+        result = average_quaternions([q_identity, q_identity, q_identity])
+        
+        # Result should be close to identity quaternion (normalized)
+        expected = np.array([1, 0, 0, 0])
+        np.testing.assert_allclose(result.q, expected, atol=1e-10)
+        
+        # Test averaging a single quaternion
+        q = Quaternion([0.7071, 0.7071, 0, 0])  # 90 degree rotation around x-axis
+        result = average_quaternions([q])
+        
+        # Should return the same quaternion (normalized)
+        np.testing.assert_allclose(result.q, q.q / np.linalg.norm(q.q), atol=1e-10)
+        
+        # Test numpy compatibility
+        # This test specifically ensures the numpy compatibility works
+        q1 = Quaternion([1, 0, 0, 0])
+        q2 = Quaternion([0.7071, 0.7071, 0, 0])
+        q3 = Quaternion([0.7071, 0, 0.7071, 0])
+        
+        # This should not raise an AttributeError about .A1
+        try:
+            result = average_quaternions([q1, q2, q3])
+            # Check that result is a valid quaternion (normalized)
+            self.assertAlmostEqual(np.linalg.norm(result.q), 1.0, places=10)
+            # Check that result is a Quaternion object
+            self.assertIsInstance(result, Quaternion)
+        except AttributeError as e:
+            if ".A1" in str(e):
+                self.fail("AttributeError related to .A1 - numpy compatibility issue not fixed")
+            else:
+                raise
+        
+        # Test with random quaternions for robustness
+        rng = np.random.default_rng(42)  # Use fixed seed for reproducibility
+        
+        # Generate random quaternions
+        quaternions = []
+        for _ in range(5):
+            # Generate random unit quaternion
+            q = rng.normal(size=4)
+            q = q / np.linalg.norm(q)
+            quaternions.append(Quaternion(q))
+        
+        result = average_quaternions(quaternions)
+        
+        # Check that result is normalized
+        self.assertAlmostEqual(np.linalg.norm(result.q), 1.0, places=10)
+        
+        # Check that result is a Quaternion object
+        self.assertIsInstance(result, Quaternion)
+        
+        # Test that empty list raises assertion error
+        with self.assertRaises(AssertionError):
+            average_quaternions([])
+
+
 class TestLatticeMethods(unittest.TestCase):
     def test_abc2cart(self):
         from soprano.utils import abc2cart
