@@ -4,13 +4,16 @@
 import os
 import pickle
 import time
+import tempfile
+from pathlib import Path
 
 import numpy as np
 
 # A "mock" queue submission system to test how well QueueInterface works
 # Submission command
 
-mydir = os.path.dirname(os.path.realpath(__file__))
+mydir = Path(__file__).parent
+queue_file = mydir / "queue.pkl"
 
 # For Python3 support
 try:
@@ -24,7 +27,8 @@ except EOFError:
     script_first_line = ""
 
 try:
-    joblist = pickle.load(open(os.path.join(mydir, "queue.pkl"), "rb"))
+    with queue_file.open("rb") as qfile:
+        joblist = pickle.load(qfile)
 except OSError:
     joblist = {}
 
@@ -43,4 +47,9 @@ if len(fline_spl) > 2:
 
 print(f"Job <{rnd_id}> submitted")
 
-pickle.dump(joblist, open(os.path.join(mydir, "queue.pkl"), "wb"))
+# Use atomic write operation to avoid corruption
+with tempfile.NamedTemporaryFile(mode='wb', dir=mydir, delete=False) as tmp_file:
+    pickle.dump(joblist, tmp_file)
+    tmp_file.flush()
+    os.fsync(tmp_file.fileno())
+Path(tmp_file.name).replace(queue_file)
