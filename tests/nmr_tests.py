@@ -89,10 +89,10 @@ class TestNMR(unittest.TestCase):
         self.eth = io.read(_TESTDATA_DIR / "ethanol.magres")
         # Load the MS data
         ms_data = np.loadtxt(_TESTDATA_DIR / "ethanol_ms.dat", skiprows=8, dtype=str)[:, 1:]
-        self.ms_data = np.astype(ms_data, float)
+        self.ms_data = ms_data.astype(float)
         # Load the EFG data
         efg_data = np.loadtxt(_TESTDATA_DIR / "ethanol_efg.dat", skiprows=8, dtype=str)[:, 1:]
-        self.efg_data = np.astype(efg_data, float)
+        self.efg_data = efg_data.astype(float)
         self.efg_euler_refs = np.loadtxt(_TESTDATA_DIR / "ethanol_efg_eulers.dat", skiprows=1)
         self.dip_data = None
 
