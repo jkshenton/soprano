@@ -8,6 +8,8 @@ import glob
 import os
 import sys
 import unittest
+import tempfile
+from pathlib import Path
 
 import numpy as np
 from ase import Atoms, io
@@ -18,7 +20,6 @@ sys.path.insert(
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 _TESTDATA_DIR = os.path.join(_TEST_DIR, "test_data")
-_TESTSAVE_DIR = os.path.join(_TEST_DIR, "test_save")
 
 
 class TestCollection(unittest.TestCase):
@@ -288,36 +289,38 @@ class TestCollection(unittest.TestCase):
     def test_tree(self):
         from soprano.collection import AtomsCollection
 
-        aselist = [Atoms("C"), Atoms("H"), Atoms("N"), Atoms("O")]
+        # Use a temporary directory to avoid race conditions and cleanup issues
+        with tempfile.TemporaryDirectory(prefix="soprano_collection_test_") as temp_dir:
+            aselist = [Atoms("C"), Atoms("H"), Atoms("N"), Atoms("O")]
 
-        testcoll = AtomsCollection(aselist)
+            testcoll = AtomsCollection(aselist)
 
-        testcoll.save_tree(_TESTSAVE_DIR, "xyz", safety_check=0)
-        loadcoll = AtomsCollection.load_tree(_TESTSAVE_DIR, "xyz")
+            testcoll.save_tree(temp_dir, "xyz", safety_check=0)
+            loadcoll = AtomsCollection.load_tree(temp_dir, "xyz")
 
-        self.assertTrue("".join(loadcoll.all.get_chemical_formula()) == "CHNO")
+            self.assertTrue("".join(loadcoll.all.get_chemical_formula()) == "CHNO")
 
-        # Try a custom save format
-        def custom_save(a, path, format_string):
-            with open(os.path.join(path, "struct.custom"), "w") as f:
-                f.write(format_string.format("".join(a.get_chemical_formula())))
+            # Try a custom save format
+            def custom_save(a, path, format_string):
+                with open(os.path.join(path, "struct.custom"), "w") as f:
+                    f.write(format_string.format("".join(a.get_chemical_formula())))
 
-        def custom_load(path, marker):
-            with open(os.path.join(path, "struct.custom")) as f:
-                l = f.read().strip()
-                return Atoms(l.split(marker)[1].strip())
+            def custom_load(path, marker):
+                with open(os.path.join(path, "struct.custom")) as f:
+                    l = f.read().strip()
+                    return Atoms(l.split(marker)[1].strip())
 
-        testcoll.save_tree(
-            _TESTSAVE_DIR,
-            custom_save,
-            opt_args={"format_string": "Formula:{0}"},
-            safety_check=2,
-        )
-        loadcoll = AtomsCollection.load_tree(
-            _TESTSAVE_DIR, custom_load, opt_args={"marker": ":"}
-        )
+            testcoll.save_tree(
+                temp_dir,
+                custom_save,
+                opt_args={"format_string": "Formula:{0}"},
+                safety_check=2,
+            )
+            loadcoll = AtomsCollection.load_tree(
+                temp_dir, custom_load, opt_args={"marker": ":"}
+            )
 
-        self.assertTrue("".join(loadcoll.all.get_chemical_formula()) == "CHNO")
+            self.assertTrue("".join(loadcoll.all.get_chemical_formula()) == "CHNO")
 
 
 if __name__ == "__main__":

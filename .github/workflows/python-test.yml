@@ -69,14 +69,6 @@ jobs:
       shell: bash
       run: |
         pip install hatch
-        
-    - name: Set up test environment directories
-      shell: bash
-      run: |
-        # Create test directories if they don't exist
-        mkdir -p tests/test_save
-        # Ensure proper permissions
-        chmod -R 777 tests/test_save
 
     - name: Create environment and run tests
       shell: bash
@@ -109,14 +101,14 @@ jobs:
       matrix:
         include:
           - python-version: "3.10"
-            numpy-version: "1.x"
-            env-name: "compat-numpy1x"
+            numpy-version: "1x"
           - python-version: "3.12"
-            numpy-version: "2.x"
-            env-name: "compat-numpy2x"
+            numpy-version: "2x"
           - python-version: "3.13"
             numpy-version: "latest"
-            env-name: "compat-default"
+          - python-version: "3.10"
+            numpy-version: "legacy"
+            env-name: "legacy"
     
     steps:
     - uses: actions/checkout@v4
@@ -159,23 +151,19 @@ jobs:
       shell: bash
       run: |
         pip install hatch
-        
-    - name: Set up test environment directories
-      shell: bash
-      run: |
-        # Create test directories if they don't exist
-        mkdir -p tests/test_save
-        # Ensure proper permissions
-        chmod -R 777 tests/test_save
 
     - name: Test with specific numpy
       shell: bash
       run: |
-        # Use the environment name directly from the matrix
-        ENV_NAME="${{ matrix.env-name }}"
+        # Use the appropriate environment based on the numpy version
+        if [ "${{ matrix.numpy-version }}" == "legacy" ]; then
+          ENV_NAME="legacy"
+        else
+          ENV_NAME="compat.${{ matrix.numpy-version }}"
+        fi
         echo "Running tests with environment: $ENV_NAME (NumPy ${{ matrix.numpy-version }})"
         
-        # Run tests - this will automatically create the environment if needed
+        # Run tests using the specified environment - this will automatically create the environment if needed
         hatch -e $ENV_NAME run pip list  # Show installed packages first
         hatch -e $ENV_NAME run test -v
       env:
