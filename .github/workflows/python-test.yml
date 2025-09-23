@@ -68,7 +68,9 @@ jobs:
     - name: Install Hatch
       shell: bash
       run: |
-        pip install hatch
+        # Install hatch with Click version constraint to avoid 8.3.0 bug
+        uv tool install hatch --with 'click<8.3'
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
 
     - name: Create environment and run tests
       shell: bash
@@ -148,10 +150,11 @@ jobs:
           ${{ runner.os }}-uv-comp-${{ matrix.python-version }}-
         
     - name: Install Hatch
-      shell: bash
+      if: ${{ runner.os == 'Windows' }}
       run: |
-        pip install hatch
-
+        # Install hatch with Click version constraint to avoid 8.3.0 bug
+        uv tool install hatch --with 'click<8.3'
+        
     - name: Test with specific numpy
       shell: bash
       run: |
